@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.church.simgokchyun.common.common.CommonMapper"> 
+
+    <!-- 공통코드 list 를 조회 -->
+    <select id="select_com_code" resultType="ComCode"> 
+        SELECT A.CODE
+             , A.CODE_KNM
+         FROM COM_CODE A
+        WHERE 1=1
+          AND A.CD_GRP_ENM = #{cd_grp_enm}
+          AND A.USE_YN = 'Y'
+    </select>
+
+
+
+    <!-- board list 를 조회 -->
+    <select id="select_boardList" resultType="Board"> 
+        SELECT A.BOARD_NO
+             , A.BOARD_DIV_CD
+             , (SELECT CODE_KNM FROM COM_CODE WHERE CD_GRP_ENM = 'BOARD_DIV_CD' AND CODE = A.BOARD_DIV_CD) AS BOARD_DIV_NM
+             , A.USER_ID                 
+             , (SELECT USER_KOR_NM FROM USER_INFO WHERE USER_ID = A.USER_ID) AS USER_KOR_NM
+             , CONCAT(SUBSTRING(A.WRITE_DT, 3, 2),'-',SUBSTRING(A.WRITE_DT, 5, 2),'-',SUBSTRING(A.WRITE_DT, 7, 2))  AS WRITE_DT
+             , A.BOARD_TITLE
+             , A.BOARD_CNTN
+             , A.BIBLE_INDEX_CNTN
+             , A.SELECT_CNT
+             , A.WORSHIP_ORDER_CD
+             , (SELECT CODE_KNM FROM COM_CODE WHERE CD_GRP_ENM = 'WORSHIP_ORDER_CD' AND CODE = A.WORSHIP_ORDER_CD) AS WORSHIP_ORDER_NM
+             , A.DEL_YN
+             , A.REG_USER_ID
+             , A.REG_DT
+             , '1' AS FAVORIT_CNT
+         FROM BOARD A
+        INNER JOIN USER_INFO B 
+           ON A.USER_ID = B.USER_ID
+          AND B.USE_YN = 'Y' 
+        WHERE 1=1
+          AND A.DEL_YN = 'N'
+          AND (A.BOARD_DIV_CD = #{board_div_cd}
+              <if test="board_div_cd2 != null and board_div_cd2 != '' ">
+               OR A.BOARD_DIV_CD = #{board_div_cd2}
+              </if>
+              <if test="board_div_cd3 != null and board_div_cd3 != '' ">
+               OR A.BOARD_DIV_CD = #{board_div_cd3}
+              </if>
+              )
+          <if test="strt_write_dt != null and strt_write_dt != '' and end_write_dt != null and end_write_dt != '' ">
+          AND A.WRITE_DT BETWEEN #{strt_write_dt} AND #{end_write_dt}
+          </if>
+          <if test="worship_order_cd != null and worship_order_cd != '' ">
+          AND A.WORSHIP_ORDER_CD = #{worship_order_cd}  
+          </if>
+          <if test="board_title != null and board_title != '' ">
+          AND A.BOARD_TITLE LIKE CONCAT('%', #{board_title}, '%')    
+          </if>
+          <if test="board_cntn != null and board_cntn != '' ">
+          AND A.BOARD_CNTN LIKE CONCAT('%', #{board_cntn}, '%') 
+          </if>  
+          <if test="user_kor_nm != null and user_kor_nm != '' ">
+          AND B.USER_KOR_NM LIKE CONCAT('%', #{user_kor_nm}, '%')
+          </if> 
+        ORDER BY CAST(BOARD_NO AS UNSIGNED) DESC
+        LIMIT #{start_index}, #{page_size}
+    </select> 
+
+    <select id="select_boardDetail" resultType="Board"> 
+        SELECT BOARD_NO
+             , USER_ID        
+             , (SELECT USER_KOR_NM FROM USER_INFO WHERE USER_ID = A.USER_ID) AS USER_KOR_NM     
+             , BOARD_DIV_CD        
+             , CONCAT(SUBSTRING(A.WRITE_DT, 3, 2),'-',SUBSTRING(A.WRITE_DT, 5, 2),'-',SUBSTRING(A.WRITE_DT, 7, 2))  AS WRITE_DT         
+             , BOARD_TITLE
+             , BOARD_CNTN
+             , BIBLE_INDEX_CNTN
+             , SELECT_CNT
+             , VIDEO_DIV_CD
+             , YOUTUBE_IFRM_SRC
+             , DEL_YN
+             , REG_USER_ID
+             , REG_DT
+          FROM BOARD A
+         WHERE 1=1
+           AND BOARD_DIV_CD = #{board_div_cd}
+           AND BOARD_NO = #{board_no}
+    </select> 
+
+    <select id="getTotalCnt" resultType="int"> 
+        SELECT COUNT(1) AS CNT
+          FROM BOARD A
+         INNER JOIN USER_INFO B 
+            ON A.USER_ID = B.USER_ID
+           AND B.USE_YN = 'Y'   
+         WHERE 1=1
+           AND DEL_YN = 'N'
+           AND (A.BOARD_DIV_CD = #{board_div_cd}
+              <if test="board_div_cd2 != null and board_div_cd2 != '' ">
+               OR A.BOARD_DIV_CD = #{board_div_cd2}
+              </if>
+              <if test="board_div_cd3 != null and board_div_cd3 != '' ">
+               OR A.BOARD_DIV_CD = #{board_div_cd3}
+              </if>
+              )
+           <if test="strt_write_dt != null and strt_write_dt != '' and end_write_dt != null and end_write_dt != '' ">
+           AND A.WRITE_DT BETWEEN #{strt_write_dt} AND #{end_write_dt}
+           </if>
+           <if test="worship_order_cd != null and worship_order_cd != '' ">
+           AND A.WORSHIP_ORDER_CD = #{worship_order_cd}  
+           </if>
+           <if test="board_title != null and board_title != '' ">
+           AND A.BOARD_TITLE LIKE CONCAT('%', #{board_title}, '%')    
+           </if>
+           <if test="board_cntn != null and board_cntn != '' ">
+           AND A.BOARD_CNTN LIKE CONCAT('%', #{board_cntn}, '%') 
+           </if>  
+           <if test="user_kor_nm != null and user_kor_nm != '' ">
+           AND B.USER_KOR_NM LIKE CONCAT('%', #{user_kor_nm}, '%')
+           </if>
+    </select> 
+
+
+    <insert id="insertBoard" parameterType="Board">
+        <selectKey keyProperty="board_no" resultType="String" order="BEFORE">
+            SELECT NVL(MAX(CAST(board_no AS UNSIGNED)), 0) + 1
+              FROM BOARD
+             WHERE BOARD_DIV_CD = #{board_div_cd}
+        </selectKey> 
+        INSERT INTO 
+         BOARD ( BOARD_DIV_CD          /* 게시판구분코드 */    
+               , BOARD_NO              /* 글번호 */            
+               , WRITE_DT              /* 작성일자 */          
+               , USER_ID               /* 작성자아이디 */      
+               , BOARD_TITLE           /* 제목 */              
+               <if test="board_cntn != null and board_cntn != '' ">
+               , BOARD_CNTN            /* 내용 */              
+               </if>
+               <if test="bible_index_cntn != null and bible_index_cntn != '' ">
+               , BIBLE_INDEX_CNTN      /* 성경본문내용 */      
+               </if>
+               <if test="video_div_cd != null and video_div_cd != '' ">
+               , VIDEO_DIV_CD          /* 영상구분코드 */      
+               </if>
+               <if test="youtube_ifrm_src != null and youtube_ifrm_src != '' ">
+               , YOUTUBE_IFRM_SRC      /* 유뷰트 IFRAME 소스 */
+               </if>
+               <if test="worship_order_cd != null and worship_order_cd != '' ">
+               , WORSHIP_ORDER_CD      /* 예배순서코드 */      
+               </if>
+               , SELECT_CNT            /* 조회수 */            
+               , DEL_YN                /* 삭제여부 */          
+               , REG_USER_ID           /* 등록자 */            
+               , REG_DT                /* 등록일자 */          
+               )
+        VALUES ( #{board_div_cd}
+               , #{board_no}
+               , DATE_FORMAT(now(), '%Y%m%d')
+               , #{user_id}
+               , #{board_title}
+               <if test="board_cntn != null and board_cntn != '' ">
+               , #{board_cntn}
+               </if>
+               <if test="bible_index_cntn != null and bible_index_cntn != '' ">
+               , #{bible_index_cntn}
+               </if>
+               <if test="video_div_cd != null and video_div_cd != '' ">
+               , #{video_div_cd}
+               </if>
+               <if test="youtube_ifrm_src != null and youtube_ifrm_src != '' ">
+               , #{youtube_ifrm_src}
+               </if>
+               <if test="worship_order_cd != null and worship_order_cd != '' ">
+               , #{worship_order_cd}
+               </if>
+               , '0'
+               , 'N'
+               , #{user_id}
+               , DATE_FORMAT(now(), '%Y%m%d%H%i%s')
+               )  
+    </insert>
+
+</mapper>

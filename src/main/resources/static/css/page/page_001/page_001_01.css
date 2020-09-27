@@ -1,0 +1,26 @@
+  /*****************************************************/
+  /*********************** content1 *********************/
+  /*****************************************************/
+  #content1st {
+    display: flex;
+    justify-content: center;
+  }
+
+  .info_img {
+    display: flex;
+    justify-content: center;
+    width: 1195px;
+    margin-top: 50px;
+    margin-bottom: 90px;
+  }
+
+  /* .ck-rounded-corners {
+    width: 100%;
+  } */
+
+  .content1st__inner div:nth-child(3) {
+    width: 100%;
+  }
+
+
+  

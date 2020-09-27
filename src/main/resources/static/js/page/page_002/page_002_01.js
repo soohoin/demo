@@ -1,0 +1,93 @@
+'use strict';
+
+$(document).ready(function (){
+    
+    doAction("search");
+});
+
+// action (CRUD 등등...) 을 수행한다.
+function doAction(acNm, pageNo) {
+    let reqUrl, formName, callBack, bindId, data;
+    
+    switch(acNm) {
+        case "search":
+
+            // 1. url 
+            reqUrl = "SGC_002_01-S";
+
+            // 2. form data 일 경우 form id 지정
+            formName = "";
+
+            // 3. bind id 
+            bindId = "boardList__bind";
+
+            // 4. 조회 조건 & 조회 페이지 데이터 셋팅
+            
+            // 4-1. page 버튼이 없을 시 첫 페이지를 기본으로 한다.
+            if(isNull(pageNo)) pageNo = 1;    
+
+            // 4-2. 조회조건  write_dt, worship_order_cd,  
+
+            //$("#video_div_cd option:selected").val();
+            let year = $("#year_select_box option:selected").val();
+            let month = $("#month_select_box option:selected").val(); 
+            let strt_write_dt;
+            let end_write_dt;
+            let worship_order_cd = $("#worship_order_cd option:selected").val(); 
+
+            if(isNull(month)) {
+                strt_write_dt = year + "0101";
+                end_write_dt  = year + "1231"
+            } else {    
+                strt_write_dt = year + month + "01";
+                end_write_dt  = year + month + "31";
+            }
+            
+            // 4-3. LIKE 조건  검색구분(board_title, board_cntn, user_id ), 입력TEXT
+            let search_div_cd = $("#search_div_cd option:selected").val(); 
+            let board_title, board_cntn, user_kor_nm;
+
+            if(search_div_cd == "1") {
+                board_title = $("#search_text").val();
+            } else if(search_div_cd == "2"){
+                board_cntn = $("#search_text").val();
+            } else if(search_div_cd == "3"){
+                user_kor_nm = $("#search_text").val();
+            }
+
+            data = {"page":pageNo,"strt_write_dt":strt_write_dt,"end_write_dt":end_write_dt,
+                    "worship_order_cd":worship_order_cd,"board_title":board_title,
+                    "board_cntn":board_cntn,"user_kor_nm":user_kor_nm}
+            ajaxCall(reqUrl,data,formName,bindId);
+            break;    
+    }
+}
+
+
+// 글 목록의 데이터를 바인딩 하는 함수 
+// function boardListBind(resData, bindId) {
+//     $("#"+bindId).replaceWith(resData);
+// }
+
+
+function popOpen(divText) {
+
+    let popWidth = 1000;
+    let popheight = 800;
+    
+    let popX = (window.screen.width / 2) - (popWidth / 2);
+    let popY = (window.screen.height / 2) - (popheight / 2);
+
+    let popUrl = "/POP_002_01_01";
+    // let popOption = "width="+popWidth+", height="+popheight+", left="+popX+", top="+popY +", location=no, menubar=no, resizable=no, scrollbars=no, toolbar=no";
+    let popOption = "width="+popWidth+", height="+popheight+", left="+popX+", top="+popY +", scrollbars=no";
+    console.log(popOption);
+    switch(divText) {
+        case "write":
+            let win = window.open(popUrl,"글 작성",popOption);
+            break;
+        case "read":
+            break;
+    } 
+}
+

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/default_layout">
+
+    <!-- index.html 고유 CSS 추가 -->
+    <th:block layout:fragment="css">
+        <link rel="stylesheet" th:href="@{/css/page/main.css}" >
+    </th:block>
+    
+    <!-- index.html 고유 스크립트 추가 -->
+    <th:block layout:fragment="script">
+        <script th:src="@{/js/page/main.js}"></script>
+    </th:block>
+
+    <div layout:fragment="content">
+
+        <!-- content1st -->
+        <section id="content1st">
+            <div id="slider">
+                <input type="radio" name="slider" id="slide1" value="1" checked>
+                <input type="radio" name="slider" id="slide2" value="2">
+                <input type="radio" name="slider" id="slide3" value="3">
+                <input type="radio" name="slider" id="slide4" value="4">
+                <div id="slides">
+                    <div id="overflow">
+                        <div class="inner">
+                            <div class="slide slide_1">
+                                <div class="slide-content">
+                                    <img src="imgs/main/banner_01.jpg" alt="심곡천교회 배너이미지">
+                                <!-- <h2>Slide 1</h2>
+                                <p>Content for Slide 1</p> -->
+                                </div>
+                            </div>
+                            <div class="slide slide_2">
+                                <div class="slide-content">
+                                    <img src="imgs/main/banner_02.jpg" alt="심곡천교회 배너이미지">
+                                <!-- <h2>Slide 2</h2>
+                                <p>Content for Slide 2</p> -->
+                                </div>
+                            </div>
+                            <div class="slide slide_3">
+                                <div class="slide-content">
+                                    <img src="imgs/main/banner_01.jpg" alt="심곡천교회 배너이미지">
+                                <!-- <h2>Slide 3</h2>
+                                <p>Content for Slide 3</p> -->
+                                </div>
+                            </div>
+                            <div class="slide slide_4">
+                                <div class="slide-content">
+                                    <img src="imgs/main/banner_02.jpg" alt="심곡천교회 배너이미지">
+                                <!-- <h2>Slide 4</h2>
+                                <p>Content for Slide 4</p> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="controls">
+                    <label for="slide1" class="stopAutoslide"></label>
+                    <label for="slide2" class="stopAutoslide"></label>
+                    <label for="slide3" class="stopAutoslide"></label>
+                    <label for="slide4" class="stopAutoslide"></label>
+                </div>
+                <div id="bullets">
+                    <label for="slide1" class="stopAutoslide"></label>
+                    <label for="slide2" class="stopAutoslide"></label>
+                    <label for="slide3" class="stopAutoslide"></label>
+                    <label for="slide4" class="stopAutoslide"></label>
+                </div>
+            </div>   
+            <!-- <div class="content1st__boxs">
+                <div class="content1st__box">
+                    <div class="content1st__box__left">
+                        <img src="imgs/main/on.jpg" alt="광고내용1" class="content1st__box__img">
+                    </div>
+                    <div class="content1st__box__right">
+                        <p>성경 퀴즈대회</p>    
+                        <p>8/16 3부예배 성경퀴즈 대회가 있어요~~~ </p>
+                    </div>
+                </div>
+                <div class="content1st__box__line"></div>
+                <div class="content1st__box">
+                    <div class="content1st__box__left">
+                        <img src="imgs/main/school.jpg" alt="광고내용1" class="content1st__box__img">
+                    </div>
+                    <div class="content1st__box__right">
+                        <p>성경학교 시작</p>    
+                        <p>제3회 성인부 성경학교 신청은 8/30일 까지!!</p>
+                    </div>
+                </div>
+                <div class="content1st__box__line"></div>
+                <div class="content1st__box">
+                    <div class="content1st__box__left">
+                        <img src="imgs/main/hand_church.jpg" alt="광고내용1" class="content1st__box__img">
+                    </div>
+                    <div class="content1st__box__right">
+                        <p>새신자 등록</p>    
+                        <p>테스트 새신자등록 아무말</p>
+                    </div>
+                </div>
+            </div> -->
+            <!-- <div id="content1st__boxs_slider">
+                <input type="radio" name="boxs_slider" id="boxs_slide1" value="1" checked>
+                <input type="radio" name="boxs_slider" id="boxs_slide2" value="2">
+                <input type="radio" name="boxs_slider" id="boxs_slide3" value="3">
+                <div class="boxs_slides">
+                    <div id="boxs_overflow">
+                        <div class="boxs_inner">
+                            <div class="box_slide box_slide_1">
+                                <div class="box_slide-content">
+                                    <div class="content1st__box__left">
+                                        <img src="imgs/main/on.jpg" alt="광고내용1" class="content1st__box__img">
+                                    </div>
+                                    <div class="content1st__box__right">
+                                        <p>성경 퀴즈대회</p>    
+                                        <p>8/16 3부예배 성경퀴즈 대회가 있어요~~~ </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box_slide box_slide_2">
+                                <div class="box_slide-content">
+                                    <div class="content1st__box__left">
+                                        <img src="imgs/main/school.jpg" alt="광고내용1" class="content1st__box__img">
+                                    </div>
+                                    <div class="content1st__box__right">
+                                        <p>성경학교 시작</p>    
+                                        <p>제3회 성인부 성경학교 신청은 8/30일 까지!!</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box_slide box_slide_3">
+                                <div class="box_slide-content">
+                                    <div class="content1st__box__left">
+                                        <img src="imgs/main/hand_church.jpg" alt="광고내용1" class="content1st__box__img">
+                                    </div>
+                                    <div class="content1st__box__right">
+                                        <p>새신자 등록</p>    
+                                        <p>테스트 새신자등록 아무말</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-button-next" tabindex="0" role="button" aria-label="Next slide"></div>
+                <div class="swiper-button-prev" tabindex="0" role="button" aria-label="Previous slide"></div>
+                <div id="boxs_controls">
+                    <label for="boxs_slide1"></label>
+                    <label for="boxs_slide2"></label>
+                    <label for="boxs_slide3"></label>
+                </div>
+            </div>-->
+        </section> 
+        
+        <!-- content2st -->
+        <section id="content2st">
+            <h1 class="hideme bottom">심곡천교회에 오신 여러분을 환영합니다</h1>
+            <div class="content2st__boxs">
+                <div class="content2st__box hideme left">
+                    <h1 class="hideme left">예배시간</h1>
+                    <h2 class="hideme left">W O R S H I P</h2>
+                    <p class="hideme left">심곡천 교회 예배 및 <br>기도회의 시간과 장소를 안내합니다.</p>
+                </div>
+                <div class="content2st__box hideme bottom">
+                    <h2 class="hideme bottom">김양문 담임목사</h2>
+                    <h1 class="hideme bottom">주일설교</h1>
+                    <h2 class="hideme bottom">WITHOUT YOU</h2>
+                    <p class="hideme bottom">본문 누가복음 15:11~32 <br>날짜 2020.08.09 </p>
+                </div>
+                <div class="content2st__box hideme right">
+                    <h1 class="hideme right">새가족안내</h1>
+                    <h2 class="hideme right">N E W F A M I L Y</h2>
+                    <p class="hideme right">새가족으로 오신 모든 분들을 <br>주님의 이름으로 환영합니다.</p>
+                </div>
+            </div>
+            <div class="content2st__icons">
+                <div class="content2st__icons__icon">
+                    <div class="content2st__icons__icon_box">
+                        <img src="imgs/main/church.png" alt="church" class="hideme left">
+                    </div>
+                    <h2 class="hideme left">교회소개</h2>
+                    <p class="hideme left">ABOUT CHURCH ddd</p>
+                </div>
+                <div class="content2st__icons__icon">
+                    <div class="content2st__icons__icon_box">
+                        <img src="imgs/main/book.png" alt="church" class="hideme left">
+                    </div>                
+                    <h2 class="hideme left">설교&찬양</h2>
+                    <p class="hideme left">SERMON & PRAISE</p>
+                </div>
+                <div class="content2st__icons__icon">
+                    <div class="content2st__icons__icon_box">
+                        <img src="imgs/main/hand.png" alt="church" class="hideme bottom">
+                    </div>                
+                    <h2 class="hideme bottom">양육훈련</h2>
+                    <p class="hideme bottom">TRAINING</p>
+                </div>
+                <div class="content2st__icons__icon">
+                    <div class="content2st__icons__icon_box">
+                        <img src="imgs/main/flower.png" alt="church" class="hideme bottom">
+                    </div>                
+                    <h2 class="hideme bottom">다음세대</h2>
+                    <p class="hideme bottom">NEXT GENERATION</p>
+                </div>
+                <div class="content2st__icons__icon">
+                    <div class="content2st__icons__icon_box">
+                        <img src="imgs/main/photoZone.png" alt="church" class="hideme right">
+                    </div>                
+                    <h2 class="hideme right">포토존</h2>
+                    <p class="hideme right">PHOTO ZONE</p>
+                </div>
+                <div class="content2st__icons__icon">
+                    <div class="content2st__icons__icon_box">
+                        <img src="imgs/main/note.png" alt="church" class="hideme right">
+                    </div>                
+                    <h2 class="hideme right">가정예배지</h2>
+                    <p class="hideme right">FAMILY WORSHIP</p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+</html>

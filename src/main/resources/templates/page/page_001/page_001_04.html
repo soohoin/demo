@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/subPage_01_layout">
+
+    <!-- index.html 고유 CSS 추가 -->
+    <th:block layout:fragment="css">
+        <link rel="stylesheet" th:href="@{/css/page/page_001/page_001_04.css}" >
+    </th:block>
+    
+    <!-- index.html 고유 스크립트 추가 -->
+    <th:block layout:fragment="script">
+        <script th:src="@{/js/page/page_001/page_001_04.js}"></script>
+    </th:block>
+
+    <div layout:fragment="content">
+
+        <!-- content1st -->
+        <section id="content1st">
+            <div class="info__contents">
+                <div class="info__contents__address">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <p>주소</p>
+                    <p>경기 부천시 부흥로 405 4층</p>
+                </div>
+                <div class="bottom_line"></div>
+                <div class="info__contents__address">
+                    <i class="fas fa-mobile-alt"></i>
+                    <p>전화</p>
+                    <p>032 - 613 - 4634</p>
+                </div>
+                <div class="bottom_line"></div>
+                <div class="info__contents__address">
+                    <i class="fas fa-bus-alt"></i>
+                    <p>대중교통 이용시</p>
+                    <p class="log_text">
+                        ① 부천역 4번출구   &nbsp;&nbsp;→&nbsp;&nbsp;
+                        소신여객정류장(도보5분)  &nbsp;&nbsp;→&nbsp;&nbsp;
+                        70-2, 71, 11번: 대성병원 하차 후 도보 5분(부천시민 학습원 옆 건물)</br>
+
+                        ② 소사역 6번출구  &nbsp;&nbsp;→&nbsp;&nbsp;  
+                        소사역.부천성모병원입구정류장(도보5분)  &nbsp;&nbsp;&nbsp;→&nbsp;&nbsp;&nbsp; 
+                        52: 부천시민학습원 하차</br>
+
+                        ③ 춘의역 6번출구  &nbsp;&nbsp;→&nbsp;&nbsp; 춘의역6번출구 정류장(도보2분) → 50
+                    </p>
+                </div>
+                <div class="bottom_line"></div>
+            </div>
+            <div id="map"></div>
+            <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d4c9f039a41bae5a50dcf84d115d1598&libraries=services,clusterer,drawing"></script>
+        </section>
+    </div>
+
+</html>

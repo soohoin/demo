@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>심곡천 교회</title>
+        <meta name="description" content="">
+        <meta name="author" content="Yeongcheol">
+
+        <th:block th:replace="fragment/config :: configFragment"></th:block>
+    </head>
+
+    <body>
+        <!-- navbar fragment 사용 -->
+        <th:block th:replace="fragment/navbar :: navbarFragment"></th:block>
+
+        <!-- navbar fragment 사용 -->
+        <th:block th:replace="fragment/header :: headerFragment(${dept_01},${dept_02},${img_path})"></th:block>
+
+        <!-- 현재 layout을 사용하는 content fragment의 내용을 삽입한다. -->
+        <th:block layout:fragment="content"></th:block> 
+
+        <!-- footer fragment 사용 -->
+        <th:block th:replace="fragment/footer :: footerFragment"></th:block>
+    </body>
+</html>

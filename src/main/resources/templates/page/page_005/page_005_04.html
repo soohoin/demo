@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/subPage_01_layout">
+
+    <!-- index.html 고유 CSS 추가 -->
+    <!-- <th:block layout:fragment="css">
+        <link rel="stylesheet" th:href="@{/css/page/page_005/page_005_04.css}" >
+    </th:block> -->
+    
+    <!-- index.html 고유 스크립트 추가 -->
+    <th:block layout:fragment="script">
+        <script th:src="@{/js/page/page_005/page_005_04.js}"></script>
+    </th:block>
+
+    <div layout:fragment="content">
+
+        <!-- content1st -->
+        <section id="content1st">
+            <div class="content1st__inner board_cntn_area width_1195">
+                <div class="board__top pagination">
+                    <div class="board__top__left"></div>
+                    <div class="board__top__right">
+                        <button id="board__top__right__write" type="button" onclick="movePage('SGC_005_04-CREATE')" >글 작성</button>
+                    </div>
+                </div>
+                <div class="board__filter pagination">
+                    <div class="board__filter__left">
+                        <select th:if="${years != null}" name="year_select_box" id="year_select_box">
+                            <option th:each="row : ${years}" 
+                                    th:value="${row.code}"
+                                    th:text="${row.code_knm}">2020년</option>
+                        </select>
+                        <select name="month_select_box" id="month_select_box">
+                            <option value="">전체</option>
+                            <option value="01">01월</option>
+                            <option value="02">02월</option>
+                            <option value="03">03월</option>
+                            <option value="04">04월</option>
+                            <option value="05">05월</option>
+                            <option value="06">06월</option>
+                            <option value="07">07월</option>
+                            <option value="08">08월</option>
+                            <option value="09">09월</option>
+                            <option value="10">10월</option>
+                            <option value="11">11월</option>
+                            <option value="12">12월</option>
+                        </select>
+                        <!-- <select th:if="${WORSHIP_ORDER_CD != null}" name="worship_order_cd" id="worship_order_cd">
+                            <option th:each="row : ${WORSHIP_ORDER_CD}" 
+                                    th:text="${row.code_knm}" 
+                                    th:value="${row.code}">코드명
+                            </option>
+                        </select> -->
+                    </div>
+                    <div class="board__filter__right">
+                        <select name="search_div_cd" id="search_div_cd">
+                            <option value="">전체</option>
+                            <option value="1">제목</option>
+                            <option value="2">내용</option>
+                            <option value="3">작성자</option>
+                        </select>
+                        <input type="text" id="search_text">
+                        <button id="search" onclick="doAction('search')">검색</button>
+                    </div>
+                </div>
+                <div class="bottom__line pagination"></div>
+                <div class="board__header pagination row_cnt_6">
+                    <p>번호</p>
+                    <p>제목</p>
+                    <p>작성자</p>
+                    <p>작성일</p>
+                    <p>조회</p>
+                    <p>좋아요</p>
+                </div>
+                <div id="boardList__bind">
+                    <div th:if="${boardList}" th:each="row : ${boardList}" class="board__contents row_cnt_6">
+                        <p th:text="${row.board_no}">1</p>
+                        <p ><a th:text="${row.board_title}" th:href="@{/SGC_007_01-DETAIL( board_div_cd=${row.board_div_cd}, board_no=${row.board_no})}"></a></p>
+                        <p th:text="${row.user_kor_nm}">작성자</p>
+                        <p th:text="${row.write_dt}">20.01.01</p> 
+                        <p th:text="${row.select_cnt}">0</p>
+                        <p th:text="${row.favorit_cnt}">0</p>
+                    </div>
+                    <p th:if="${totalListCnt == 0}">조회 된 글이 없습니다.</p>
+                    <div class="board__page__btn">
+                        <!-- << 버튼 -->
+                        <button class="move__first__btn" th:if="${totalListCnt != 0}"
+                                                         th:disabled="${block < 3}" 
+                                                         th:onclick="|javascript:doAction('search','10')|">
+                            <i class="fas fa-angle-double-left"></i>
+                        </button>
+
+                        <!-- < 버튼 -->
+                        <button class="move__previous__btn enable" th:if="${totalListCnt != 0}"
+                                                                   th:disabled="${block == prevBlock}"
+                                                                   th:onclick="|javascript:doAction('search','${prevBlock}')|">
+                            <i class="fas fa-angle-left"></i>
+                        </button>
+
+                        <!-- 페이지 버튼  -->
+                        <button th:if="${pageNumbers}" 
+                                th:each="number : ${pageNumbers}" 
+                                th:classappend="${number.no == page} ? curPage"
+                                th:onclick="|javascript:doAction('search','${number.no}')|" th:text="${number.no}" type="button"  class="board__page__number" >
+                        </button>
+
+                        <!-- > 버튼 -->
+                        <button class="move__next__btn"  th:if="${totalListCnt != 0}"
+                                                         th:disabled="${totalBlockCnt <= block}"
+                                                         th:onclick="|javascript:doAction('search','${nextBlock}')|">
+                            <i class="fas fa-angle-right"></i>
+                        </button>
+
+                        <!-- >> 버튼 -->
+                        <button class="move__last__btn" th:if="${totalListCnt != 0}"
+                                                        th:disabled="${lastBlockShowNo < 2}"
+                                                        th:onclick="|javascript:doAction('search','${lastBlock}')|">
+                            <i class="fas fa-angle-double-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section> 
+
+    </div>
+</html>

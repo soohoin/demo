@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+    
+    <!-- Navbar -->
+    <header id="header" th:fragment="headerFragment (dept_01, dept_02, img_path)">
+        <img th:src="${img_path}" alt="배경이미지" class="backgroundImg">
+            <div class="menu__depth">
+                <p>홈</p>
+                <i class="fas fa-chevron-right" style="opacity: 0.5;"></i>
+                <p th:text="${dept_01}"></p>
+                <i class="fas fa-chevron-right" style="opacity: 0.5;"></i>
+                <p th:text="${dept_02}"></p>
+            </div>
+    </header> 
+
+</html>

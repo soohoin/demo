@@ -1,0 +1,17 @@
+  /*****************************************************/
+  /*********************** content1 *********************/
+  /*****************************************************/
+  #content1st {
+    display: flex;
+    justify-content: center;
+  }
+
+  .info_img {
+    display: flex;
+    justify-content: center;
+    width: 1195px;
+  }
+
+  .info_img > img{
+    margin: 90px 0;
+  }

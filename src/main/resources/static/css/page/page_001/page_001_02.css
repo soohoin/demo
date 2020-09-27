@@ -1,0 +1,15 @@
+  /*****************************************************/
+  /*********************** content1 *********************/
+  /*****************************************************/
+  #content1st {
+    display: flex;
+    justify-content: center;
+  }
+
+  .greeting_img {
+    display: flex;
+    justify-content: center;
+    width: 1195px;
+  }
+
+

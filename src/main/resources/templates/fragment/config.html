@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+    <th:block th:fragment="configFragment">
+   
+        <script src="https://kit.fontawesome.com/ee685b9ced.js" crossorigin="anonymous"></script>
+        <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <!-- <script src="${pageContext.request.contextPath}/ ckeditor.js"></script> -->
+        <!-- <script src="https://cdn.ckeditor.com/ckeditor5/22.0.0/classic/ckeditor.js"></script> -->
+
+        <!--  공통 css/js -->
+        <link rel="stylesheet" th:href="@{/css/common/common.css}">
+        <link rel="stylesheet" th:href="@{/css/common/fadeEffect.css}">
+        <script th:src="@{js/common/common.js}"></script>
+        <script th:src="@{js/common/ckeditor.js}"></script>
+
+        <!-- <link rel="stylesheet" href="/css/common/common.css">
+        <link rel="stylesheet" href="/css/common/fadeEffect.css">
+        <script src="js/common/common.js"></script>
+        <script src="js/common/ckeditor.js"></script> -->
+
+        <!-- Content Page의 CSS fragment 삽입 -->
+        <th:block layout:fragment="css"></th:block>
+
+        <!-- Content Page의 Script fragment 삽입 -->
+        <th:block layout:fragment="script"></th:block>
+
+    </th:block>
+
+</html>
