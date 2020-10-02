@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/subPage_01_layout">
+
+    <!-- index.html 고유 CSS 추가 -->
+    <!-- <th:block layout:fragment="css">
+        <link rel="stylesheet" th:href="@{/css/page/page_006/page_006_01_02.css}" >
+    </th:block> -->
+    
+    <!-- index.html 고유 스크립트 추가 -->
+    <th:block layout:fragment="script">
+        <script th:src="@{/js/page/page_006/page_006_01_02.js}"></script>
+    </th:block>
+
+    <div layout:fragment="content">
+        <form action="#" id="hiddenForm">
+            <input type="hidden" name="board_div_cd" id="board_div_cd" th:value="${board.board_div_cd}">
+            <input type="hidden" name="board_no" id="board_no" th:value="${board.board_no}">
+        </form>
+        <!-- content1st -->
+        <section id="content1st">
+            <div class="content1st__inner board_cntn_area width_1000" id="boardDetail_bind">
+                <div th:if="${boardDetail != null}">
+                    <div th:if="${boardDetail != null}" class="board_title">
+                        <p th:text="${boardDetail.board_title}">제목</p>
+                    </div>
+                    <div class="line top"></div>
+                    <div class="board_kor_nm">
+                        <p>작성자 :&nbsp;</p>
+                        <p th:text="${boardDetail.user_kor_nm}"></p>
+                    </div>
+                    <div class="reg_dt">
+                        <p>날짜 :&nbsp;</p>
+                        <p th:text="${boardDetail.write_dt}"></p>
+                    </div>
+                    <div class="line"></div>
+                    <div class="board_cntn">
+                        <p>내용</p>
+                        <textarea name="" id="" cols="30" rows="10" th:text="${boardDetail.board_cntn}"></textarea>
+                    </div>
+                </div>
+                <div class="btns">
+                    <button class="cancel" ><a th:href="@{/SGC_006_01}">목록으로</a></button>
+                </div>
+            </div>
+        </section> 
+
+    </div>
+</html>
