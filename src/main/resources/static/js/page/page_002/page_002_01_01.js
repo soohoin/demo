@@ -28,7 +28,7 @@ function doAction(acNm) {
             formName = "frm";
             data = null;
             callback = afterSave;
-            ajaxCall(reqUrl,data,formName,null,callback);
+            ajaxCallUpload(reqUrl,data,formName,null,callback);
             break;
     }
 }
@@ -59,7 +59,12 @@ function validation() {
         errMsg = "영상 업로드 파일";
         errYn = true;
         $("#video_upload").focus();
+    } else if($("#img_upload").val() == "03" && isNull($("#img_upload").val())) {
+        errMsg = "이미지 업로드 파일";
+        errYn = true;
+        $("#img_upload").focus();
     }
+
 
     if(errYn) {
         alert(errMsg + " 은(는) 필수 입니다.")

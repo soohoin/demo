@@ -514,6 +514,66 @@
     text-align: center;
   }
 
+
+  /* 이미지 OR 비디오 게시판 스타일링 */
+  #boardList__bind .boardList__bind__cntn {
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+  }
+
+  #boardList__bind .box_cntn {
+    display: flex;
+    flex-direction: column;
+    margin: 20px 20px 20px 27px;
+  }
+
+  #boardList__bind .vedio__area {
+    border: 1px solid var(--color-dark-white);
+    width: 250px;
+    height: 150px;
+  }
+
+  #boardList__bind .title__area > p {
+    font-size: var(--font-regular_20);
+    margin: 10px 0;
+  }
+
+  .bibleIndex__area > p,
+  .writer__area > p,
+  .date__area > p,
+  .viewCount__area > p {
+    font-size: var(--font-micro);
+  }
+
+  #boardList__bind .board__writer::before {
+    content: "작성자 : ";
+  }
+  #boardList__bind .board__date::before {
+    content: "날짜 : ";
+  }
+  #boardList__bind .board_viewCount::before {
+    content: "조회수 : ";
+  }
+
+  #boardList__bind .board_viewCount {
+    opacity: 0.5;
+  }
+
+  .boardList__bind__cntn p {
+    margin: 0 0 ;
+  }
+
+  .boardList__bind__cntn .img__area > img {
+    width: 250px;
+    height: 150px;
+    object-fit: cover;
+  }
+
+
+
+
   /* boardList__bind 의 paging button 영역 */
   #boardList__bind .fa-angle-double-left, #boardList__bind .fa-angle-left,
   #boardList__bind .fa-angle-double-right, #boardList__bind .fa-angle-right {
@@ -574,6 +634,7 @@
   .board_cntn_area .whorship__div ,
   .board_cntn_area .content,
   .board_cntn_area .video__div,
+  .board_cntn_area .img__upload,
   .board_cntn_area .youtube_src,
   .board_cntn_area .video_upload {
     display: flex;
@@ -665,11 +726,19 @@
     text-align: right;
   }
 
-  /* board 게시글 상세 조회 페이지 */
+
+  /* 유튜브 영상 iframe 사이즈 조정 */
+  #boardList__bind iframe {
+    width: 100%;
+    height: 100%;
+  }
+
   #boardDetail_bind iframe {
     width: 1000px;
     height: 600px;
   }
+  
+  /* board 게시글 상세 조회 페이지 */
   #boardDetail_bind .board_kor_nm,
   #boardDetail_bind .index_cntn,
   #boardDetail_bind .reg_dt {    

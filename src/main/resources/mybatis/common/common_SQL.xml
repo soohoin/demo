@@ -2,20 +2,60 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
 <mapper namespace="com.church.simgokchyun.common.common.CommonMapper"> 
 
+
     <!-- 공통코드 list 를 조회 -->
     <select id="select_com_code" resultType="ComCode"> 
         SELECT A.CODE
              , A.CODE_KNM
-         FROM COM_CODE A
-        WHERE 1=1
-          AND A.CD_GRP_ENM = #{cd_grp_enm}
-          AND A.USE_YN = 'Y'
+          FROM COM_CODE A
+         WHERE 1=1
+           AND A.CD_GRP_ENM = #{cd_grp_enm}
+           AND A.USE_YN = 'Y'
     </select>
 
 
+    <!-- 업로드 파일정보 저장 -->
+    <insert id="fileSave" >
+        <selectKey keyProperty="file_id" resultType="String" order="BEFORE">
+          SELECT NVL(MAX(CAST(FILE_ID AS UNSIGNED)), 0) + 1 
+            FROM FILE_UPLOAD_INFO
+        </selectKey>
+        INSERT INTO 
+        FILE_UPLOAD_INFO ( FILE_ID            /* 게시판구분코드 */    
+                         , FILE_DIV_CD        /* 글번호 */            
+                         , ORIGIN_FILE_NM     /* 작성일자 */          
+                         , REAL_FILE_NM       /* 작성자아이디 */      
+                         , FILE_PATH          /* 제목 */              
+                         , FILE_SIZE          /* 파일사이즈 */
+                         , USE_YN             /* 사용여부 */
+                         , REG_USER_ID        /* 등록자 */            
+                         , REG_DT             /* 등록일자 */          
+                         )
+                  VALUES ( #{file_id}
+                         , #{file_div_cd}
+                         , #{origin_file_nm}
+                         , #{real_file_nm}
+                         , #{file_path}
+                         , #{file_size}
+                         , #{use_yn}
+                         , #{user_id}
+                         , DATE_FORMAT(now(), '%Y%m%d%H%i%s')
+                         )
+    </insert>
+
+    <!-- 업로드 파일 ID 조회 -->
+    <select id="getFileId"   resultType="String">
+        SELECT FILE_ID
+          FROM FILE_UPLOAD_INFO
+         WHERE 1=1
+           AND ORIGIN_FILE_NM = #{origin_file_nm}
+           AND REAL_FILE_NM   = #{real_file_nm}
+           AND FILE_DIV_CD    = #{file_div_cd}
+    </select>
+
 
     <!-- board list 를 조회 -->
-    <select id="select_boardList" resultType="Board"> 
+    <select id="select_boardList" resultType="Board">
         SELECT A.BOARD_NO
              , A.BOARD_DIV_CD
              , (SELECT CODE_KNM FROM COM_CODE WHERE CD_GRP_ENM = 'BOARD_DIV_CD' AND CODE = A.BOARD_DIV_CD) AS BOARD_DIV_NM
@@ -25,46 +65,59 @@
              , A.BOARD_TITLE
              , A.BOARD_CNTN
              , A.BIBLE_INDEX_CNTN
+             <!-- , A.VIDEO_ID -->
+             <!-- , CONCAT(D.FILE_PATH,D.REAL_FILE_NM)  AS VIDEO_PATH -->
+             , A.PHOTO_ID
+             , C.REAL_FILE_NM
+             , CONCAT(C.FILE_PATH,C.REAL_FILE_NM)  AS IMG_PATH
              , A.SELECT_CNT
              , A.WORSHIP_ORDER_CD
+             , A.VIDEO_DIV_CD
+             , A.YOUTUBE_IFRM_SRC
              , (SELECT CODE_KNM FROM COM_CODE WHERE CD_GRP_ENM = 'WORSHIP_ORDER_CD' AND CODE = A.WORSHIP_ORDER_CD) AS WORSHIP_ORDER_NM
              , A.DEL_YN
              , A.REG_USER_ID
              , A.REG_DT
              , '1' AS FAVORIT_CNT
-         FROM BOARD A
-        INNER JOIN USER_INFO B 
-           ON A.USER_ID = B.USER_ID
-          AND B.USE_YN = 'Y' 
-        WHERE 1=1
-          AND A.DEL_YN = 'N'
-          AND (A.BOARD_DIV_CD = #{board_div_cd}
-              <if test="board_div_cd2 != null and board_div_cd2 != '' ">
-               OR A.BOARD_DIV_CD = #{board_div_cd2}
-              </if>
-              <if test="board_div_cd3 != null and board_div_cd3 != '' ">
-               OR A.BOARD_DIV_CD = #{board_div_cd3}
-              </if>
+          FROM BOARD A
+         INNER JOIN USER_INFO B 
+            ON A.USER_ID = B.USER_ID
+           AND B.USE_YN = 'Y' 
+          LEFT JOIN FILE_UPLOAD_INFO C
+            ON A.PHOTO_ID = C.FILE_ID
+          <!-- LEFT JOIN FILE_UPLOAD_INFO D
+            ON A.VIDEO_ID = C.FILE_ID -->
+         WHERE 1=1
+           AND A.DEL_YN = 'N'
+           AND (A.BOARD_DIV_CD = #{board_div_cd}
+                <if test="board_div_cd2 != null and board_div_cd2 != '' ">
+                OR A.BOARD_DIV_CD = #{board_div_cd2}
+                </if>
+                <if test="board_div_cd3 != null and board_div_cd3 != '' ">
+                OR A.BOARD_DIV_CD = #{board_div_cd3}
+                </if>
               )
-          <if test="strt_write_dt != null and strt_write_dt != '' and end_write_dt != null and end_write_dt != '' ">
-          AND A.WRITE_DT BETWEEN #{strt_write_dt} AND #{end_write_dt}
-          </if>
-          <if test="worship_order_cd != null and worship_order_cd != '' ">
-          AND A.WORSHIP_ORDER_CD = #{worship_order_cd}  
-          </if>
-          <if test="board_title != null and board_title != '' ">
-          AND A.BOARD_TITLE LIKE CONCAT('%', #{board_title}, '%')    
-          </if>
-          <if test="board_cntn != null and board_cntn != '' ">
-          AND A.BOARD_CNTN LIKE CONCAT('%', #{board_cntn}, '%') 
-          </if>  
-          <if test="user_kor_nm != null and user_kor_nm != '' ">
-          AND B.USER_KOR_NM LIKE CONCAT('%', #{user_kor_nm}, '%')
-          </if> 
-        ORDER BY CAST(BOARD_NO AS UNSIGNED) DESC
-        LIMIT #{start_index}, #{page_size}
+           <if test="strt_write_dt != null and strt_write_dt != '' and end_write_dt != null and end_write_dt != '' ">
+           AND A.WRITE_DT BETWEEN #{strt_write_dt} AND #{end_write_dt}
+           </if>
+           <if test="worship_order_cd != null and worship_order_cd != '' ">
+           AND A.WORSHIP_ORDER_CD = #{worship_order_cd}  
+           </if>
+           <if test="board_title != null and board_title != '' ">
+           AND A.BOARD_TITLE LIKE CONCAT('%', #{board_title}, '%')    
+           </if>
+           <if test="board_cntn != null and board_cntn != '' ">
+           AND A.BOARD_CNTN LIKE CONCAT('%', #{board_cntn}, '%') 
+           </if>  
+           <if test="user_kor_nm != null and user_kor_nm != '' ">
+           AND B.USER_KOR_NM LIKE CONCAT('%', #{user_kor_nm}, '%')
+           </if> 
+         ORDER BY CAST(BOARD_NO AS UNSIGNED) DESC
+         LIMIT #{start_index}, #{page_size}
     </select> 
 
+
+    <!-- 게시글 상세 조회 -->
     <select id="select_boardDetail" resultType="Board"> 
         SELECT BOARD_NO
              , USER_ID        
@@ -76,6 +129,8 @@
              , BIBLE_INDEX_CNTN
              , SELECT_CNT
              , VIDEO_DIV_CD
+             , VIDEO_ID
+             , PHOTO_ID
              , YOUTUBE_IFRM_SRC
              , DEL_YN
              , REG_USER_ID
@@ -86,6 +141,8 @@
            AND BOARD_NO = #{board_no}
     </select> 
 
+
+    <!-- 게시글 총 개수 조회 -->
     <select id="getTotalCnt" resultType="int"> 
         SELECT COUNT(1) AS CNT
           FROM BOARD A
@@ -120,6 +177,7 @@
     </select> 
 
 
+    <!-- 게시글 저장 -->
     <insert id="insertBoard" parameterType="Board">
         <selectKey keyProperty="board_no" resultType="String" order="BEFORE">
             SELECT NVL(MAX(CAST(board_no AS UNSIGNED)), 0) + 1
@@ -147,6 +205,12 @@
                <if test="worship_order_cd != null and worship_order_cd != '' ">
                , WORSHIP_ORDER_CD      /* 예배순서코드 */      
                </if>
+               <if test="video_id != null and video_id != '' ">
+               , VIDEO_ID              /* 영상 ID */      
+               </if>
+               <if test="photo_id != null and photo_id != '' ">
+               , PHOTO_ID              /* 이미지 ID */      
+               </if>
                , SELECT_CNT            /* 조회수 */            
                , DEL_YN                /* 삭제여부 */          
                , REG_USER_ID           /* 등록자 */            
@@ -172,11 +236,18 @@
                <if test="worship_order_cd != null and worship_order_cd != '' ">
                , #{worship_order_cd}
                </if>
+               <if test="video_id != null and video_id != '' ">
+               , #{video_id}
+               </if>
+               <if test="photo_id != null and photo_id != '' ">
+               , #{photo_id}
+               </if>
                , '0'
                , 'N'
                , #{user_id}
                , DATE_FORMAT(now(), '%Y%m%d%H%i%s')
                )  
     </insert>
+
 
 </mapper>

@@ -21,8 +21,8 @@ public class Board {
     private String board_title;
     private String board_cntn;
     private String bible_index_cntn;
-    private String video_path;
-    private String photo_path;
+    private String video_id;
+    private String photo_id;
     private String video_div_cd;
     private String youtube_ifrm_src;
     private String select_cnt;
@@ -35,6 +35,8 @@ public class Board {
     private String reg_dt;
 
 
+    private String real_file_nm;
+    // private String video_path;
     private int start_index;
     private int page_size;
     private String search_text;

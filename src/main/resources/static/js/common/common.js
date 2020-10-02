@@ -66,17 +66,67 @@ function ajaxCall(reqUrl, data, formName, bindId, callback, callbackParam) {
         type:"POST",
         cache:false
     }).done(function (resData) {
-        //데이터 바인딩 
-        if(bindId != null) {
-            $("#"+bindId).replaceWith(resData);
+
+        if(resData.errYn == "Y") {
+            alert("저장 실패 : " + resData.errMsg);
+        } else {
+
+            //데이터 바인딩
+            if(bindId != null) {
+                $("#"+bindId).replaceWith(resData);
+            }
+    
+            // callback 이 있으면 호출한다.
+            if(callback != null) {
+                callback(callbackParam);
+            }
         }
 
-        // callback 이 있으면 호출한다.
-        if(callback != null) {
-            callback(callbackParam);
-        }
     });
 }
+
+
+// ajax 통신 비동기 통신 공통함수 - 파일 업로드
+function ajaxCallUpload(reqUrl, data, formName, bindId, callback, callbackParam) {
+    let reqData = {};
+    
+    if(data != null && data != "") {
+        reqData = data;
+    } else if(formName != null && formName != "") {
+        reqData = $("#"+formName).serialize();
+        reqData = new FormData($("#"+formName)[0])
+    }
+
+    // let testForm = $("#"+formName);
+    
+    $.ajax({
+        type:"POST",
+        enctype: "multipart/form-data",
+        url: reqUrl,
+        data: reqData,
+        processData: false,
+        contentType: false,
+        cache:false
+    }).done(function (resData) {
+
+        if(resData.errYn == "Y") {
+            alert("저장 실패 : " + resData.errMsg);
+        } else {
+
+            //데이터 바인딩
+            if(bindId != null) {
+                $("#"+bindId).replaceWith(resData);
+            }
+    
+            // callback 이 있으면 호출한다.
+            if(callback != null) {
+                callback(callbackParam);
+            }
+        }
+
+    });
+}
+
 
 // 페이지 이동
 function movePage(reqLocation) {

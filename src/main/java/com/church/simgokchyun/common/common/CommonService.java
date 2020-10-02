@@ -2,10 +2,13 @@ package com.church.simgokchyun.common.common;
 
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -17,6 +20,9 @@ import com.church.simgokchyun.common.vo.Comcode;
 public class CommonService {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    @Value("${spring.servlet.multipart.location}")
+    String defaultUploadPath;
     
     @Autowired
     CommonMapper mapper;
@@ -120,6 +126,76 @@ public class CommonService {
     }
 
 
+    /**  업로드 파일저장 
+     *    
+     * @param 1.file/2.file_div_cd
+     *      1. file          -  업로드 할 파일객체
+     *      2. file_div_cd   -  파일의 종류 구분코드 ( 01:이미지,  02:동영상 )
+     * 
+     *      프로세스 
+     *      1. 공통에서 parameter  1-이미지 오리지널파일명, 2-파일바이트 , 3-구분코드[이미지/동영상] 를 받는다.
+     *      2. 오리지널파일명을 uuid+일자 를 사용해서 유니크한 파일명을 생성한다.
+     *      3. FILE_INFO 테이블에 키를 구하고 파일 정보를 INSERT 한다.
+     *      4. return 파일아이디
+     * @throws Exception
+     * @return String - 파일ID
+     */
+    public String fileSave(MultipartFile file, String file_div_cd)throws Exception {
+        
+        Map<String, Object> paramMap = new HashMap<String,Object>();
+        String origin_file_nm = "";
+        String real_file_nm = "";
+        String uploadPath = "";
+
+        // if("01".equals(file_div_cd) ) {
+        //     save_folder = "\\imgs";
+        // } else {
+        //     save_folder = "\\video";
+        // }
+
+        // uploadPath = defaultUploadPath + File.separator + save_folder;
+        uploadPath = defaultUploadPath;
+
+        // 1. 파일명 변경
+        origin_file_nm = file.getOriginalFilename();
+        real_file_nm = this.transFileName(origin_file_nm);
+
+        paramMap.put("origin_file_nm", origin_file_nm);
+        paramMap.put("real_file_nm", real_file_nm);
+        paramMap.put("file_div_cd", file_div_cd);
+        paramMap.put("file_size", file.getSize());
+        paramMap.put("use_yn", "Y");
+        paramMap.put("user_id", "100001");
+        paramMap.put("file_path", uploadPath);
+
+        logger.info("fileUploadPath : " +  uploadPath);
+
+        // 2. 파일정보 DB insert
+        mapper.fileSave(paramMap);
+
+        // 3. 업로드 경로에 파일생성 
+        file.transferTo(new File(uploadPath + real_file_nm));
+        
+        // 4. 파일 id를 return 한다.
+        return mapper.getFileId(paramMap);
+    }
+
+
+    /**
+     * 중복 방지를 위한 파일명 변경 
+     * 
+     * @param fileName
+     * @return
+     * @throws Exception
+     */
+    public String transFileName(String fileName)throws Exception {
+        if(fileName == null  || "".equals(fileName))
+            return null;
+        
+        String extension = fileName.substring(fileName.lastIndexOf("."),fileName.length()); //확장자
+        return this.getDate("yyyyMMdd")+"_" + UUID.randomUUID().toString() + extension;
+    }
+
     
     /**
      * 게시판 페이징을 위한 메소드 
@@ -130,7 +206,6 @@ public class CommonService {
      *        2. Request Pagination - client 에서 요청받은 pagination 객체
      *        3. model              - controller 에서 return 할 model 객체 
      *        4. Request board      - client 에서 요청받은 board 객체 
-     * 
      * @return void
      * @throws Exception
      *  

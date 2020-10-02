@@ -15,6 +15,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class Sgc_002Controller {
@@ -28,7 +30,7 @@ public class Sgc_002Controller {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     
     /**
-     * 설교요약 글 목록 화면 오픈 
+     * 설교영상 글 목록 화면 오픈
      * @param model
      * @return
      */
@@ -38,7 +40,7 @@ public class Sgc_002Controller {
         try {
             // 1. 메뉴 depth 명과 bg_img를 가져온다. - 공통서비스 호출  - 추후 메뉴매핑 테이블 완성 후 변경하기 현재는 hard 코딩
             model.addAttribute("dept_01", "말씀/찬양");
-            model.addAttribute("dept_02", "설교요약");
+            model.addAttribute("dept_02", "설교영상");
             model.addAttribute("img_path", "imgs/page/page_002_bg.jpg");
 
             // 2. 검색 조건의 날짜를 가져온다.
@@ -54,7 +56,7 @@ public class Sgc_002Controller {
     }
 
     /**
-     * 설교요약 글 목록 조회
+     * 설교영상 글 목록 조회
      * @param model
      * @param reqPagination
      * @param board
@@ -79,7 +81,7 @@ public class Sgc_002Controller {
     }
 
     /**
-     * 설교요약 게시글 작성 화면오픈
+     * 설교영상 게시글 작성 화면오픈
      * @param model
      * @return String
      */    
@@ -90,7 +92,7 @@ public class Sgc_002Controller {
 
             // 1. 메뉴명, 배경이미지 셋팅
             model.addAttribute("dept_01", "말씀/찬양");
-            model.addAttribute("dept_02", "설교요약");
+            model.addAttribute("dept_02", "설교영상");
             model.addAttribute("img_path", "imgs/page/page_002_bg.jpg");
 
             // 2. 사용 할 공통코드 만들기 
@@ -104,32 +106,55 @@ public class Sgc_002Controller {
     }
 
     /**
-     * 설교요약 게시글 저장
+     * 설교영상 게시글 저장
      * @param model
      * @param board
      * @return
      */  
     @RequestMapping(value = "/SGC_002_01-SAVE", method = RequestMethod.POST)
-    String sgc_002_01_SAVE(Board board, Model model) {
+    // String sgc_002_01_SAVE(@RequestParam("img_upload") MultipartFile file_01, Board board, Model model) {
+    String sgc_002_01_SAVE(@RequestParam Map<String,MultipartFile> MapFiles, Board board, Model model) {
         logger.info("call Controller : sgc_002_01_SAVE");
         try {
-            
+
+            String video_id = "";
+            String img_id = "";
+
             // 1. 유저 정보를 셋팅한다.
             board.setUser_id("100001");
             board.setBoard_div_cd("01");
+            
 
-            // 2. 새 글을 INSERT 한다.
+            logger.info("이미지 파일명 : " + MapFiles.get("img_upload").getOriginalFilename());
+            logger.info("동영상 파일명 : " + MapFiles.get("video_upload").getOriginalFilename());
+            // 2. 업로드한 이미지 / 영상을 DB와 서버 경로에 저장하고 업로드 한 id를 board객체에 넣어준다.
+            
+
+            // 2-1. 이미지 처리
+            if(MapFiles.get("img_upload") != null) {
+                img_id = comService.fileSave(MapFiles.get("img_upload"),"01");
+                board.setPhoto_id(img_id);
+            }
+
+            // 2-2. 동영상 처리
+            // if(MapFiles.get("img_upload") != null) {
+            //     video_id = comService.fileSave(MapFiles.get("img_upload"),"02");
+            //     board.setVideo_id(video_id);
+            // }
+
+            // 3. 새 글을 INSERT 한다.
             comService.insertBoard(board);
             model.addAttribute("errYn", "N");
         } catch(Exception e) {
             model.addAttribute("errYn", "Y");
+            model.addAttribute("errMsg", e.getMessage());
             logger.error(e.getMessage(), e);
         }
         return "page/page_002/page_002_01";
     }
 
     /**
-     * 설교요약 게시글 상세 화면오픈
+     * 설교영상 게시글 상세 화면오픈
      * @param model
      * @param board
      * @return String
@@ -140,7 +165,7 @@ public class Sgc_002Controller {
         try {
 
             model.addAttribute("dept_01", "말씀/찬양");
-            model.addAttribute("dept_02", "설교요약");
+            model.addAttribute("dept_02", "설교영상");
             model.addAttribute("img_path", "imgs/page/page_002_bg.jpg");
             model.addAttribute("board", board);
 
@@ -152,7 +177,7 @@ public class Sgc_002Controller {
 
 
     /**
-     * 설교요약 게시글 상세 조회
+     * 설교영상 게시글 상세 조회
      * @param model
      * @param board
      * @return

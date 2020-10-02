@@ -19,7 +19,7 @@
         <!-- content1st -->
         <section id="content1st">
             <div class="content1st__inner board_cntn_area width_800">
-                <form id="frm" class="board_cntn_area">
+                <form id="frm" class="board_cntn_area" >
                     <div class="top__title" th:if="${#strings.isEmpty(boardDetail)}">
                         <h2 >설교요약 게시글 작성</h2>
                     </div>
@@ -41,6 +41,10 @@
                                     th:value="${row.code}">코드명
                             </option>
                         </select>
+                    </div>
+                    <div class="img__upload">
+                        <label for="img_upload">이미지 업로드 파일</label>
+                        <input type="file" name="img_upload" id="img_upload" placeholder="이미지 선택">
                     </div>
                     <div class="video__div" th:if="${#strings.isEmpty(boardDetail)}">
                         <label for="video__div_cd">설교영상 구분</label>

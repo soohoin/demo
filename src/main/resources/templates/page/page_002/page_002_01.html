@@ -5,9 +5,9 @@
       layout:decorator="layout/subPage_01_layout">
 
     <!-- index.html 고유 CSS 추가 -->
-    <!-- <th:block layout:fragment="css">
+    <th:block layout:fragment="css">
         <link rel="stylesheet" th:href="@{/css/page/page_002/page_002_01.css}" >
-    </th:block> -->
+    </th:block>
     
     <!-- index.html 고유 스크립트 추가 -->
     <th:block layout:fragment="script">
@@ -66,18 +66,30 @@
                     </div>
                 </div>
                 <div class="bottom__line pagination"></div>
-                <div class="board__header pagination row_cnt_7">
-                    <p>번호</p>
-                    <p>설교제목</p>
-                    <p>본문</p>
-                    <p>예배구분</p>
-                    <p>작성자</p>
-                    <p>작성일</p>
-                    <p>조회</p>
-                    <!-- <p>좋아요</p> -->
-                </div>
                 <div id="boardList__bind">
-                    <div th:if="${boardList}" th:each="row : ${boardList}" class="board__contents row_cnt_7">
+                    <div class="boardList__bind__cntn">
+                        <div th:if="${boardList}" th:each="row : ${boardList}" class="box_cntn">
+                            <div class="img__area">
+                                <img th:src="@{/uploadImg/} + ${row.real_file_nm}" alt="설교영상 이미지">
+                            </div>
+                            <div class="title__area">
+                                <p ><a th:text="${row.board_title}" th:href="@{/SGC_002_01-DETAIL( board_div_cd=${row.board_div_cd}, board_no=${row.board_no})}"></a></p>
+                            </div>
+                            <div class="bibleIndex__area">
+                                <p th:text="${row.bible_index_cntn}" class="board__bibleIndex">본문</p>
+                            </div>
+                            <div class="writer__area">
+                                <p th:text="${row.user_kor_nm}" class="board__writer">설교자</p>
+                            </div>
+                            <div class="date__area">
+                                <p th:text="${row.write_dt}" class="board__date">20.01.01</p> 
+                            </div>
+                            <div class="viewCount__area">
+                                <p th:text="${row.select_cnt}" class="board_viewCount">0</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div th:if="${boardList}" th:each="row : ${boardList}" class="board__contents row_cnt_7">
                         <p th:text="${row.board_no}">1</p>
                         <p ><a th:text="${row.board_title}" th:href="@{/SGC_002_01-DETAIL( board_div_cd=${row.board_div_cd}, board_no=${row.board_no})}"></a></p>
                         <p th:text="${row.bible_index_cntn}">시편 57:1-11</p>
@@ -85,8 +97,7 @@
                         <p th:text="${row.user_kor_nm}">김양문</p>
                         <p th:text="${row.write_dt}">20.01.01</p> 
                         <p th:text="${row.select_cnt}">0</p>
-                        <!-- <p th:text="${row.favorit_cnt}">0</p> -->
-                    </div>
+                    </div> -->
                     <p th:if="${totalListCnt == 0}">조회 된 글이 없습니다.</p>
                     <div class="board__page__btn">
                         <!-- << 버튼 -->

@@ -64,10 +64,9 @@ function doAction(acNm, pageNo) {
 }
 
 
-// 글 목록의 데이터를 바인딩 하는 함수 
-// function boardListBind(resData, bindId) {
-//     $("#"+bindId).replaceWith(resData);
-// }
+/**
+ *  유튜브 & 동영상을 bind 한다.
+ */
 
 
 function popOpen(divText) {
