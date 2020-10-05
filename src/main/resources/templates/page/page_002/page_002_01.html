@@ -69,11 +69,14 @@
                 <div id="boardList__bind">
                     <div class="boardList__bind__cntn">
                         <div th:if="${boardList}" th:each="row : ${boardList}" class="box_cntn">
+                            <!-- <input type="text" th:id=" 'board_div_cd_' + ${row.board_no} " th:value="${row.board_div_cd}"> -->
+                            <!-- <input type="text" th:id=" 'board_no_' + ${row.board_no} " th:value="${row.board_no}"> -->
                             <div class="img__area">
-                                <img th:src="@{/uploadImg/} + ${row.real_file_nm}" alt="설교영상 이미지">
+                                <img th:src="@{/uploadImg/} + ${row.real_file_nm}" th:onclick="goDetail()" alt="설교영상 이미지">
+                                <!-- <i class="fas fa-tv"></i> -->                             
                             </div>
                             <div class="title__area">
-                                <p ><a th:text="${row.board_title}" th:href="@{/SGC_002_01-DETAIL( board_div_cd=${row.board_div_cd}, board_no=${row.board_no})}"></a></p>
+                                <p ><a th:text="${row.board_title}" th:href="@{/SGC_002_01-DETAIL( board_div_cd=${row.board_div_cd}, board_no=${row.board_no})}" id="page_move"></a></p>
                             </div>
                             <div class="bibleIndex__area">
                                 <p th:text="${row.bible_index_cntn}" class="board__bibleIndex">본문</p>

@@ -9,6 +9,9 @@
   #boardList__bind .board__writer::before {
     content: "설교자 : ";
   }
+  #boardList__bind .board__writer::after {
+    content: " 목사";
+  }
   #boardList__bind .board__date::before {
     content: "날짜 : ";
   }

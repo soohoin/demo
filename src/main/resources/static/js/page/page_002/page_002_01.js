@@ -59,8 +59,13 @@ function doAction(acNm, pageNo) {
                     "worship_order_cd":worship_order_cd,"board_title":board_title,
                     "board_cntn":board_cntn,"user_kor_nm":user_kor_nm}
             ajaxCall(reqUrl,data,formName,bindId);
-            break;    
+            break;
     }
+}
+
+// 상세 페이지 이동 
+function goDetail() {
+    $("#page_move").get(0).click();
 }
 
 

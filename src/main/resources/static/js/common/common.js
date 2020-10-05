@@ -127,17 +127,9 @@ function ajaxCallUpload(reqUrl, data, formName, bindId, callback, callbackParam)
     });
 }
 
-
-// 페이지 이동
-function movePage(reqLocation) {
-    window.location = reqLocation;
-}
-
 // null 체크함수
 function isNull(val) {
-
     let checkVal = $.trim(val);
-
     if(checkVal === null) return true;
     if(typeof checkVal === "string" && checkVal === "") return true;
     if(typeof checkVal === "undefined") return true;
@@ -146,7 +138,7 @@ function isNull(val) {
 }
 
 
-// 공통 doaction 함수 
+// 공통 doAction 함수 
 // action (CRUD 등등...) 을 수행한다.
 function comDoAction(acNm, pageName) {
     let reqUrl, formName, bindId, data, callback;
@@ -167,6 +159,11 @@ function comDoAction(acNm, pageName) {
             ajaxCall(reqUrl,data,formName,null,callback);
             break;    
     }
+}
+
+// 페이지 이동
+function movePage(reqLocation) {
+    window.location = reqLocation;
 }
 
 // 페이지 이동

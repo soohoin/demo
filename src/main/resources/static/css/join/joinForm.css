@@ -1,0 +1,79 @@
+  /*****************************************************/
+  /*********************** content1 ********************/
+  /*****************************************************/
+
+  .content1st__inner {
+    width: 550px;
+    /* border: 5px solid gray; */
+  }
+  .join_top {
+    display: flex;
+    align-items:  center;
+  }
+  .join_top > p {
+    opacity: 0.6;
+    font-size: 40px;
+    font-weight: 500;
+    margin: 20px 0;
+  }
+  .content1st__inner label {
+    margin-bottom: 10px;
+  }
+  .content1st__inner input {
+    height: 30px;
+  }
+  #joinForm > .join_top,
+  #joinForm > .email_addr,
+  #joinForm > .password,
+  #joinForm > .password_confirm,
+  #joinForm > .user_nm,
+  #joinForm > .user_nic_nm,
+  #joinForm > .btn_area {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0;
+  }
+  .email_addr > label,
+  .password > label,
+  .password_confirm > label,
+  .user_nm > label,
+  .user_nic_nm > label {
+    font-size: var(--font-regular);
+    font-weight: var(--weight-bold);
+    opacity: 0.8;
+  }
+
+  .validation {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .fa-check {
+    margin: 6px 8px 0 0;
+    color: greenyellow;
+    font-size: larger;
+  }
+
+  .fa-times {
+    margin: 6px 8px 0 0;
+    color: red;
+    font-size: larger;
+  }
+
+  #email_addr_vali.success::after {
+    content: " 사용가능";
+    font-weight: var(--weight-bold);
+  }
+
+  #email_addr_vali.fail::after {
+    content: " 이미 사용중 입니다.";
+    font-weight: var(--weight-bold);
+    opacity: 0.6;
+  }
+
+  .btn_area > button {
+    margin: 10px 0;
+    font-size: larger;
+  }
+
+  

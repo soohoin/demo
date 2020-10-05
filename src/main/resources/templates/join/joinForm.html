@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/subPage_01_layout">
+
+    <!-- index.html 고유 CSS 추가 -->
+    <th:block layout:fragment="css">
+        <link rel="stylesheet" th:href="@{/css/join/joinForm.css}" >
+    </th:block>
+    
+    <!-- index.html 고유 스크립트 추가 -->
+    <th:block layout:fragment="script">
+        <script th:src="@{/js/join/joinForm.js}"></script>
+    </th:block>
+
+    <div layout:fragment="content">
+
+        <!-- content1st -->
+        <section id="content1st">
+            <div class="content1st__inner">
+                <form id="joinForm">
+                    <div class="join_top">
+                        <p>회원 가입</p>
+                    </div>
+                    <div class="email_addr">
+                        <label for="email_addr">이메일</label>
+                        <input type="email" name="email_addr" id="email_addr">
+                        <div class="validation">
+                            <i id="email_addr_vali"></i>
+                            <!-- <i class="fas fa-check"></i><i class="fas fa-times "></i> -->
+                        </div>
+                    </div>
+                    <div class="password">
+                        <label for="">비밀번호</label>
+                        <input type="password" name="password" id="password">
+                        <div class="validation">
+                            <i id="password_vali"></i>
+                        </div>
+                    </div>
+                    <div class="password_confirm">
+                        <label for="password_confirm">비밀번호 확인</label>
+                        <input type="password" name="password_confirm" id="password_confirm">
+                        <div class="validation">
+                            <p id="password_confirm_valdtn"></p>
+                        </div>
+                    </div>
+                    <div class="user_nm">
+                        <label for="">이름</label>
+                        <input type="text" name="user_nm" id="user_nm"  maxlength="25">
+                        <div class="validation">
+                            <p id="user_nm_valdtn"></p>
+                        </div>
+                    </div>
+                    <div class="user_nic_nm">
+                        <label for="user_nic_nm">닉네임</label>
+                        <input type="text" name="user_nic_nm" id="user_nic_nm" maxlength="25">
+                        <div class="validation">
+                            <p id="user_nic_nm_valdtn"></p>
+                        </div>
+                    </div>
+                    <div class="btn_area">
+                        <button type="button" onclick="doAction('execJoin')">회원가입</button>
+                    </div>
+                </form>
+            </div>
+        </section> 
+
+    </div>
+</html>

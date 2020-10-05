@@ -2,11 +2,11 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
     
     <!-- Navbar -->
-    <nav id="navbar" th:fragment="navbarFragment">
-        <div class="menu__bg hide"></div>
-        <div class="navbar__outter-box">
+    <nav id="navbar" th:fragment="navbarFragment" class="change__color">
+        <div class="menu__bg hide change_color"></div>
+        <div class="navbar__outter-box change_color">
             <div class="navbar__logo">
-                <i class="fab fa-diaspora"></i>
+                <img th:src="@{/uploadImg/logo_05.png}" alt="로고">
                 <a th:href="@{/main}">심곡천교회</a>
             </div>
             <div class="navbar__menu">
@@ -69,10 +69,10 @@
                 </ul>
             </div>
             <div class="navbar__loginjoin">
-                <ul class="navbar__loginjoin__ul">
-                    <li class="navbar__loginjoin__ul__item">로그인</li>
+                <ul class="navbar__loginjoin__ul change_color">
+                    <li class="navbar__loginjoin__ul__item"><a th:href="@{/loginForm}">로그인</a></li>
                     <li class="navbar__loginjoin__ul__item"></li>
-                    <li class="navbar__loginjoin__ul__item">회원가입</li>
+                    <li class="navbar__loginjoin__ul__item"><a th:href="@{/joinForm}">회원가입</a></li>
                 </ul>
             </div>
 

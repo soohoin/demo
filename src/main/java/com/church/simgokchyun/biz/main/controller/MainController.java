@@ -12,7 +12,7 @@ public class MainController {
     // private final Log logger = LogFactory.getLog(MainController.class);
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @RequestMapping("/main")
+    @RequestMapping({"/main","/",""})
     String mainPage(Model model) {
         logger.info("mainPage()");
         return "page/main/main";

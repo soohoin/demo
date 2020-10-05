@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.church.simgokchyun.common.vo.Board;
 import com.church.simgokchyun.common.vo.Comcode;
+import com.church.simgokchyun.common.vo.User;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
@@ -26,4 +27,8 @@ public interface CommonMapper {
     int fileSave(Map<String, Object> paramMap)throws Exception;
 
     String getFileId(Map<String, Object> paramMap)throws Exception; 
+
+    String emailDubYn(User user)throws Exception;
 }
+
+

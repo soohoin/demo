@@ -1,0 +1,26 @@
+DEBUG 20-10-04 08:40:08[File Watcher] [Restarter:249] - Restarting application
+DEBUG 20-10-04 08:40:08[Thread-182] [Restarter:305] - Stopping application
+DEBUG 20-10-04 08:40:08[Thread-182] [AnnotationConfigServletWebServerApplicationContext:1006] - Closing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@b611f36, started on Sun Oct 04 07:38:08 KST 2020
+DEBUG 20-10-04 08:40:08[Thread-182] [DefaultLifecycleProcessor:369] - Stopping beans in phase 2147483647
+DEBUG 20-10-04 08:40:08[Thread-182] [DefaultLifecycleProcessor:242] - Bean 'webServerGracefulShutdown' completed its stop procedure
+DEBUG 20-10-04 08:40:08[Thread-182] [DefaultLifecycleProcessor:369] - Stopping beans in phase 2147483646
+DEBUG 20-10-04 08:40:09[Thread-182] [DefaultLifecycleProcessor:242] - Bean 'webServerStartStop' completed its stop procedure
+DEBUG 20-10-04 08:40:09[Thread-182] [AnnotationMBeanExporter:452] - Unregistering JMX-exposed beans on shutdown
+DEBUG 20-10-04 08:40:09[Thread-182] [AnnotationMBeanExporter:186] - Unregistering JMX-exposed beans
+INFO  20-10-04 08:40:09[Thread-182] [ThreadPoolTaskExecutor:218] - Shutting down ExecutorService 'applicationTaskExecutor'
+INFO  20-10-04 08:40:09[Thread-182] [HikariDataSource:350] - HikariPool-3 - Shutdown initiated...
+DEBUG 20-10-04 08:40:09[Thread-182] [HikariPool:421] - HikariPool-3 - Before shutdown stats (total=10, active=0, idle=10, waiting=0)
+DEBUG 20-10-04 08:40:09[HikariPool-3 connection closer] [PoolBase:134] - HikariPool-3 - Closing connection org.mariadb.jdbc.MariaDbConnection@7db200bb: (connection evicted)
+DEBUG 20-10-04 08:40:09[HikariPool-3 connection closer] [PoolBase:134] - HikariPool-3 - Closing connection org.mariadb.jdbc.MariaDbConnection@7375f17d: (connection evicted)
+DEBUG 20-10-04 08:40:09[HikariPool-3 connection closer] [PoolBase:134] - HikariPool-3 - Closing connection org.mariadb.jdbc.MariaDbConnection@774a6bcb: (connection evicted)
+DEBUG 20-10-04 08:40:09[HikariPool-3 connection closer] [PoolBase:134] - HikariPool-3 - Closing connection org.mariadb.jdbc.MariaDbConnection@3248fb46: (connection evicted)
+DEBUG 20-10-04 08:40:09[HikariPool-3 connection closer] [PoolBase:134] - HikariPool-3 - Closing connection org.mariadb.jdbc.MariaDbConnection@5f12826c: (connection evicted)
+DEBUG 20-10-04 08:40:09[HikariPool-3 connection closer] [PoolBase:134] - HikariPool-3 - Closing connection org.mariadb.jdbc.MariaDbConnection@3b06eea: (connection evicted)
+DEBUG 20-10-04 08:40:09[HikariPool-3 connection closer] [PoolBase:134] - HikariPool-3 - Closing connection org.mariadb.jdbc.MariaDbConnection@27004964: (connection evicted)
+DEBUG 20-10-04 08:40:09[HikariPool-3 connection closer] [PoolBase:134] - HikariPool-3 - Closing connection org.mariadb.jdbc.MariaDbConnection@52670409: (connection evicted)
+DEBUG 20-10-04 08:40:09[HikariPool-3 connection closer] [PoolBase:134] - HikariPool-3 - Closing connection org.mariadb.jdbc.MariaDbConnection@19adedcb: (connection evicted)
+DEBUG 20-10-04 08:40:09[HikariPool-3 connection closer] [PoolBase:134] - HikariPool-3 - Closing connection org.mariadb.jdbc.MariaDbConnection@19ea072a: (connection evicted)
+DEBUG 20-10-04 08:40:09[Thread-182] [HikariPool:421] - HikariPool-3 - After shutdown stats (total=0, active=0, idle=0, waiting=0)
+INFO  20-10-04 08:40:09[Thread-182] [HikariDataSource:352] - HikariPool-3 - Shutdown completed.
+DEBUG 20-10-04 08:40:09[Thread-182] [Restarter:84] - Created RestartClassLoader org.springframework.boot.devtools.restart.classloader.RestartClassLoader@63c03fad
+DEBUG 20-10-04 08:40:09[Thread-182] [Restarter:281] - Starting application com.church.simgokchyun.DemoApplication with URLs [file:/D:/PROJECT/Simgoak/workspace/simgokcheon-church/target/classes/]

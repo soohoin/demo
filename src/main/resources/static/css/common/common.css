@@ -154,8 +154,15 @@
   .navbar__logo {
     display: flex;
     align-self: flex-start;
-    width: 200px;
-    padding-top: 20px;
+    width: 220px;
+    padding-top: 25px;
+  }
+  .navbar__logo > img {
+    position: relative;
+    bottom: 20px;
+    width: 70px;
+    height: 70px;
+    margin-right: 5px;
   }
   .navbar__logo > a {
       font-size: var(--font-medium);
@@ -238,10 +245,21 @@
       height: 20px;
       line-height: 100%;
   }
-  .navbar__logo > a, .navbar__menu__ul__item  a,
-  .navbar__loginjoin__ul__item, .navbar__menu__ul__item {
+  .navbar__outter-box a,
+  .navbar__loginjoin__ul li {
     color: var(--color-white);
   }
+
+  /* #navbar.change__color {
+    background-color: var(--color-white);
+  }
+  .menu__bg.change_color {
+    background-color: var(--color-white);
+  }
+  .navbar__outter-box.change_color a,
+  .navbar__loginjoin__ul.change_color li {
+    color: var(--color-black);
+  } */
 
 
   /*****************************************************/
@@ -571,7 +589,17 @@
     object-fit: cover;
   }
 
+  .boardList__bind__cntn .img__area > img:hover {
+    opacity: 0.5;
+    cursor: pointer;
+  }
 
+  /* .boardList__bind__cntn .img__area .fa-tv {
+    position: relative;
+    right: 125px;
+    bottom: 65px;
+    opacity: 0.0;
+  } */
 
 
   /* boardList__bind 의 paging button 영역 */

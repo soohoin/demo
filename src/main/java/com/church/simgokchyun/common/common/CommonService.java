@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
+
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -15,6 +16,7 @@ import java.util.*;
 import com.church.simgokchyun.common.paging.Pagination;
 import com.church.simgokchyun.common.vo.Board;
 import com.church.simgokchyun.common.vo.Comcode;
+import com.church.simgokchyun.common.vo.User;
 
 @Service
 public class CommonService {
@@ -278,6 +280,16 @@ public class CommonService {
      */
     public int insertBoard(Board board) throws Exception{
         return mapper.insertBoard(board);
+    }
+
+    /**
+     * emali 중복여주 체크  
+     *      
+     *      Y : 중복   - 사용불가능
+     *      N : 미중복 - 사용가능 
+     */
+    public String emailDubYn(User user) throws Exception {
+        return mapper.emailDubYn(user);
     }
 
 }

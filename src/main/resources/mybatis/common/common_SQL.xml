@@ -250,4 +250,17 @@
     </insert>
 
 
+    <!-- 이메일 중복여부 -->
+    <select id="emailDubYn" resultType="String"> 
+      SELECT CASE WHEN COUNT(1) != 0
+                       THEN 'Y'
+                  ELSE 'N'
+             END  AS DUB_YN     
+        FROM USER_INFO A
+       WHERE 1=1
+         AND A.EMAIL_ADDR = #{email_addr}
+         AND A.USE_YN = 'Y'
+  </select>
+
+
 </mapper>

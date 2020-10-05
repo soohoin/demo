@@ -8,8 +8,8 @@
                 <p>홈</p>
                 <i class="fas fa-chevron-right" style="opacity: 0.5;"></i>
                 <p th:text="${dept_01}"></p>
-                <i class="fas fa-chevron-right" style="opacity: 0.5;"></i>
-                <p th:text="${dept_02}"></p>
+                <i th:if="${dept_02 != null}" class="fas fa-chevron-right" style="opacity: 0.5;"></i>
+                <p th:if="${dept_02 != null}" th:text="${dept_02}"></p>
             </div>
     </header> 
 
