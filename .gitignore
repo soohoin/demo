@@ -36,3 +36,4 @@ build/
 application.properties
 
 ### user ###
+src/main/resources/templates/page/page_001/page_001_04.html
