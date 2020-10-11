@@ -1,9 +1,11 @@
 'use strict';
 
 let msg;
-let targetNm;    // 임시 메세지 상위 태그 선택자
-let tmpClassNm;  // 임시 메세지 태그 class 명
-let textColor;   // 임세 메세지 색상
+let targetNm;       // 임시 메세지 상위 태그 선택자
+let tmpClassNm;     // 임시 메세지 태그 class 명
+let textColor;      // 임세 메세지 색상
+let emailDupYn;     // 이메일 중복여부 
+let joinBtnClickYn = 'N'; // 회원가입버튼 중복방지
 
 $(document).ready(function () {
 
@@ -37,7 +39,7 @@ function initEvent() {
 }
 
 
-function doAction(acNm) {
+function doAction(acNm) {``
     let reqData;
     switch (acNm) {
         case "emailCheck":
@@ -47,7 +49,6 @@ function doAction(acNm) {
                 break;
             }
             reqData = $("#joinForm").serialize();
-
             $.ajax({
                 url: "emailCheck",
                 data: reqData,
@@ -57,6 +58,7 @@ function doAction(acNm) {
                 if (resData.errYn == "Y") {
                     alert("에러 : " + resData.errMsg);
                 } else {
+                    emailDupYn = resData.emailDupYn;
                     if (resData.emailDupYn == "N") {
                         // appendTmpMsg("사용가능","#email_addr_vali","temp_msg_mail","greenyellow");
                         $("#email_addr_vali").removeClass('fas fa-times');
@@ -69,14 +71,13 @@ function doAction(acNm) {
             });
             break;
         case "execJoin":
-
             // 전체 항목 검사
             if(validnTotal()) {
                 break;
             }
+            $("#joinBtn").prop("disabled", true);
 
             reqData = $("#joinForm").serialize();
-            console.log(reqData);
             $.ajax({
                 url: "join",
                 data: reqData,
@@ -89,6 +90,7 @@ function doAction(acNm) {
                     alert("회원가입 완료!");
                     movePage("loginForm");
                 }
+                $("#joinBtn").prop("disabled", false);
             });
 
 
@@ -99,11 +101,7 @@ function doAction(acNm) {
 
 // 전체 입력 폼 validation 수행
 function validnTotal() {
-    validnMail();
-    validnPassword();
-    validnPasswordConfirm();
-    validnName();
-    validnNicName();
+    return doAction("emailCheck") || emailDupYn == 'Y' || validnPassword() || validnPasswordConfirm() || validnName() || validnNicName();
 }
 
 // 이메일 형식 유효성 검사
@@ -264,29 +262,4 @@ function appendTmpMsg(errMsg, targetNm, tmpClassNm, textColor) {
     $(targetNm).after("<p class='"+tmpClassNm+"' style='color: "+ textColor +";'>"+errMsg+"</p>");
 }
 
-
-
-
-
-function joinValidation() {
-    let errYn = false;
-    let errMsg = "";
-    
-    let checkName = RegExp(/^[가-힣]+$/); 
-
-    
-    let userPw    = $("#password").val();
-    
-    let userNm    = $("#user_nm").val();
-    let userNicNm = $("#user_nic_nm").val();
-
-    
-
-
-    if(errYn) {
-        alert(errMsg);
-    }
-    return errYn
-
-}
 

@@ -70,12 +70,19 @@
             </div>
             <div class="navbar__loginjoin">
                 <ul class="navbar__loginjoin__ul change_color">
-                    <li class="navbar__loginjoin__ul__item"><a th:href="@{/loginForm}">로그인</a></li>
+                    <li sec:authorize="isAnonymous()" class="navbar__loginjoin__ul__item"><a th:href="@{/loginForm}">로그인</a></li>
+                    <span sec:authorize="isAuthenticated()" sec:authentication="name" style="color: white;" >Bob</span>
+                    <!-- <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span> -->
                     <li class="navbar__loginjoin__ul__item"></li>
-                    <li class="navbar__loginjoin__ul__item"><a th:href="@{/joinForm}">회원가입</a></li>
+                    <li sec:authorize="isAnonymous()" class="navbar__loginjoin__ul__item"><a th:href="@{/joinForm}">회원가입</a></li>
+                    <li sec:authorize="isAuthenticated()" class="navbar__loginjoin__ul__item"><a th:href="@{/logout}">로그아웃</a></li>
                 </ul>
+                <!-- <ul sec:authorize="isAuthenticated()" class="navbar__loginjoin__ul change_color">
+                    <li class="navbar__loginjoin__ul__item"><p th:text="${session['user_nic_nm']}"></p></li>
+                    <li class="navbar__loginjoin__ul__item"></li>
+                    <li class="navbar__loginjoin__ul__item"><a th:href="@{/logout}">로그아웃</a></li>
+                </ul> -->
             </div>
-
             <!-- Toggle button -->
             <button class="navbar__toggle-btn">
                 <i class="fas fa-bars"></i>

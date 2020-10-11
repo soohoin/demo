@@ -1,25 +1,44 @@
 package com.church.simgokchyun.common.common;
 
-import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
-import org.springframework.web.multipart.MultipartFile;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-
-
 import java.io.File;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
+import com.church.simgokchyun.common.mail.MailHandler;
 import com.church.simgokchyun.common.paging.Pagination;
 import com.church.simgokchyun.common.vo.Board;
 import com.church.simgokchyun.common.vo.Comcode;
 import com.church.simgokchyun.common.vo.User;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
+
 @Service
 public class CommonService {
+
+    @Autowired
+    private JavaMailSender mailSender;
+
+    @Value("${spring.mail.username}")
+    private String FROM_ADDRESS;
+
+    @Autowired
+    private BCryptPasswordEncoder pwdEncoder;
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -291,5 +310,104 @@ public class CommonService {
     public String emailDubYn(User user) throws Exception {
         return mapper.emailDubYn(user);
     }
+
+
+    /**
+     * 회원가입 - (회원정보 insert)
+     * @param user
+     * @return
+     * @throws Exception
+     */
+    public int joinUser(User user) throws Exception{
+        return mapper.joinUser(user);
+    }
+
+
+    /**
+     * 회원정보 조회
+     * @param user
+     * @return
+     * @throws Exception
+     */
+    public User getUser(User user) throws Exception{
+        return mapper.getUser(user);
+    }
+
+
+    /**
+     * 이메일 인증 api에 사용 할 key 생성
+     * @param user
+     * @return String
+     * @throws Exception
+     */
+    public String getAuthKey(User user) throws Exception {
+        if(StringUtils.isEmpty(user.getUser_nic_nm()) || StringUtils.isEmpty(user.getEmail_addr())) return null;
+        
+        String authPlainText = user.getUser_nic_nm() + user.getEmail_addr();
+        return pwdEncoder.encode(authPlainText);
+    }
+
+
+    /**
+     * 가입 한 회원에게 인증주소를 포함한 이메일을 발송한다.
+     * @param user
+     * @throws Exception
+     */
+    public void sendAuthApiUrl(User user)throws Exception {
+        // logger.info("FROM_ADDRESS : " + FROM_ADDRESS);
+        // logger.info("getEmail_addr : " + user.getEmail_addr());
+
+        String subject = "심곡천교회 회원가입 인증 이메일";
+        StringBuffer content = new StringBuffer();
+        content.append("<div class='mail__body' style='display: flex; align-items: center;flex-direction: column;'>")
+               .append("<h1>심곡천 교회에 오신걸 환영합니다.</h1>")
+               .append("<div class='content'>")
+               .append("<p style='color: red;'>아래 버튼을 누르시면 회원가입 인증을 완료 할 수 있습니다.</p>")
+               .append("</div>")
+               .append("<a style='opacity: 0.7;padding:5px 5px;border:1px solid darkgray;background-color:darkgray;color: black;font-size: 15px;text-decoration:none;' href='http://localhost:8080/callMailAuthApi?auth_key="+user.getAuth_key()+"&user_id="+user.getUser_id()+"'>이메일 인증</a>")
+               .append("</div>");
+
+        MailHandler mailHandler = new MailHandler(mailSender);
+        mailHandler.setTo(user.getEmail_addr());
+        mailHandler.setFrom(FROM_ADDRESS);
+        mailHandler.setSubject(subject);
+        mailHandler.setText(content.toString(), true);
+        // mailHandler.setAttach("새로운파일명", "파일경로+파일명");
+        // mailHandler.setInline("새로운이미지명", "파일경로+이미지명");
+        mailHandler.send();
+
+
+        // 간단한 메세지 만 보낼 때 사용.
+        // SimpleMailMessage message = new SimpleMailMessage();
+        // message.setTo(user.getEmail_addr());
+        // message.setFrom(FROM_ADDRESS);
+        // message.setSubject(subject);
+        // message.setText(content.toString());
+        // mailSender.send(message);
+    }
+
+
+
+    /**
+     * 사용자 ID 조회
+     * @param user
+     * @return
+     * @throws Exception
+     */
+    public String getUserId(User user)throws Exception {
+        return mapper.getUserId(user);
+    }
+
+
+    /**
+     * 사용자 인증여부 활성화
+     * @param user
+     * @return
+     * @throws Exception
+     */
+    public int successJoin(User user)throws Exception{
+        return mapper.successJoin(user);
+    }
+
 
 }

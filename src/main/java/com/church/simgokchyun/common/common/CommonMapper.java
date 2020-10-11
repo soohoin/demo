@@ -7,6 +7,7 @@ import com.church.simgokchyun.common.vo.Board;
 import com.church.simgokchyun.common.vo.Comcode;
 import com.church.simgokchyun.common.vo.User;
 
+
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -29,6 +30,16 @@ public interface CommonMapper {
     String getFileId(Map<String, Object> paramMap)throws Exception; 
 
     String emailDubYn(User user)throws Exception;
+
+    int joinUser(User user)throws Exception;
+
+    User findByUsername(String email_addr);
+
+    String getUserId(User user) throws Exception;
+
+    User getUser(User user)throws Exception;
+
+    int successJoin(User user) throws Exception;
 }
 
 
