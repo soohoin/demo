@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller  // View 를 return 한다.
@@ -47,7 +48,7 @@ public class LoginController {
      * @param model
      * @return
      */
-    @GetMapping("/loginForm")
+    @RequestMapping("/loginForm")
     public String loginForm(Model model) {
         model.addAttribute("dept_01", "로그인");
         model.addAttribute("img_path", "imgs/page/page_002_bg.jpg");
@@ -139,10 +140,9 @@ public class LoginController {
      */
     @GetMapping("/callMailAuthApi")
     public String callMailAuthApi(Model model, User reqUser) {
-        //model.addAttribute("dept_01", "회원가입");
-        //model.addAttribute("img_path", "imgs/page/page_002_bg.jpg");
-        logger.info("ID : " + reqUser.getUser_id());
-        logger.info("key : " + reqUser.getAuth_key());
+        model.addAttribute("dept_01", "로그인");
+        model.addAttribute("img_path", "imgs/page/page_002_bg.jpg");
+        String returnUrl = "login/loginForm";
 
         try {
         // 1. user_id 로 사용자 정보를 가져온다. API로 넘어온 key 와 
@@ -153,18 +153,22 @@ public class LoginController {
 
         String authPlainText = user.getUser_nic_nm() + user.getEmail_addr();
         boolean isSuccess = pwdEncoder.matches(authPlainText, reqUser.getAuth_key());
-
+        
+        
         // 유저정보 활성화
-        if(isSuccess) {
+        if(isSuccess && !"Y".equals(user.getAuth_yn())) {
             comService.successJoin(user);
-        } 
+        } else {
+            returnUrl = "login/loginFail";
+        }
 
         } catch(Exception e) {
             model.addAttribute("errYn", "Y");
             model.addAttribute("errMsg", e.getMessage());
+            returnUrl = "login/loginFail";
         }
 
-        return "login/loginForm";
+        return returnUrl;
     }
     
 

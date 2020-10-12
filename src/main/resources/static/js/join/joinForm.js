@@ -93,7 +93,6 @@ function doAction(acNm) {``
                 $("#joinBtn").prop("disabled", false);
             });
 
-
             break    
     }
 }

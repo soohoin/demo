@@ -343,7 +343,8 @@
           FROM USER_INFO A
         WHERE 1=1
           AND A.EMAIL_ADDR = #{email_addr}
-          AND A.USE_YN = 'Y'
+          AND A.USE_YN = 'Y'   /* 사용여부 */
+          AND A.AUTH_YN = 'Y'  /* 메일인증여부 */
 
     </select>
 

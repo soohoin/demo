@@ -37,6 +37,9 @@
                             <p>로그인</p>
                         </div>
                     </div>
+                    <div class="failMsg">
+                        <span th:text="${#request.getAttribute('errMsg')}" >errMsg</span> 
+                    </div>
                     <div class="login_middle_02">
                         <input type="checkbox" id="user_id">
                         <label for="user_id">아이디 저장</label>

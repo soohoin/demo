@@ -20,9 +20,14 @@ public class AuthFailureHandler implements AuthenticationFailureHandler {
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
 
-        logger.info("실패로그  : ");   
-        exception.printStackTrace();
+        request.setAttribute("email_addr",request.getParameter("email_addr"));
+        request.setAttribute("errMsg","이메일 또는 비밀번호가 일치하지 않습니다.");
+        request.setAttribute("getMsg",exception.getMessage());
+        logger.info("실패로그  : ");
         logger.info("로그인 실패 : " +exception.getMessage());   
-        response.sendRedirect("/SGC_006_01");
+        // authorize
+        request.getRequestDispatcher("/loginForm").forward(request, response);
+
+        // response.sendRedirect("/loginForm");
     }
 }

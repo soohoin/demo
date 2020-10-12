@@ -15,6 +15,12 @@
     display: flex;
     margin: 10px 145px;
   }
+  .failMsg {
+    display: flex;
+    justify-content: center;
+    color: red;
+  }
+
   .login_middle_02 input {
     margin-right: 10px;
   }
