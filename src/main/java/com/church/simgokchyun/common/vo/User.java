@@ -31,6 +31,7 @@ public class User {
 
 
     private String role_nm;
+    private String thumbnail_image_url;
 }
 
 

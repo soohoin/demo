@@ -2,6 +2,7 @@ package com.church.simgokchyun.config.auth;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map;
 
 import com.church.simgokchyun.common.vo.User;
 
@@ -9,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 // 시큐리티가 /login 주소 요청이 오면 낚아채서 로그인을 진행시킨다.
 // 로그인 진행이 완료가 되면 시큐리티 session을 만드어준다.(Security ContextHolder)
@@ -19,15 +21,25 @@ import org.springframework.security.core.userdetails.UserDetails;
 // Security Sesstion => Authentication => UserDetails
 
 
-public class PrincipalDetails implements UserDetails{
+public class PrincipalDetails implements UserDetails, OAuth2User{
 
+    private static final long serialVersionUID = 1L;
     private User user; //콤포지션? 
+    private Map<String, Object> attributes;
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     
+
+    // 일반 시큐리티 로그인시 사용
     public PrincipalDetails(User user) {
         this.user = user;
     }
+
+    // OAuth2.0 로그인시 사용
+	public PrincipalDetails(User user, Map<String, Object> attributes) {
+		this.user = user;
+		this.attributes = attributes;
+	}
     
     public User getUser() {
 		return user;
@@ -88,6 +100,18 @@ public class PrincipalDetails implements UserDetails{
         //     }
         // });
         return collect;
+    }
+
+
+    // 리소스 서버로 부터 받는 회원정보
+    @Override
+    public Map<String, Object> getAttributes() {
+        return attributes;
+    }
+
+    @Override
+    public String getName() {
+        return user.getUser_id()+"";
     }
 
 }

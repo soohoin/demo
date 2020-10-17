@@ -112,10 +112,13 @@ public class LoginController {
             user.setAuth_key(auth_key);
             user.setAuth_yn("N");
 
-            // 3. 사용자 정보 insert 
+            // 3. 사용자 권한코드 
+            user.setRole_cd("01");
+
+            // 4. 사용자 정보 insert 
             comService.joinUser(user);
 
-            // 4. 사용자 user_id 가져와서 set
+            // 5. 사용자 user_id 가져와서 set
             String user_id = comService.getUserId(user);
             user.setUser_id(user_id);
 

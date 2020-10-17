@@ -27,7 +27,7 @@ public class AuthFailureHandler implements AuthenticationFailureHandler {
         logger.info("로그인 실패 : " +exception.getMessage());   
         // authorize
         request.getRequestDispatcher("/loginForm").forward(request, response);
-
+        
         // response.sendRedirect("/loginForm");
     }
 }

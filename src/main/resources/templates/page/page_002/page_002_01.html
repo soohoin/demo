@@ -71,12 +71,12 @@
                         <div th:if="${boardList}" th:each="row : ${boardList}" class="box_cntn">
                             <!-- <input type="text" th:id=" 'board_div_cd_' + ${row.board_no} " th:value="${row.board_div_cd}"> -->
                             <!-- <input type="text" th:id=" 'board_no_' + ${row.board_no} " th:value="${row.board_no}"> -->
-                            <div class="img__area">
-                                <img th:src="@{/uploadImg/} + ${row.real_file_nm}" th:onclick="goDetail()" alt="설교영상 이미지">
-                                <!-- <i class="fas fa-tv"></i> -->                             
+                            <div class="img__area">                                
+                                <img th:src="@{/uploadImg/} + ${row.real_file_nm}" th:onclick="goDetail( [[${row.board_no}]] )" alt="설교영상 이미지">
+                                <!-- <i class="fas fa-tv"></i> -->
                             </div>
                             <div class="title__area">
-                                <p ><a th:text="${row.board_title}" th:href="@{/SGC_002_01-DETAIL( board_div_cd=${row.board_div_cd}, board_no=${row.board_no})}" id="page_move"></a></p>
+                                <p><a th:text="${row.board_title}" th:href="@{/SGC_002_01-DETAIL( board_div_cd=${row.board_div_cd}, board_no=${row.board_no})}" th:id="'page_move' + ${row.board_no}"></a></p>
                             </div>
                             <div class="bibleIndex__area">
                                 <p th:text="${row.bible_index_cntn}" class="board__bibleIndex">본문</p>
@@ -92,15 +92,6 @@
                             </div>
                         </div>
                     </div>
-                    <!-- <div th:if="${boardList}" th:each="row : ${boardList}" class="board__contents row_cnt_7">
-                        <p th:text="${row.board_no}">1</p>
-                        <p ><a th:text="${row.board_title}" th:href="@{/SGC_002_01-DETAIL( board_div_cd=${row.board_div_cd}, board_no=${row.board_no})}"></a></p>
-                        <p th:text="${row.bible_index_cntn}">시편 57:1-11</p>
-                        <p th:text="${row.worship_order_nm}">2부 예배</p>
-                        <p th:text="${row.user_kor_nm}">김양문</p>
-                        <p th:text="${row.write_dt}">20.01.01</p> 
-                        <p th:text="${row.select_cnt}">0</p>
-                    </div> -->
                     <p th:if="${totalListCnt == 0}">조회 된 글이 없습니다.</p>
                     <div class="board__page__btn">
                         <!-- << 버튼 -->

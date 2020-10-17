@@ -2,8 +2,10 @@ package com.church.simgokchyun.common.common;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import com.church.simgokchyun.common.vo.Board;
+import com.church.simgokchyun.common.vo.BoardLike;
 import com.church.simgokchyun.common.vo.Comcode;
 import com.church.simgokchyun.common.vo.User;
 
@@ -40,6 +42,35 @@ public interface CommonMapper {
     User getUser(User user)throws Exception;
 
     int successJoin(User user) throws Exception;
+
+    Optional<User> findByUserInfo(String email)throws Exception;
+
+    Map<String, Object> getBoardLikeExistYn(BoardLike boardLike)throws Exception;
+
+    /**
+     * 조회고객 정보 INSERT
+     * @param boardLike
+     * @return
+     * @throws Exception
+     */
+    int insertBoardlike(BoardLike boardLike) throws Exception;
+
+    /**
+     * 조회고객 정보 UPDATE
+     * @param boardLike
+     * @return
+     * @throws Exception
+     */    
+    int updateBoardlike(BoardLike boardLike) throws Exception;
+    
+    /**
+     * 게시글 조회 수 증가
+     * @param boardLike
+     * @return
+     * @throws Exception
+     */
+    int increaseBoard(BoardLike boardLike) throws Exception;
+    
 }
 
 

@@ -70,6 +70,15 @@
             </div>
             <div class="navbar__loginjoin">
                 <ul class="navbar__loginjoin__ul change_color">
+
+                    <!-- <sec:authorize access="isAuthenticated()">
+                        <li class="navbar__loginjoin__ul__item"><a th:href="@{/loginForm}">로그인</a></li>
+                    </sec:authorize>
+                    <sec:authorize access="isAuthenticated()">
+                        <span sec:authentication="name" style="color: white;" >사용자닉네임</span>
+                    </sec:authorize> -->
+
+
                     <li sec:authorize="isAnonymous()" class="navbar__loginjoin__ul__item"><a th:href="@{/loginForm}">로그인</a></li>
                     <span sec:authorize="isAuthenticated()" sec:authentication="name" style="color: white;" >사용자닉네임</span>
                     <!-- <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span> -->

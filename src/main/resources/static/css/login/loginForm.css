@@ -90,3 +90,12 @@
   .login_bottom button {
     margin: 0 5px 20px 5px;
   }
+  .simple_login {
+    margin-top: 20px;
+  }
+  .simple_for_kakao {
+    width: 550px;
+    height: 80px;
+    /* object-fit: cover; */
+    background-size: cover
+  }

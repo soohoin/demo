@@ -64,8 +64,8 @@ function doAction(acNm, pageNo) {
 }
 
 // 상세 페이지 이동 
-function goDetail() {
-    $("#page_move").get(0).click();
+function goDetail(board_no) {
+    $("#page_move"+ board_no).get(0).click();
 }
 
 

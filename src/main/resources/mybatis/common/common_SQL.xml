@@ -96,7 +96,7 @@
                 <if test="board_div_cd3 != null and board_div_cd3 != '' ">
                 OR A.BOARD_DIV_CD = #{board_div_cd3}
                 </if>
-              )
+               )
            <if test="strt_write_dt != null and strt_write_dt != '' and end_write_dt != null and end_write_dt != '' ">
            AND A.WRITE_DT BETWEEN #{strt_write_dt} AND #{end_write_dt}
            </if>
@@ -303,8 +303,7 @@
               , #{phone_num}
               </if>
               <if test="role_cd != null and role_cd != '' ">
-              <!-- , #{role_cd} -->
-              , '01'
+              , #{role_cd}
               </if>
               <if test="church_role_cd != null and church_role_cd != '' ">
               , #{church_role_cd}
@@ -320,6 +319,7 @@
               , DATE_FORMAT(now(), '%Y%m%d%H%i%s')
               )  
     </insert>
+   
 
     <!-- 사용자 정보 -->
     <select id="findByUsername" resultType="User"> 
@@ -343,6 +343,34 @@
           FROM USER_INFO A
         WHERE 1=1
           AND A.EMAIL_ADDR = #{email_addr}
+          AND A.USE_YN = 'Y'   /* 사용여부 */
+          AND A.AUTH_YN = 'Y'  /* 메일인증여부 */
+
+    </select>
+
+
+    <!-- 사용자 정보 -->
+    <select id="findByUserInfo" resultType="User"> 
+        SELECT USER_ID                        /* 사용자ID */
+            , EMAIL_ADDR                     /* 이메일주소 */
+            , USER_KOR_NM    AS USER_NM      /* 사용자이름 */
+            , USER_NIC_NM                    /* 사용자닉네임 */
+            , PASSWORD                       /* 사용자비밀번호 */
+            , PHONE_NUM                      /* 휴대전화번호 */
+            , ROLE_CD                        /* 권한코드 */
+            , (SELECT CODE_KNM 
+                  FROM COM_CODE 
+                WHERE 1=1
+                  AND CD_GRP_ENM = 'ROLE_CD' 
+                  AND CODE = A.ROLE_CD 
+                )  AS ROLE_NM                 /* 권한명 */
+            , CHURCH_ROLE_CD                 /* 교회직분코드 */
+            , USE_YN                         /* 사용여부 */
+            , REG_USER_ID                    /* 등록사용자ID */
+            , REG_DT                         /* 등록일자 */
+          FROM USER_INFO A
+        WHERE 1=1
+          AND A.EMAIL_ADDR = #{email}
           AND A.USE_YN = 'Y'   /* 사용여부 */
           AND A.AUTH_YN = 'Y'  /* 메일인증여부 */
 
@@ -394,6 +422,83 @@
        WHERE 1=1
          AND USER_ID = #{user_id}
     </update>
+
+
+    <!-- 게시판 조회수 증가 -->
+    <update id="increaseBoard" parameterType="Board">
+      UPDATE BOARD
+            SET SELECT_CNT = SELECT_CNT + 1
+          WHERE 1=1
+            AND BOARD_DIV_CD = #{board_div_cd}
+            AND BOARD_NO = #{board_no}
+    </update>
+
+
+    <!-- 게시글의 오늘 좋아요 중복 여부를 확인한다. -->
+    <select id="getBoardLikeExistYn" resultType="HashMap"> 
+      SELECT A.LIKE_EXISTYN
+           , B.BOARD_EXISTYN
+        FROM (SELECT CASE WHEN COUNT(1) = 0 
+                               THEN 'N'
+                         ELSE 'Y'
+                     END AS LIKE_EXISTYN
+                FROM BOARD_LIKE
+               WHERE 1=1
+                 AND BOARD_DIV_CD = #{board_div_cd}
+                 AND BOARD_NO = #{board_no}
+                 AND CLICK_USER_ID = #{click_user_id}
+                 AND (CASE WHEN CHG_DT IS NULL 
+                                THEN SUBSTR(REG_DT,1,8)
+                           ELSE SUBSTR(CHG_DT,1,8)
+                       END) = SUBSTR(REG_DT,1,8)
+              ) A
+       CROSS JOIN (SELECT CASE WHEN COUNT(1) = 0 
+                                    THEN 'N'
+                                ELSE 'Y'
+                              END AS BOARD_EXISTYN
+                     FROM BOARD_LIKE
+                    WHERE 1=1
+                      AND BOARD_DIV_CD = #{board_div_cd}
+                      AND BOARD_NO = #{board_no}
+                      AND CLICK_USER_ID = #{click_user_id}
+                   ) B
+    </select>
+    
+
+
+    <!-- 게시글 조회 고객정보 update -->
+    <update id="updateBoardlike">
+      UPDATE BOARD_LIKE
+         SET CHG_USER_ID = #{click_user_id}
+           , CHG_DT = DATE_FORMAT(now(), '%Y%m%d%H%i%s')
+       WHERE 1=1
+         AND BOARD_DIV_CD = #{board_div_cd}
+         AND BOARD_NO = #{board_no}
+         AND CLICK_USER_ID = #{click_user_id}
+    </update>
+
+
+
+    <!-- 게시글 조회 고객정보 insert -->
+    <insert id="insertBoardlike" parameterType="Board">
+      INSERT INTO 
+      BOARD_LIKE ( BOARD_DIV_CD                 /* 게시판구분코드 */
+                 , BOARD_NO                     /* 글번호 */
+                 , CLICK_USER_ID                /* 선택유저아이디 */
+                 , DEL_YN                       /* 삭제여부 */
+                 , REG_USER_ID                  /* 등록자 */
+                 , REG_DT                       /* 등록일자 */
+                 )
+       VALUES ( #{board_div_cd}
+              , #{board_no}
+              , #{click_user_id}
+              , 'N'
+              , #{click_user_id}
+              , DATE_FORMAT(now(), '%Y%m%d%H%i%s')
+              )  
+  </insert>
+
+  
 
 
 </mapper>
