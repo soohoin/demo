@@ -17,6 +17,7 @@ import com.church.simgokchyun.common.vo.Board;
 import com.church.simgokchyun.common.vo.BoardLike;
 import com.church.simgokchyun.common.vo.Comcode;
 import com.church.simgokchyun.common.vo.User;
+import com.church.simgokchyun.config.auth.PrincipalDetails;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -280,20 +281,21 @@ public class CommonService {
     /**
      * 공통 게시글 상세 조회
      */
-    public Board select_boardDetail(Board board, OAuth2User oauth, HttpServletRequest request) throws Exception {
+    public Board select_boardDetail(Board board, PrincipalDetails userDetails, HttpServletRequest request) throws Exception {
 
         Map<String,Object> map = new HashMap<String,Object>();
         BoardLike boardLike =  new BoardLike();
-        logger.info("oauth : " + oauth);
+        
 
-        // 1. 게시글 조회시 조회 수 count 를 올려준다. 
+        // 1. 게시글 조회시 조회 수 를 올려준다. 
         //    1-1. 고객ID와 게시글 번호를 가지고 오늘 조회한 조회 목록을 확인한다.
         boardLike.setBoard_div_cd(board.getBoard_div_cd());
         boardLike.setBoard_no(board.getBoard_no());
 
         //    1-2. 로그인 회원이면 ID를 넣고 로그인 정보가 없으면 IP주소를 넣는다.
-        if(oauth != null) {
-            boardLike.setClick_user_id(board.getUser_id());
+        if(userDetails != null) {
+            // logger.info("userDetails : " + userDetails.getUser());    
+            boardLike.setClick_user_id(userDetails.getUser().getUser_id());
         } else {
             String userIp = this.getIp(request);
             logger.info("userIp : " + userIp);

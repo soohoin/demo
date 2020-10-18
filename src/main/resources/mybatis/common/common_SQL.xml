@@ -266,8 +266,11 @@
     <!-- 회원가입 -->
     <insert id="joinUser" parameterType="Board">
         <selectKey keyProperty="user_id" resultType="String" order="BEFORE">
-            SELECT CONCAT('1', LPAD((NVL(MAX(CAST(USER_ID AS UNSIGNED)), 0) + 1), 5,0)) as user_id
-              FROM USER_INFO  /* 사용자 */
+          SELECT CASE WHEN USER_ID IS NULL
+                           THEN CONCAT('1', LPAD((NVL(MAX(CAST(USER_ID AS UNSIGNED)), 0) + 1), 5,0)) 
+                      ELSE NVL(MAX(CAST(USER_ID AS UNSIGNED)), 0) + 1
+                  END AS USER_ID
+            FROM USER_INFO  /* 사용자 */
         </selectKey> 
         INSERT INTO 
         USER_INFO ( USER_ID                        /* 사용자ID */
@@ -389,7 +392,7 @@
     </select>
 
     
-    <!-- 사용자 정보 -->
+    <!-- 사용자 정보 used userId -->
     <select id="getUser" resultType="User"> 
       SELECT USER_ID                        /* 사용자ID */
            , EMAIL_ADDR                     /* 이메일주소 */
@@ -450,7 +453,7 @@
                  AND (CASE WHEN CHG_DT IS NULL 
                                 THEN SUBSTR(REG_DT,1,8)
                            ELSE SUBSTR(CHG_DT,1,8)
-                       END) = SUBSTR(REG_DT,1,8)
+                       END) = DATE_FORMAT(now(), '%Y%m%d')
               ) A
        CROSS JOIN (SELECT CASE WHEN COUNT(1) = 0 
                                     THEN 'N'

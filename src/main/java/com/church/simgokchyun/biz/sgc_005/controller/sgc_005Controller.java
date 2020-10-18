@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.church.simgokchyun.common.common.CommonService;
 import com.church.simgokchyun.common.paging.Pagination;
 import com.church.simgokchyun.common.vo.Board;
+import com.church.simgokchyun.config.auth.PrincipalDetails;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -161,10 +162,10 @@ public class sgc_005Controller {
      * @return
      */  
     @RequestMapping(value = "/SGC_005_01-DETAIL-S", method = RequestMethod.POST)
-    String sgc_005_01_DETAIL_S(Board board, Model model, @AuthenticationPrincipal OAuth2User oauth, HttpServletRequest request) {
+    String sgc_005_01_DETAIL_S(Board board, Model model, @AuthenticationPrincipal PrincipalDetails userDetails, HttpServletRequest request) {
         logger.info("call Controller : sgc_005_01_DETAIL_S");
         try {
-            model.addAttribute("boardDetail", comService.select_boardDetail(board, oauth, request));
+            model.addAttribute("boardDetail", comService.select_boardDetail(board, userDetails, request));
         } catch(Exception e) {
             logger.error(e.getMessage(), e);
         }
@@ -310,10 +311,10 @@ public class sgc_005Controller {
      * @return
      */  
     @RequestMapping(value = "/SGC_005_02-DETAIL-S", method = RequestMethod.POST)
-    String sgc_005_02_DETAIL_S(Board board, Model model, @AuthenticationPrincipal OAuth2User oauth, HttpServletRequest request) {
+    String sgc_005_02_DETAIL_S(Board board, Model model, @AuthenticationPrincipal PrincipalDetails userDetails, HttpServletRequest request) {
         logger.info("call Controller : sgc_005_02_DETAIL_S");
         try {
-            model.addAttribute("boardDetail", comService.select_boardDetail(board, oauth, request));
+            model.addAttribute("boardDetail", comService.select_boardDetail(board, userDetails, request));
         } catch(Exception e) {
             logger.error(e.getMessage(), e);
         }
@@ -458,10 +459,10 @@ public class sgc_005Controller {
      * @return
      */
     @RequestMapping(value = "/SGC_005_03-DETAIL-S", method = RequestMethod.POST)
-    String sgc_005_03_DETAIL_S(Board board, Model model, @AuthenticationPrincipal OAuth2User oauth, HttpServletRequest request) {
+    String sgc_005_03_DETAIL_S(Board board, Model model, @AuthenticationPrincipal PrincipalDetails userDetails, HttpServletRequest request) {
         logger.info("call Controller : sgc_005_03_DETAIL_S");
         try {
-            model.addAttribute("boardDetail", comService.select_boardDetail(board, oauth, request));
+            model.addAttribute("boardDetail", comService.select_boardDetail(board, userDetails, request));
         } catch(Exception e) {
             logger.error(e.getMessage(), e);
         }
@@ -606,10 +607,10 @@ public class sgc_005Controller {
      * @return
      */
     @RequestMapping(value = "/SGC_005_04-DETAIL-S", method = RequestMethod.POST)
-    String sgc_005_04_DETAIL_S(Board board, Model model, @AuthenticationPrincipal OAuth2User oauth, HttpServletRequest request) {
+    String sgc_005_04_DETAIL_S(Board board, Model model, @AuthenticationPrincipal PrincipalDetails userDetails, HttpServletRequest request) {
         logger.info("call Controller : sgc_005_04_DETAIL_S");
         try {
-            model.addAttribute("boardDetail", comService.select_boardDetail(board, oauth, request));
+            model.addAttribute("boardDetail", comService.select_boardDetail(board, userDetails, request));
         } catch(Exception e) {
             logger.error(e.getMessage(), e);
         }
