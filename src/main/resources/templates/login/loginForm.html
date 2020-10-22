@@ -25,8 +25,8 @@
                     </div>
                     <div class="login_middle_01">
                         <div class="box_01">
-                            <label for="">이메일</label>
-                            <label for="">비밀번호</label>
+                            <label for="email_addr">이메일</label>
+                            <label for="password">비밀번호</label>
                         </div>
                         <div class="box_02">
                             <input type="text" placeholder="이메일" id="email_addr" name="email_addr">
@@ -48,8 +48,8 @@
                     </div>
                     <hr>
                     <div class="login_bottom">
-                        <button type="button">아이디 찾기</button>
-                        <button type="button">비밀번호 찾기</button>
+                        <button type="button" onclick="movePage('findEmailForm')">아이디 찾기</button>
+                        <button type="button" onclick="movePage('findPwForm')">비밀번호 찾기</button>
                         <button type="button" onclick="movePage('joinForm')" >회원가입</button>
                     </div>
                 </form>

@@ -6,33 +6,29 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
-
 @Data
 @RequiredArgsConstructor
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+public class BoardReply {
     
-    private @NonNull String user_id;
-    private String email_addr;
-    private String user_nm;
-    private String user_nic_nm;
-    private String password;
-    private String phone_num;
-    private String role_cd;
-    private String church_role_cd;
-    private String auth_yn;
-    private String auth_key;
-    private String use_yn;
+    private @NonNull String board_div_cd;
+    private @NonNull String board_no;
+    private @NonNull String reply_no;
+    private String write_dt;
+    private String user_id;
+    private String reply_cntn;
+    private String del_yn;
     private String chg_user_id;
     private String chg_dt;
     private String reg_user_id;
     private String reg_dt;
 
+    // 테이블 외 정보들 
+    private String time;
+    private String user_kor_nm;
 
-    private String role_nm;
+    // 댓글 사용자 프로필 사용
     private String social_profile_url;
-    private String thumbnail_image_url;
+    
 }
-
-

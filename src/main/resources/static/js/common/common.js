@@ -60,29 +60,103 @@ function ajaxCall(reqUrl, data, formName, bindId, callback, callbackParam) {
         reqData = $("#"+formName).serialize();
     }
     
+
+    /** ajax 공부 
+     * $.ajax ({
+                url : "request.php",
+                success : function(data) { console.log("success")},
+                error : function(data) { console.log("success")},
+                complete : function(data) { console.log("success")},
+                })
+                .done(function(){ console.log("done") })
+                .fail(function(){ console.log("fail") })
+                .always(function(){ console.log("always") })
+     */
+
     $.ajax({
         url: reqUrl,
         data:reqData,
         type:"POST",
-        cache:false
-    }).done(function (resData) {
+        cache:false,
+        success : function(resData) {
 
-        if(resData.errYn == "Y") {
-            alert("저장 실패 : " + resData.errMsg);
-        } else {
-
-            //데이터 바인딩
-            if(bindId != null) {
-                $("#"+bindId).replaceWith(resData);
+            if(resData.errYn == 'Y') {
+                alert(redData.rsltMsg == undefined ? "예상치 못한 에러가 발생 했습니다. \n\r 관리자 에게 문의 하세요."
+                                                    : redData.rsltMsg);
+            } else {
+                // rsltMsg 가 존재하면 alert 생성
+                if(resData.rsltMsg != undefined) {
+                    alert(resData.rsltMsg);
+                }
+        
+                //데이터 바인딩
+                if(bindId != null) {
+                    $("#"+bindId).replaceWith(resData);
+                }
+        
+                // callback 이 있으면 호출한다.
+                if(callback != null) {
+                    callback(callbackParam);
+                }
             }
-    
-            // callback 이 있으면 호출한다.
-            if(callback != null) {
-                callback(callbackParam);
+        },
+        error: function(jqXHR, exception) {
+            if (jqXHR.status === 0) {
+                alert('Not connect.\n Verify Network.');
+            } 
+            else if (jqXHR.status == 400) {
+                alert('Server understood the request, but request content was invalid. [400]');
+            } 
+            else if (jqXHR.status == 401) {
+                alert('Unauthorized access. [401]');
+            } 
+            else if (jqXHR.status == 403) {
+                alert('Forbidden resource can not be accessed. [403]');
+            } 
+            else if (jqXHR.status == 404) {
+                alert('Requested page not found. [404]');
+            } 
+            else if (jqXHR.status == 500) {
+                alert('Internal server error. [500]');
+            } 
+            else if (jqXHR.status == 503) {
+                alert('Service unavailable. [503]');
+            } 
+            else if (exception === 'parsererror') {
+                alert('Requested JSON parse failed. [Failed]');
+            } 
+            else if (exception === 'timeout') {
+                alert('Time out error. [Timeout]');
+            } 
+            else if (exception === 'abort') {
+                alert('Ajax request aborted. [Aborted]');
+            } 
+            else {
+                alert('Uncaught Error.n' + jqXHR.responseText);
             }
         }
-
     });
+    /*
+       .done(function (resData) {
+
+        if(resData.rsltMsg != undefined) {
+            alert(resData.rsltMsg);
+        }
+
+        //데이터 바인딩
+        if(bindId != null) {
+            $("#"+bindId).replaceWith(resData);
+        }
+
+        // callback 이 있으면 호출한다.
+        if(callback != null) {
+            callback(callbackParam);
+        }
+
+    }).fail(function(resData){ 
+        alert(resData.rsltMsg + "\n\r 에러내용 : " + resData.errMsg);
+    });
+    */
 }
 
 
@@ -150,6 +224,12 @@ function comDoAction(acNm, pageName) {
             // callback = setVideo;
             ajaxCall(reqUrl,null,formName,bindId);
             break;
+        // case "boardReply":
+        //     reqUrl = pageName+"-DETAIL-REPLY-S";
+        //     formName = "hiddenForm";
+        //     bindId = "boardReplyList";
+        //     ajaxCall(reqUrl,null,formName,bindId);
+        //     break;
         case "save":
             if(comValidation() || !confirm("저장 하시겠습니까?")) return;
             reqUrl = pageName+"-SAVE";
@@ -192,3 +272,9 @@ function comValidation() {
     }
     return errYn
 }
+
+// textarea 크기 자동조정
+function resize(obj) {
+    obj.style.height = "1px";
+    obj.style.height = (12+obj.scrollHeight)+"px";
+  }

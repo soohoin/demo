@@ -119,27 +119,55 @@
 
     <!-- 게시글 상세 조회 -->
     <select id="select_boardDetail" resultType="Board"> 
-        SELECT BOARD_NO
-             , USER_ID        
-             , (SELECT USER_KOR_NM FROM USER_INFO WHERE USER_ID = A.USER_ID) AS USER_KOR_NM     
-             , BOARD_DIV_CD        
-             , CONCAT(SUBSTRING(A.WRITE_DT, 3, 2),'-',SUBSTRING(A.WRITE_DT, 5, 2),'-',SUBSTRING(A.WRITE_DT, 7, 2))  AS WRITE_DT         
-             , BOARD_TITLE
-             , BOARD_CNTN
-             , BIBLE_INDEX_CNTN
-             , SELECT_CNT
-             , VIDEO_DIV_CD
-             , VIDEO_ID
-             , PHOTO_ID
-             , YOUTUBE_IFRM_SRC
-             , DEL_YN
-             , REG_USER_ID
-             , REG_DT
-          FROM BOARD A
-         WHERE 1=1
-           AND BOARD_DIV_CD = #{board_div_cd}
-           AND BOARD_NO = #{board_no}
+      SELECT A.BOARD_NO
+           , A.USER_ID        
+           , (SELECT USER_KOR_NM FROM USER_INFO WHERE USER_ID = A.USER_ID) AS USER_KOR_NM     
+           , A.BOARD_DIV_CD        
+           , CONCAT(SUBSTRING(A.WRITE_DT, 3, 2),'-',SUBSTRING(A.WRITE_DT, 5, 2),'-',SUBSTRING(A.WRITE_DT, 7, 2))  AS WRITE_DT         
+           , A.BOARD_TITLE
+           , A.BOARD_CNTN
+           , A.BIBLE_INDEX_CNTN
+           , A.SELECT_CNT
+           , A.VIDEO_DIV_CD
+           , B.SOCIAL_PROFILE_URL
+           , A.VIDEO_ID
+           , A.PHOTO_ID
+           , A.YOUTUBE_IFRM_SRC
+           , A.DEL_YN
+           , A.REG_USER_ID
+           , A.REG_DT
+        FROM BOARD A
+       INNER JOIN USER_INFO B
+          ON A.USER_ID = A.USER_ID
+       WHERE 1=1
+         AND BOARD_DIV_CD = #{board_div_cd}
+         AND BOARD_NO = #{board_no}
     </select> 
+
+
+    <!-- 상세 게시글 댓글 조회 -->
+    <select id="select_boardReply" resultType="BoardReply"> 
+      SELECT A.BOARD_DIV_CD
+           , A.BOARD_NO
+           , A.REPLY_NO
+           , CONCAT(SUBSTRING(A.WRITE_DT, 1, 4),'.',SUBSTRING(A.WRITE_DT, 5, 2),'.',SUBSTRING(A.WRITE_DT, 7, 2))  AS WRITE_DT         
+           , CONCAT(SUBSTRING(A.REG_DT, 7, 2),':',SUBSTRING(A.REG_DT, 9, 2))  AS TIME
+           , A.USER_ID
+           , B.USER_KOR_NM
+           , B.SOCIAL_PROFILE_URL
+           , A.REPLY_CNTN
+           , A.DEL_YN
+           , A.CHG_USER_ID
+           , A.CHG_DT
+           , A.REG_USER_ID
+           , A.REG_DT
+        FROM BOARD_REPLY A
+       INNER JOIN USER_INFO B
+          ON A.USER_ID = A.USER_ID
+       WHERE 1=1
+         AND BOARD_DIV_CD = #{board_div_cd}
+         AND BOARD_NO = #{board_no}
+    </select>
 
 
     <!-- 게시글 총 개수 조회 -->
@@ -248,6 +276,38 @@
                , DATE_FORMAT(now(), '%Y%m%d%H%i%s')
                )  
     </insert>
+    
+    <!-- 댓글 저장 -->
+    <insert id="insertBoardReply" parameterType="BoardReply">
+        <selectKey keyProperty="reply_no" resultType="String" order="BEFORE">
+            SELECT NVL(MAX(CAST(reply_no AS UNSIGNED)), 0) + 1
+              FROM BOARD_REPLY
+             WHERE 1=1
+               AND BOARD_DIV_CD = #{board_div_cd}
+               AND BOARD_NO = #{board_no}
+        </selectKey> 
+        INSERT INTO 
+        BOARD_REPLY ( BOARD_DIV_CD          /* 게시판구분코드 */    
+                    , BOARD_NO              /* 글번호 */            
+                    , REPLY_NO              /* 댓글번호 */
+                    , WRITE_DT              /* 작성일자 */      
+                    , USER_ID               /* 작성자ID */              
+                    , REPLY_CNTN            /* 내용 */              
+                    , DEL_YN                /* 삭제여부 */          
+                    , REG_USER_ID           /* 등록자 */            
+                    , REG_DT                /* 등록일자 */          
+                    )
+        VALUES ( #{board_div_cd}
+               , #{board_no}
+               , #{reply_no}
+               , DATE_FORMAT(now(), '%Y%m%d')
+               , #{user_id}
+               , #{reply_cntn}
+               , 'N'
+               , #{user_id}
+               , DATE_FORMAT(now(), '%Y%m%d%H%i%s')
+               )  
+    </insert>
 
 
     <!-- 이메일 중복여부 -->
@@ -287,6 +347,9 @@
                   <if test="church_role_cd != null and church_role_cd != '' ">
                   , CHURCH_ROLE_CD                 /* 교회직분코드 */
                   </if>
+                  <if test="social_profile_url != null and social_profile_url != '' ">
+                  , SOCIAL_PROFILE_URL             /* 소셜 프로필 URL */
+                  </if>
                   <if test="auth_yn != null and auth_yn != '' ">
                   , AUTH_YN                        /* 인증여부 */
                   </if>
@@ -310,6 +373,9 @@
               </if>
               <if test="church_role_cd != null and church_role_cd != '' ">
               , #{church_role_cd}
+              </if>
+              <if test="social_profile_url != null and social_profile_url != '' ">
+              , #{social_profile_url}
               </if>
               <if test="auth_yn != null and auth_yn != '' ">
               , #{auth_yn}  
@@ -448,6 +514,7 @@
                 FROM BOARD_LIKE
                WHERE 1=1
                  AND BOARD_DIV_CD = #{board_div_cd}
+                 AND CLICK_DIV_CD = #{click_div_cd}
                  AND BOARD_NO = #{board_no}
                  AND CLICK_USER_ID = #{click_user_id}
                  AND (CASE WHEN CHG_DT IS NULL 
@@ -462,6 +529,7 @@
                      FROM BOARD_LIKE
                     WHERE 1=1
                       AND BOARD_DIV_CD = #{board_div_cd}
+                      AND CLICK_DIV_CD = #{click_div_cd}
                       AND BOARD_NO = #{board_no}
                       AND CLICK_USER_ID = #{click_user_id}
                    ) B
@@ -476,6 +544,7 @@
            , CHG_DT = DATE_FORMAT(now(), '%Y%m%d%H%i%s')
        WHERE 1=1
          AND BOARD_DIV_CD = #{board_div_cd}
+         AND CLICK_DIV_CD = #{click_div_cd}
          AND BOARD_NO = #{board_no}
          AND CLICK_USER_ID = #{click_user_id}
     </update>
@@ -486,6 +555,7 @@
     <insert id="insertBoardlike" parameterType="Board">
       INSERT INTO 
       BOARD_LIKE ( BOARD_DIV_CD                 /* 게시판구분코드 */
+                 , CLICK_DIV_CD                 /* 조회 좋아요 구분코드*/
                  , BOARD_NO                     /* 글번호 */
                  , CLICK_USER_ID                /* 선택유저아이디 */
                  , DEL_YN                       /* 삭제여부 */
@@ -493,6 +563,7 @@
                  , REG_DT                       /* 등록일자 */
                  )
        VALUES ( #{board_div_cd}
+              , #{click_div_cd}
               , #{board_no}
               , #{click_user_id}
               , 'N'

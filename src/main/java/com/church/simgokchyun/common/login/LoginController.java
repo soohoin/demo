@@ -173,7 +173,53 @@ public class LoginController {
 
         return returnUrl;
     }
-    
 
+    
+    /**
+     * 아이디 찾기 화면 오픈
+     * @param model
+     * @return
+     */
+    @RequestMapping("/findEmailForm")
+    public String findEmailForm(Model model) {
+        model.addAttribute("dept_01", "아이디 찾기");
+        model.addAttribute("img_path", "imgs/page/page_002_bg.jpg");
+        return "login/findEmailForm";
+    }
+
+    /**
+     * 비밀번호 찾기 화면 오픈
+     * @param model
+     * @return
+     */
+    @RequestMapping("/findPwForm")
+    public String findPwForm(Model model) {
+        model.addAttribute("dept_01", "비밀번호 찾기");
+        model.addAttribute("img_path", "imgs/page/page_002_bg.jpg");
+        return "login/findPwForm";
+    }
+
+
+    /**
+     * 입력한 이메일로 임시 비밀번호 발송
+     * @param model
+     * @return
+     */
+    @RequestMapping("/findPw")
+    public String findPassword(Model model) {
+
+
+        return "";
+    }
+
+
+    /**
+     * 입력한 이름 or 닉네임 으로 일치하는 이메일을 보여준다.
+     * @return
+     */
+    @RequestMapping("/findEmail")
+    public String findEmail(Model model) {
+        return "";
+    }
 
 }

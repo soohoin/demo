@@ -15,6 +15,7 @@ import com.church.simgokchyun.common.mail.MailHandler;
 import com.church.simgokchyun.common.paging.Pagination;
 import com.church.simgokchyun.common.vo.Board;
 import com.church.simgokchyun.common.vo.BoardLike;
+import com.church.simgokchyun.common.vo.BoardReply;
 import com.church.simgokchyun.common.vo.Comcode;
 import com.church.simgokchyun.common.vo.User;
 import com.church.simgokchyun.config.auth.PrincipalDetails;
@@ -25,7 +26,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -140,6 +140,7 @@ public class CommonService {
         }
         return resYears;
     }
+
 
     /**
      * 업로드 파일저장
@@ -291,6 +292,8 @@ public class CommonService {
         //    1-1. 고객ID와 게시글 번호를 가지고 오늘 조회한 조회 목록을 확인한다.
         boardLike.setBoard_div_cd(board.getBoard_div_cd());
         boardLike.setBoard_no(board.getBoard_no());
+        boardLike.setClick_div_cd("01");  // 01: 조회수 ,  02: 좋아요
+
 
         //    1-2. 로그인 회원이면 ID를 넣고 로그인 정보가 없으면 IP주소를 넣는다.
         if(userDetails != null) {
@@ -324,12 +327,28 @@ public class CommonService {
         return mapper.select_boardDetail(board);
     }
 
+    public List<BoardReply> select_boardReply(Board board)throws Exception {
+        return mapper.select_boardReply(board);
+    }
+
+
     /**
      * 공통 게시글 추가
      */
     public int insertBoard(Board board) throws Exception {
         return mapper.insertBoard(board);
     }
+
+    /**
+     * 
+     * @param user
+     * @return
+     * @throws Exception
+     */
+    public int insertBoardReply(BoardReply boardReply) throws Exception{
+        return mapper.insertBoardReply(boardReply);
+    }
+
 
     /**
      * emali 중복여주 체크

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/subPage_01_layout">
+
+    <!-- index.html 고유 CSS 추가 -->
+    <th:block layout:fragment="css">
+        <link rel="stylesheet" th:href="@{/css/login/findEmailForm.css}" >
+    </th:block>
+    
+    <!-- index.html 고유 스크립트 추가 -->
+    <th:block layout:fragment="script">
+        <script th:src="@{/js/login/findEmailForm.js}"></script>
+    </th:block>
+
+    <div layout:fragment="content">
+
+        <!-- content1st -->
+        <section id="content1st">
+            <div class="content1st__inner">
+                <form id="findEmailForm" method="POST" action="/find">
+                    <div class="login_top">
+                        <p>이메일 찾기</p>
+                    </div>
+                    <div class="login_middle_01">
+                        <div class="box_01">
+                            <label for="user_nm">이름 또는 닉네임</label>
+                        </div>
+                        <div class="box_02">
+                            <input type="text" placeholder="이름" id="user_nm" name="user_nm">
+                        </div>
+                        <div class="box_03" >
+                            <p>찾기</p>
+                        </div>
+                    </div>
+                    <div class="bottom_line"></div>
+                    <div class="failMsg">
+                        <span th:text="${#request.getAttribute('errMsg')}" >errMsg</span> 
+                    </div>
+                </form>
+            </div>
+            <div class="info_cntn2">
+                <p>간편 회원가입으로 인한 이메일 찾기 기능은 현재 불가능 합니다. </p>
+                <p>이메일을 분실하신 분은 담당자 (홍길동) 에게 문의 바랍니다.</p>
+            </div>
+        </section> 
+
+    </div>
+</html>

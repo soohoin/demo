@@ -10,11 +10,13 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @AllArgsConstructor
 @NoArgsConstructor
-public class BoardLike {
+public class BoardReReplyLike {
     
     private @NonNull String board_div_cd;
     private @NonNull String click_div_cd;
     private @NonNull String board_no;
+    private @NonNull String reply_no;
+    private @NonNull String re_reply_no;
     private @NonNull String click_user_id;
     private String del_yn;
     private String chg_user_id;

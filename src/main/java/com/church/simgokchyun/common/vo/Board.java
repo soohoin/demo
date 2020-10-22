@@ -35,6 +35,7 @@ public class Board {
     private String reg_dt;
 
 
+    // 테이블 외 정보들 
     private String real_file_nm;
     // private String video_path;
     private int start_index;
@@ -45,4 +46,9 @@ public class Board {
     private String user_kor_nm;
     private String board_div_nm;
     private String worship_order_nm;
+    
+
+
+    // 조인해서 사용할 유저정보
+    private String social_profile_url;
 }

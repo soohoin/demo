@@ -1,5 +1,6 @@
 package com.church.simgokchyun.biz.sgc_007.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -9,17 +10,20 @@ import com.church.simgokchyun.biz.sgc_007.service.Sgc_007Service;
 import com.church.simgokchyun.common.common.CommonService;
 import com.church.simgokchyun.common.paging.Pagination;
 import com.church.simgokchyun.common.vo.Board;
+import com.church.simgokchyun.common.vo.BoardReReply;
+import com.church.simgokchyun.common.vo.BoardReply;
 import com.church.simgokchyun.config.auth.PrincipalDetails;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class sgc_007Controller {
@@ -173,10 +177,52 @@ public class sgc_007Controller {
         logger.info("call Controller : sgc_007_01_DETAIL_S");
         try {
             model.addAttribute("boardDetail", comService.select_boardDetail(board, userDetails, request));
+            model.addAttribute("boardReplyList", comService.select_boardReply(board));
         } catch(Exception e) {
             logger.error(e.getMessage(), e);
         }
         return "page/page_007/page_007_01_02 :: #boardDetail_bind";
+    }
+
+    // /**
+    //  * 자유게시판 상세 게시글 댓글 조회
+    //  * @param model
+    //  * @param boardReply
+    //  * @return
+    //  */  
+    // @RequestMapping(value = "/SGC_007_01-DETAIL-REPLY-S", method = RequestMethod.POST)
+    // String sgc_007_01_DETAIL_REPLY_S(Board board, Model model) {
+    //     logger.info("call Controller : sgc_007_01_DETAIL_REPLY_S");
+    //     try {
+    //         model.addAttribute("boardReplyList", comService.select_boardReply(board));
+    //     } catch(Exception e) {
+    //         logger.error(e.getMessage(), e);
+    //     }
+    //     return "page/page_007/page_007_01_02 :: #boardReplyList";
+    // }
+
+    /**
+     * 자유게시판 댓글 저장
+     * @param model
+     * @param board
+     * @return
+     */  
+    
+    @RequestMapping(value = "/page_007_01_02-SAVE", method = RequestMethod.POST)
+     @ResponseBody Map<String,Object> page_007_01_02_SAVE( BoardReply boardReply, Model model) {
+        logger.info("call Controller : page_007_01_02_SAVE");
+        Map<String,Object> resMap = new HashMap<String,Object>();
+        resMap.put("errYn", "Y");
+        try {
+            // 1. 새 글을 INSERT 한다.
+            comService.insertBoardReply(boardReply);
+            
+            resMap.put("errYn", "N");
+            resMap.put("rsltMsg", "저장완료");
+        } catch(Exception e) {
+            logger.error(e.getMessage(), e);
+        }
+        return resMap;
     }
     /**************************************************************************************/
     /************************************  SGC_007_01 END *********************************/

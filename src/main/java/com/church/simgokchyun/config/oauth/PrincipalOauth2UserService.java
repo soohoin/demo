@@ -70,7 +70,7 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
 				user.setEmail_addr(oAuth2UserInfo.getEmail());
 				user.setUser_nm(oAuth2UserInfo.getName());
 				user.setUser_nic_nm(oAuth2UserInfo.getName());
-				user.setThumbnail_image_url(oAuth2UserInfo.getProfileImg());
+				user.setSocial_profile_url(oAuth2UserInfo.getProfileImg());
 				// 비밀번호를 임의로 만들어서 넣어준다.  - 추후 비번으로 로그인시 이메일 인증으로 임시 페스워드 부여하기
 				user.setPassword(comService.getRamdomPassword(10));
 				user.setAuth_yn("Y");

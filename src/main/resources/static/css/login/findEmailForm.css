@@ -1,0 +1,84 @@
+  /*****************************************************/
+  /*********************** content1 ********************/
+  /*****************************************************/
+  
+  .bottom_line {
+    width: 700px;
+    margin:  5px 0 20px 0;
+    border: 2px solid var(--color-light-grey);
+  }
+  .login_middle_01 {
+    display: flex;
+    justify-content: flex-end;
+  }
+  .failMsg {
+    display: flex;
+    justify-content: center;
+    color: red;
+  }
+
+  .login_top {
+    text-align: center;
+  }
+  .login_top > p {
+    opacity: 0.6;
+    font-size: 40px;
+    font-weight: 500;
+    margin: 20px 0 20px 0;
+  }
+  .box_01 {
+    width: 140px;
+  }
+  .box_01 label {
+    height: 35px;
+    line-height: 220%;
+    font-weight: 400;
+  }
+  .box_01 label:nth-child(1) {
+    margin-bottom: 5px;
+  }
+  .box_02 {
+    width: 250px;
+  }
+  .box_02 input {
+    height: 35px;
+  }
+  .box_02 input:nth-child(1) {
+    margin-bottom: 5px;
+  }
+  .box_03 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 35px;
+    cursor: pointer;
+    background-color: gray;
+    margin-left: 10px;
+  }
+  .box_03 > p {
+    color: white;
+    font-weight: 500;
+  }
+  .box_01,
+  .box_02 {
+    display: flex;
+    flex-direction: column;
+  }
+  .info_cntn2 {
+    width: 700px;
+    height: 150px;
+    margin:  40px 40px;
+    border: 3px solid var(--color-light-grey);
+    opacity: 0.5;
+    background-color: var(--color-light-white);
+  }
+  .info_cntn2 > p {
+    display: flex;
+    flex-wrap: wrap;
+    opacity: 1;
+    font-size: var(--font-regular_20);
+    margin: 10px 5px 5px 5px;
+  }
+  

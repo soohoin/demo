@@ -751,8 +751,20 @@
   }
   .board_cntn_area .btns {
     margin-top: 10px;
-    text-align: right;
+    display: flex;
+    justify-content: flex-end;
   }
+
+  .board_cntn_area .btns button:nth-child(1) {
+    margin-right: 5px;
+  }
+
+  .fa-sort-up {
+    position: relative;
+    top: 4px;
+    right: 2px;
+  }
+
 
 
   /* 유튜브 영상 iframe 사이즈 조정 */
@@ -774,6 +786,10 @@
     align-items: center;
     opacity: 0.9;
   }
+  #boardDetail_bind .reg_dt > .reg_dt__selectCnt::before {    
+    content: '조회';
+    margin: 0 4px 0 6px;
+  }
   #boardDetail_bind .reg_dt > p:nth-child(2) {
     opacity: 0.7;
   }
@@ -783,11 +799,29 @@
     font-size: var(--font-medium);
     font-weight: var(--weight-semi-bold);
   }
-  #boardDetail_bind .board_cntn, 
+   
   #boardDetail_bind .board_video {
     display: flex;
     flex-direction: column;
     margin-top: 20px;
+  }
+  #boardDetail_bind .board_cntn {
+    margin: 20px 0 180px 20px;
+    display: flex;
+    flex-direction: column;
+  }
+  #boardDetail_bind .board_cntn_likeIcon {
+    font-size: var(--font-small);
+    display: flex;
+    align-items: center;
+    opacity: 0.8;
+  }
+  #boardDetail_bind .board_cntn_likeCnt::before {
+    content: '좋아요';
+    margin: 0 5px 0 5px;
+  }
+  .fa-heart {
+    color: red;
   }
   #boardDetail_bind .board_video > p:nth-child(1),
   #boardDetail_bind .board_cntn > p:nth-child(1){
@@ -802,13 +836,36 @@
   #boardDetail_bind .line.top {
     margin-top: 20px;
   }
+  #boardDetail_bind .line.bottom {
+    margin-top: 10px;
+  }
+  #boardDetail_bind .writer__info {
+    display: flex;
+    align-items: center;
+  }
+  #boardDetail_bind .writer__info > .writer__info__profileImg > img{
+    width: 50px;
+    height: 50px;
+    border-radius:75px;
+    border: 1px solid #7c7979;
+    margin-right: 10px;
+  }
+  #boardDetail_bind .writer__info > .writer__info__etc {
+    display: flex;
+    flex-direction: column;
+  }
+
   #boardDetail_bind .line {
     border: 1px solid var(--color-dark-white);
     opacity: 0.7;
     margin: 10px 0;
   }
+  #boardDetail_bind .lightLine {
+    border: 1px solid var(--color-dark-white);
+    opacity: 0.4;
+    margin: 10px 0;
+  }
   #boardDetail_bind textarea {
-    height: 800px;
     opacity: 0.6;
   }
   #boardDetail_bind button {
@@ -818,6 +875,78 @@
     border-radius: 5px;
     background-color: antiquewhite;
     font-size: 1em;
+  }
+  #boardDetail_bind .replyCntnList {
+    width: 1000px;
+  }
+  #boardDetail_bind .replyCntnList .replyCntnList__outter{
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+  #boardDetail_bind .replyCntnList .replyCntnList__leftBox__profile > img{
+    width: 50px;
+    height: 50px;
+    border-radius:75px;
+    border: 1px solid #7c7979;
+    margin: 5px 10px 0 0 ;
+  }
+  #boardDetail_bind .replyCntnList .replyCntnList__rightBox__top > .replyCntn {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  #boardDetail_bind .replyCntnList .replyCntnList__rightBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-content: space-between;
+  }
+  #boardDetail_bind .replyCntnList .replyCntnList__rightBox__bottom {
+    margin: 10px 5px 0 0;
+    display: flex;
+    align-items: baseline;
+    flex-direction: row;
+  }
+  #boardDetail_bind .replyCntnList__rightBox__bottom .rightBox__bottom__yymmdd {
+    margin-right: 10px;
+  }
+  #boardDetail_bind .replyCntnList__rightBox__bottom .rightBox__bottom__hhmi {
+    margin-right: 10px;
+  }
+
+  #boardDetail_bind .boardReply__title > p{
+    font-size: var(--font-medium);
+  }
+  #boardDetail_bind .boardReply__title {
+    margin: 10px 0 20px 0 ;
+  }
+  #boardDetail_bind .boardReply__cntn__outterLine {
+    border: 1px solid var(--color-dark-white);
+    padding: 10px 10px 10px 10px;
+  }
+  .boardReply__cntn__outterLine textarea {
+    display: block;
+    width: 100%;
+    height: 30px;
+    margin: 10px 0 20px 0 ;
+    border: 1px solid var(--color-white);
+    overflow: hidden;
+    overflow-wrap: break-word;
+    resize: none;
+    /* max-height: 500px; */
+    min-height: 30px;
+  } 
+  .boardReply__cntn__outterLine .reply__bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .optionItems .fa-camera-retro {
+    margin-right: 10px;
+    opacity: 0.5;
+  }
+  .returnList {
+    text-align: right;
   }
 
 
