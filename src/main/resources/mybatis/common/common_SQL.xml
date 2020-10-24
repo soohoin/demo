@@ -150,8 +150,13 @@
       SELECT A.BOARD_DIV_CD
            , A.BOARD_NO
            , A.REPLY_NO
+           , CASE WHEN A.RE_REPLY_NO IS NULL OR A.RE_REPLY_NO = ''
+                       THEN CONCAT(A.REPLY_NO,'_0')
+                  ELSE CONCAT(A.REPLY_NO,'_',A.RE_REPLY_NO)
+              END      AS REPLY_NO_ID
+           , A.RE_REPLY_NO
            , CONCAT(SUBSTRING(A.WRITE_DT, 1, 4),'.',SUBSTRING(A.WRITE_DT, 5, 2),'.',SUBSTRING(A.WRITE_DT, 7, 2))  AS WRITE_DT         
-           , CONCAT(SUBSTRING(A.REG_DT, 7, 2),':',SUBSTRING(A.REG_DT, 9, 2))  AS TIME
+           , CONCAT(SUBSTRING(A.REG_DT, 9, 2),':',SUBSTRING(A.REG_DT, 11, 2))  AS TIME
            , A.USER_ID
            , B.USER_KOR_NM
            , B.SOCIAL_PROFILE_URL
@@ -161,12 +166,47 @@
            , A.CHG_DT
            , A.REG_USER_ID
            , A.REG_DT
-        FROM BOARD_REPLY A
+        FROM (SELECT BOARD_DIV_CD
+				   , BOARD_NO
+				   , REPLY_NO
+				   , ''              AS RE_REPLY_NO
+				   , WRITE_DT
+				   , USER_ID
+				   , REPLY_CNTN
+				   , DEL_YN
+				   , CHG_USER_ID
+				   , CHG_DT
+				   , REG_USER_ID
+				   , REG_DT
+				FROM BOARD_REPLY 
+			   WHERE 1=1
+				 AND BOARD_DIV_CD = #{board_div_cd}
+				 AND BOARD_NO = #{board_no}
+			   UNION ALL  
+			  SELECT BOARD_DIV_CD
+				   , BOARD_NO
+				   , REPLY_NO
+				   , RE_REPLY_NO
+				   , WRITE_DT
+				   , USER_ID
+				   , RE_REPLY_CNTN
+				   , DEL_YN
+				   , CHG_USER_ID
+				   , CHG_DT
+				   , REG_USER_ID
+				   , REG_DT
+				FROM BOARD_RE_REPLY 
+			   WHERE 1=1
+				 AND BOARD_DIV_CD = #{board_div_cd}
+				 AND BOARD_NO = #{board_no}
+              ) A
        INNER JOIN USER_INFO B
-          ON A.USER_ID = A.USER_ID
+          ON A.USER_ID = B.USER_ID
        WHERE 1=1
-         AND BOARD_DIV_CD = #{board_div_cd}
-         AND BOARD_NO = #{board_no}
+         AND A.BOARD_DIV_CD = #{board_div_cd}
+         AND A.BOARD_NO = #{board_no}
+       ORDER BY CAST(A.REPLY_NO AS UNSIGNED), CAST(A.RE_REPLY_NO AS UNSIGNED)
+      
     </select>
 
 
@@ -303,6 +343,42 @@
                , DATE_FORMAT(now(), '%Y%m%d')
                , #{user_id}
                , #{reply_cntn}
+               , 'N'
+               , #{user_id}
+               , DATE_FORMAT(now(), '%Y%m%d%H%i%s')
+               )  
+    </insert>
+
+
+    <!-- 답글 저장 -->
+    <insert id="insertBoardReReply" parameterType="BoardReReply">
+        <selectKey keyProperty="re_reply_no" resultType="String" order="BEFORE">
+            SELECT NVL(MAX(CAST(re_reply_no AS UNSIGNED)), 0) + 1
+              FROM BOARD_RE_REPLY
+             WHERE 1=1
+               AND BOARD_DIV_CD = #{board_div_cd}
+               AND BOARD_NO = #{board_no}
+               AND REPLY_NO = #{reply_no}
+        </selectKey> 
+        INSERT INTO 
+        BOARD_RE_REPLY ( BOARD_DIV_CD          /* 게시판구분코드 */
+                       , BOARD_NO              /* 글번호 */            
+                       , REPLY_NO              /* 댓글번호 */
+                       , RE_REPLY_NO           /* 답글번호 */
+                       , WRITE_DT              /* 작성일자 */      
+                       , USER_ID               /* 작성자ID */              
+                       , RE_REPLY_CNTN         /* 내용 */              
+                       , DEL_YN                /* 삭제여부 */          
+                       , REG_USER_ID           /* 등록자 */            
+                       , REG_DT                /* 등록일자 */          
+                       )
+        VALUES ( #{board_div_cd}
+               , #{board_no}
+               , #{reply_no}
+               , #{re_reply_no}
+               , DATE_FORMAT(now(), '%Y%m%d')
+               , #{user_id}
+               , #{re_reply_cntn}
                , 'N'
                , #{user_id}
                , DATE_FORMAT(now(), '%Y%m%d%H%i%s')

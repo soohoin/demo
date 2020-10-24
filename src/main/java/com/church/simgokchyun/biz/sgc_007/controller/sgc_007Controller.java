@@ -212,10 +212,23 @@ public class sgc_007Controller {
      @ResponseBody Map<String,Object> page_007_01_02_SAVE( BoardReply boardReply, Model model) {
         logger.info("call Controller : page_007_01_02_SAVE");
         Map<String,Object> resMap = new HashMap<String,Object>();
+        BoardReReply boardReReply = new BoardReReply();
         resMap.put("errYn", "Y");
         try {
-            // 1. 새 글을 INSERT 한다.
-            comService.insertBoardReply(boardReply);
+
+            if(boardReply.getReply_no() == null  || "".equals(boardReply.getReply_no())) {
+                // 1. 새 댓글을 INSERT 한다.
+                comService.insertBoardReply(boardReply);
+            } else {
+                boardReReply.setBoard_div_cd(boardReply.getBoard_div_cd());
+                boardReReply.setBoard_no(boardReply.getBoard_no());
+                boardReReply.setReply_no(boardReply.getReply_no());
+                boardReReply.setRe_reply_no("");
+                boardReReply.setUser_id(boardReply.getUser_id());
+                boardReReply.setRe_reply_cntn(boardReply.getReply_cntn());
+                // 1. 새 댓글의 답글을 INSERT 한다.
+                comService.insertBoardReReply(boardReReply);
+            }
             
             resMap.put("errYn", "N");
             resMap.put("rsltMsg", "저장완료");

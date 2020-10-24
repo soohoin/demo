@@ -913,7 +913,12 @@
   #boardDetail_bind .replyCntnList__rightBox__bottom .rightBox__bottom__hhmi {
     margin-right: 10px;
   }
-
+  #boardDetail_bind .replyCntnList__rightBox__bottom a {
+    cursor: pointer;
+  }
+  #boardDetail_bind #boardReplyList .moveRightReply{
+    margin-left: 60px;
+  }  
   #boardDetail_bind .boardReply__title > p{
     font-size: var(--font-medium);
   }
@@ -948,7 +953,10 @@
   .returnList {
     text-align: right;
   }
-
+  .fa-camera-retro,
+  .fa-smile {
+    cursor: pointer;
+  }
 
   /*****************************************************/
   /********************** Media Query ******************/

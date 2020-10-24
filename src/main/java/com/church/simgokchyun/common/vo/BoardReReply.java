@@ -15,10 +15,10 @@ public class BoardReReply {
     private @NonNull String board_div_cd;
     private @NonNull String board_no;
     private @NonNull String reply_no;
-    private @NonNull String reReply_no;
+    private @NonNull String re_reply_no;
     private String write_dt;
     private String user_id;
-    private String reply_cntn;
+    private String re_reply_cntn;
     private String del_yn;
     private String chg_user_id;
     private String chg_dt;

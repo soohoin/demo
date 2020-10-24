@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import com.church.simgokchyun.common.vo.Board;
 import com.church.simgokchyun.common.vo.BoardLike;
+import com.church.simgokchyun.common.vo.BoardReReply;
 import com.church.simgokchyun.common.vo.BoardReply;
 import com.church.simgokchyun.common.vo.Comcode;
 import com.church.simgokchyun.common.vo.User;
@@ -152,6 +153,15 @@ public interface CommonMapper {
      * @throws Exception
      */
     int insertBoardReply(BoardReply boardReply)throws Exception;
+
+
+    /**
+     * 댓글 INSERT 
+     * @param boardReReply
+     * @return
+     * @throws Exception
+     */
+    int insertBoardReReply(BoardReReply boardReReply)throws Exception;
 
     /**
      * 조회고객 정보 INSERT

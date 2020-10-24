@@ -49,7 +49,7 @@ function eventInit() {
 
     // 포토존
     $(".content2st__icons__icon.no_05").click(function() {
-        movePage('SGC_005_01');
+        movePage('SGC_006_01');
     });
 
 }

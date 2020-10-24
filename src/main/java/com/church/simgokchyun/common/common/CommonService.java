@@ -15,6 +15,7 @@ import com.church.simgokchyun.common.mail.MailHandler;
 import com.church.simgokchyun.common.paging.Pagination;
 import com.church.simgokchyun.common.vo.Board;
 import com.church.simgokchyun.common.vo.BoardLike;
+import com.church.simgokchyun.common.vo.BoardReReply;
 import com.church.simgokchyun.common.vo.BoardReply;
 import com.church.simgokchyun.common.vo.Comcode;
 import com.church.simgokchyun.common.vo.User;
@@ -340,13 +341,24 @@ public class CommonService {
     }
 
     /**
-     * 
-     * @param user
+     * 댓글 추가
+     * @param boardReply
      * @return
      * @throws Exception
      */
     public int insertBoardReply(BoardReply boardReply) throws Exception{
         return mapper.insertBoardReply(boardReply);
+    }
+
+
+    /**
+     * 댓글의 답글 추가
+     * @param boardReReply
+     * @return
+     * @throws Exception
+     */
+    public int insertBoardReReply(BoardReReply boardReReply) throws Exception{
+        return mapper.insertBoardReReply(boardReReply);
     }
 
 

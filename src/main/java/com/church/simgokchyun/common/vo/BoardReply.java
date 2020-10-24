@@ -27,6 +27,8 @@ public class BoardReply {
     // 테이블 외 정보들 
     private String time;
     private String user_kor_nm;
+    private String reply_no_id;
+    private String re_reply_no;
 
     // 댓글 사용자 프로필 사용
     private String social_profile_url;
