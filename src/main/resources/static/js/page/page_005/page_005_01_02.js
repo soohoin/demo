@@ -2,5 +2,19 @@
 
 $(document).ready(function (){
 
-    comDoAction("search","SGC_005_01");
+    basicSearch();
+    $("#user_nm").val($("#user_nm_tmp").text());
 });
+
+// 댓글 작성 후 댓글 재 조회 
+function basicSearch() {
+    comDoAction("search","sgc_005_01");
+}
+
+function MoveMainBoard() {
+    movePage('sgc_005_01');
+}
+
+function MoveBoardDetail() {
+    movePage('sgc_005_01_02');
+}

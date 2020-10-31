@@ -24,7 +24,7 @@ function doAction(acNm) {
     switch(acNm) {
         case "save":
             if(!confirm("저장 하시겠습니까?") || validation()) return;
-            reqUrl = "SGC_002_01-SAVE";
+            reqUrl = "sgc_002_01-SAVE";
             formName = "frm";
             data = null;
             callback = afterSave;
@@ -35,7 +35,7 @@ function doAction(acNm) {
 
 function afterSave() {
     alert("저장완료");
-    window.location = '/SGC_002_01';
+    window.location = '/sgc_002_01';
 }
 
 // 입력 값 유효성 체크

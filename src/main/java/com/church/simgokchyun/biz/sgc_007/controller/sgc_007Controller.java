@@ -7,10 +7,10 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import com.church.simgokchyun.biz.sgc_007.service.Sgc_007Service;
+import com.church.simgokchyun.common.common.CommonMapper;
 import com.church.simgokchyun.common.common.CommonService;
 import com.church.simgokchyun.common.paging.Pagination;
 import com.church.simgokchyun.common.vo.Board;
-import com.church.simgokchyun.common.vo.BoardReReply;
 import com.church.simgokchyun.common.vo.BoardReply;
 import com.church.simgokchyun.config.auth.PrincipalDetails;
 
@@ -20,19 +20,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-public class sgc_007Controller {
+public class Sgc_007Controller {
 
     @Autowired
     Sgc_007Service service;
 
     @Autowired
     CommonService comService;
+
+    @Autowired
+    CommonMapper mapper;
     
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -41,14 +43,14 @@ public class sgc_007Controller {
 
 
     /**************************************************************************************/
-    /************************************  SGC_007_01 START *******************************/
+    /************************************  sgc_007_01 START *******************************/
     /**************************************************************************************/
     /**
      * 자유 게시판 화면 오픈
      * @param model
      * @return
      */
-    @RequestMapping("/SGC_007_01")
+    @RequestMapping("/sgc_007_01")
     String sgc_007_01(Model model) {
         logger.info("call Controller : sgc_007_01");
         try {
@@ -76,7 +78,7 @@ public class sgc_007Controller {
      * @param board
      * @return String
      */
-    @RequestMapping(value = "/SGC_007_01-S", method = RequestMethod.POST)
+    @RequestMapping(value = "/sgc_007_01-S", method = RequestMethod.POST)
     String sgc_007_01_S(Model model, Pagination reqPagination, Board board ) {
         logger.info("call Controller : sgc_007_01_S");
 
@@ -100,7 +102,7 @@ public class sgc_007Controller {
      * @param model
      * @return String
      */    
-    @RequestMapping("/SGC_007_01-CREATE")
+    @RequestMapping("/sgc_007_01-CREATE")
     String sgc_007_01_CREATE(Model model) {
         logger.info("call Controller : sgc_007_01_CREATE");
         try {
@@ -125,13 +127,12 @@ public class sgc_007Controller {
      * @param board
      * @return
      */  
-    @RequestMapping(value = "/SGC_007_01-SAVE", method = RequestMethod.POST)
+    @RequestMapping(value = "/sgc_007_01-SAVE", method = RequestMethod.POST)
     String sgc_007_01_SAVE(Board board, Model model) {
         logger.info("call Controller : sgc_007_01_SAVE");
         try {
             
-            // 1. 유저 정보를 셋팅한다.
-            board.setUser_id("100001");
+            // 1. 게시글 구분코드 셋팅
             board.setBoard_div_cd("02");
 
             // 2. 새 글을 INSERT 한다.
@@ -145,12 +146,31 @@ public class sgc_007Controller {
     }
 
     /**
+     * 자유게시판 게시글 삭제
+     * @param model
+     * @param board
+     * @return
+     */  
+    @RequestMapping(value = "/sgc_007_01_02-DELETE", method = RequestMethod.POST)
+    String sgc_007_01_02_DELETE(Board board, Model model) {
+        logger.info("call Controller : sgc_007_01_02_DELETE");
+        model.addAttribute("errYn", "Y");
+        try {
+            comService.updateBoardDeleteY(board);
+            model.addAttribute("errYn", "N");
+        } catch(Exception e) {
+            logger.error(e.getMessage(), e);
+        }
+        return "page/page_007/page_007_01";
+    }
+
+    /**
      * 자유게시판 게시글 상세 화면오픈
      * @param model
      * @param board
      * @return String
      */  
-    @RequestMapping("/SGC_007_01-DETAIL")
+    @RequestMapping("/sgc_007_01-DETAIL")
     String sgc_007_01_DETAIL(Board board, Model model) {
         logger.info("call Controller : sgc_007_01_DETAIL");
         try {
@@ -172,7 +192,7 @@ public class sgc_007Controller {
      * @param board
      * @return
      */  
-    @RequestMapping(value = "/SGC_007_01-DETAIL-S", method = RequestMethod.POST)
+    @RequestMapping(value = "/sgc_007_01-DETAIL-S", method = RequestMethod.POST)
     String sgc_007_01_DETAIL_S(Board board, Model model, @AuthenticationPrincipal PrincipalDetails userDetails, HttpServletRequest request) {
         logger.info("call Controller : sgc_007_01_DETAIL_S");
         try {
@@ -184,25 +204,49 @@ public class sgc_007Controller {
         return "page/page_007/page_007_01_02 :: #boardDetail_bind";
     }
 
-    // /**
-    //  * 자유게시판 상세 게시글 댓글 조회
-    //  * @param model
-    //  * @param boardReply
-    //  * @return
-    //  */  
-    // @RequestMapping(value = "/SGC_007_01-DETAIL-REPLY-S", method = RequestMethod.POST)
-    // String sgc_007_01_DETAIL_REPLY_S(Board board, Model model) {
-    //     logger.info("call Controller : sgc_007_01_DETAIL_REPLY_S");
-    //     try {
-    //         model.addAttribute("boardReplyList", comService.select_boardReply(board));
-    //     } catch(Exception e) {
-    //         logger.error(e.getMessage(), e);
-    //     }
-    //     return "page/page_007/page_007_01_02 :: #boardReplyList";
-    // }
+    /**
+     * 자유게시판 게시글 수정 화면오픈
+     * @param model
+     * @param board
+     * @return String
+     */  
+    @RequestMapping("/sgc_007_01_02-UPDATE")
+    String sgc_007_01_02_UPDATE(Board board, Model model) {
+        logger.info("call Controller : sgc_007_01_02_UPDATE");
+        try {
+            model.addAttribute("dept_01", "나눔");
+            model.addAttribute("dept_02", "자유게시판");
+            model.addAttribute("img_path", "imgs/page/page_007_bg.jpg");
+            model.addAttribute("board", board);
+            model.addAttribute("page_name", "sgc_007_01_02");
+
+        } catch(Exception e) {
+            logger.error(e.getMessage(), e);
+        }
+        return "commonPage/com_page_update";
+    }
+
 
     /**
-     * 자유게시판 댓글 저장
+     * 자유게시판 게시글 수정 조회
+     * @param model
+     * @param board
+     * @return
+     */  
+    @RequestMapping(value = "/sgc_007_01_02-UPDATE-S", method = RequestMethod.POST)
+    String sgc_007_01_02_UPDATE_S(Board board, Model model) {
+        logger.info("call Controller : sgc_007_01_02_UPDATE_S");
+        try {
+            model.addAttribute("boardDetail", mapper.select_boardDetail(board));
+            model.addAttribute("page_name", "sgc_007_01");
+        } catch(Exception e) {
+            logger.error(e.getMessage(), e);
+        }
+        return "commonPage/com_page_update :: #boardDetail_bind";
+    }
+
+    /**
+     * 자유게시판 댓글, 답글 저장
      * @param model
      * @param board
      * @return
@@ -212,33 +256,39 @@ public class sgc_007Controller {
      @ResponseBody Map<String,Object> page_007_01_02_SAVE( BoardReply boardReply, Model model) {
         logger.info("call Controller : page_007_01_02_SAVE");
         Map<String,Object> resMap = new HashMap<String,Object>();
-        BoardReReply boardReReply = new BoardReReply();
         resMap.put("errYn", "Y");
         try {
-
-            if(boardReply.getReply_no() == null  || "".equals(boardReply.getReply_no())) {
-                // 1. 새 댓글을 INSERT 한다.
-                comService.insertBoardReply(boardReply);
-            } else {
-                boardReReply.setBoard_div_cd(boardReply.getBoard_div_cd());
-                boardReReply.setBoard_no(boardReply.getBoard_no());
-                boardReReply.setReply_no(boardReply.getReply_no());
-                boardReReply.setRe_reply_no("");
-                boardReReply.setUser_id(boardReply.getUser_id());
-                boardReReply.setRe_reply_cntn(boardReply.getReply_cntn());
-                // 1. 새 댓글의 답글을 INSERT 한다.
-                comService.insertBoardReReply(boardReReply);
-            }
-            
+            comService.insertBoardReply_reReply(boardReply);
             resMap.put("errYn", "N");
-            resMap.put("rsltMsg", "저장완료");
+            // resMap.put("rsltMsg", "저장완료");
+        } catch(Exception e) {
+            logger.error(e.getMessage(), e);
+        }
+        return resMap;
+    }
+
+    /**
+     * 자유게시판 댓글, 답글 삭제
+     * @param model
+     * @param board
+     * @return
+     */  
+    
+    @RequestMapping(value = "/page_007_01_02-REPLY-DELETE", method = RequestMethod.POST)
+     @ResponseBody Map<String,Object> page_007_01_02_REPLY_DELETE( BoardReply boardReply, Model model) {
+        logger.info("call Controller : page_007_01_02_REPLY_DELETE");
+        Map<String,Object> resMap = new HashMap<String,Object>();
+        resMap.put("errYn", "Y");
+        try {
+            comService.deleteBoardReply_reReply(boardReply);
+            resMap.put("errYn", "N");
         } catch(Exception e) {
             logger.error(e.getMessage(), e);
         }
         return resMap;
     }
     /**************************************************************************************/
-    /************************************  SGC_007_01 END *********************************/
+    /************************************  sgc_007_01 END *********************************/
     /**************************************************************************************/
 
 
@@ -247,14 +297,14 @@ public class sgc_007Controller {
 
 
     /**************************************************************************************/
-    /************************************  SGC_007_02 START *******************************/
+    /************************************  sgc_007_02 START *******************************/
     /**************************************************************************************/
     /**
      * 교회소식 화면 오픈
      * @param model
      * @return
      */
-    @RequestMapping("/SGC_007_02")
+    @RequestMapping("/sgc_007_02")
     String sgc_007_02(Model model) {
         logger.info("call Controller : sgc_007_02");
         try {
@@ -282,7 +332,7 @@ public class sgc_007Controller {
      * @param board
      * @return String
      */
-    @RequestMapping(value = "/SGC_007_02-S", method = RequestMethod.POST)
+    @RequestMapping(value = "/sgc_007_02-S", method = RequestMethod.POST)
     String sgc_007_02_S(Model model, Pagination reqPagination, Board board ) {
         logger.info("call Controller : sgc_007_02_S");
 
@@ -307,7 +357,7 @@ public class sgc_007Controller {
      * @param model
      * @return String
      */    
-    @RequestMapping("/SGC_007_02-CREATE")
+    @RequestMapping("/sgc_007_02-CREATE")
     String sgc_007_02_CREATE(Model model) {
         logger.info("call Controller : sgc_007_02_CREATE");
         try {
@@ -329,13 +379,12 @@ public class sgc_007Controller {
      * @param board
      * @return
      */  
-    @RequestMapping(value = "/SGC_007_02-SAVE", method = RequestMethod.POST)
+    @RequestMapping(value = "/sgc_007_02-SAVE", method = RequestMethod.POST)
     String sgc_007_02_SAVE(Board board, Model model) {
         logger.info("call Controller : sgc_007_02_SAVE");
         try {
             
             // 1. 유저 정보를 셋팅한다.
-            board.setUser_id("100001");
             board.setBoard_div_cd("03");
 
             // 2. 새 글을 INSERT 한다.
@@ -349,12 +398,31 @@ public class sgc_007Controller {
     }
 
     /**
+     * 교회소식 게시글 삭제
+     * @param model
+     * @param board
+     * @return
+     */  
+    @RequestMapping(value = "/sgc_007_02_02-DELETE", method = RequestMethod.POST)
+    String sgc_007_02_02_DELETE(Board board, Model model) {
+        logger.info("call Controller : sgc_007_02_02_DELETE");
+        model.addAttribute("errYn", "Y");
+        try {
+            comService.updateBoardDeleteY(board);
+            model.addAttribute("errYn", "N");
+        } catch(Exception e) {
+            logger.error(e.getMessage(), e);
+        }
+        return "page/page_007/page_007_01";
+    }
+
+    /**
      * 교회소식 게시글 상세 화면오픈
      * @param model
      * @param board
      * @return String
      */  
-    @RequestMapping("/SGC_007_02-DETAIL")
+    @RequestMapping("/sgc_007_02-DETAIL")
     String sgc_007_02_DETAIL(Board board, Model model) {
         logger.info("call Controller : sgc_007_02_DETAIL");
         try {
@@ -376,19 +444,102 @@ public class sgc_007Controller {
      * @param board
      * @return
      */  
-    @RequestMapping(value = "/SGC_007_02-DETAIL-S", method = RequestMethod.POST)
+    @RequestMapping(value = "/sgc_007_02-DETAIL-S", method = RequestMethod.POST)
     String sgc_007_02_DETAIL_S(Board board, Model model, @AuthenticationPrincipal PrincipalDetails userDetails, HttpServletRequest request) {
         logger.info("call Controller : sgc_007_02_DETAIL_S");
         try {
             model.addAttribute("boardDetail", comService.select_boardDetail(board, userDetails, request));
+            model.addAttribute("boardReplyList", comService.select_boardReply(board));
         } catch(Exception e) {
             logger.error(e.getMessage(), e);
         }
         return "page/page_007/page_007_02_02 :: #boardDetail_bind";
     }
 
+    /**
+     * 교회소식 게시글 수정 화면오픈
+     * @param model
+     * @param board
+     * @return String
+     */  
+    @RequestMapping("/sgc_007_02_02-UPDATE")
+    String sgc_007_02_02_UPDATE(Board board, Model model) {
+        logger.info("call Controller : sgc_007_02_02_UPDATE");
+        try {
+            model.addAttribute("dept_01", "나눔");
+            model.addAttribute("dept_02", "교회소식");
+            model.addAttribute("img_path", "imgs/page/page_007_bg.jpg");
+            model.addAttribute("board", board);
+            model.addAttribute("page_name", "sgc_007_02_02");
+
+        } catch(Exception e) {
+            logger.error(e.getMessage(), e);
+        }
+        return "commonPage/com_page_update";
+    }
+
+    /**
+     * 교회소식 게시글 수정 조회
+     * @param model
+     * @param board
+     * @return
+     */  
+    @RequestMapping(value = "/sgc_007_02_02-UPDATE-S", method = RequestMethod.POST)
+    String sgc_007_02_02_UPDATE_S(Board board, Model model) {
+        logger.info("call Controller : sgc_007_02_02_UPDATE_S");
+        try {
+            model.addAttribute("boardDetail", mapper.select_boardDetail(board));
+            model.addAttribute("page_name", "sgc_007_02");
+        } catch(Exception e) {
+            logger.error(e.getMessage(), e);
+        }
+        return "commonPage/com_page_update :: #boardDetail_bind";
+    }
+
+    /**
+     * 교회소식 답글, 댓글 저장
+     * @param model
+     * @param board
+     * @return
+     */  
+    
+    @RequestMapping(value = "/page_007_02_02-SAVE", method = RequestMethod.POST)
+     @ResponseBody Map<String,Object> page_007_02_02_SAVE( BoardReply boardReply, Model model) {
+        logger.info("call Controller : page_007_02_02_SAVE");
+        Map<String,Object> resMap = new HashMap<String,Object>();
+        resMap.put("errYn", "Y");
+        try {
+            comService.insertBoardReply_reReply(boardReply);
+            resMap.put("errYn", "N");
+            // resMap.put("rsltMsg", "저장완료");
+        } catch(Exception e) {
+            logger.error(e.getMessage(), e);
+        }
+        return resMap;
+    }
+
+    /**
+     * 교회소식 댓글, 답글 삭제
+     * @param model
+     * @param board
+     * @return
+     */  
+    
+    @RequestMapping(value = "/page_007_02_02-REPLY-DELETE", method = RequestMethod.POST)
+     @ResponseBody Map<String,Object> page_007_02_02_REPLY_DELETE( BoardReply boardReply, Model model) {
+        logger.info("call Controller : page_007_02_02_REPLY_DELETE");
+        Map<String,Object> resMap = new HashMap<String,Object>();
+        resMap.put("errYn", "Y");
+        try {
+            comService.deleteBoardReply_reReply(boardReply);
+            resMap.put("errYn", "N");
+        } catch(Exception e) {
+            logger.error(e.getMessage(), e);
+        }
+        return resMap;
+    }
     /**************************************************************************************/
-    /************************************  SGC_007_02 END *********************************/
+    /************************************  sgc_007_02 END *********************************/
     /**************************************************************************************/
 
 }

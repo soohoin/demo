@@ -5,22 +5,144 @@
       layout:decorator="layout/subPage_01_layout">
 
     <!-- index.html 고유 CSS 추가 -->
-    <th:block layout:fragment="css">
+    <!-- <th:block layout:fragment="css">
         <link rel="stylesheet" th:href="@{/css/page/page_007/page_007_02_02.css}" >
-    </th:block>
+    </th:block> -->
     
     <!-- index.html 고유 스크립트 추가 -->
     <th:block layout:fragment="script">
         <script th:src="@{/js/page/page_007/page_007_02_02.js}"></script>
     </th:block>
 
+
     <div layout:fragment="content">
-        <form action="#" id="hiddenForm">
+        <form action="#" id="hiddenForm" th:if="${board != null}">
             <input type="hidden" name="board_div_cd" id="board_div_cd" th:value="${board.board_div_cd}">
             <input type="hidden" name="board_no" id="board_no" th:value="${board.board_no}">
+            <input type="hidden" name="user_id" id="user_id">
+            <input type="hidden" name="reply_cntn" id="reply_cntn">
+            <input type="hidden" name="user_nm" id="user_nm">
+            <input type="hidden" name="reply_no" id="reply_no">
+            <input type="hidden" name="re_reply_no" id="re_reply_no">
+            <input type="hidden" name="update_yn" id="update_yn">          <!-- 댓글 저장시 생성/수정 구분  Y:수정, N:생성 -->
+            <input type="hidden" name="kind_of_reply" id="kind_of_reply">  <!-- 댓글 / 답글 구분코드  REPLY:댓글, REREPLY:답글 -->
+
+            <p style="display: none;" name="user_nm_tmp" id="user_nm_tmp" sec:authentication="name"></p>
         </form>
         <!-- content1st -->
         <section id="content1st">
+            <div class="content1st__inner board_cntn_area width_1000" id="boardDetail_bind">
+                <div th:if="${boardDetail != null}">
+                    <div th:if="${boardDetail != null}" class="board_title">
+                        <p th:text="${boardDetail.board_title}">제목</p>
+                        <div class="btns">
+                            <button class="returnList" th:onclick="movePage('sgc_007_02')">목록</button>
+                        </div>
+                    </div>
+                    <div class="line top"></div>
+                    <div class="writer__info">
+                        <div class="writer__info__profileImg">
+                            <img th:src="${boardDetail.social_profile_url}" alt="작성자프로필">
+                        </div>
+                        <div class="writer__info__etc">
+                            <div class="board_kor_nm">
+                                <!-- <p>작성자 :&nbsp;</p> -->
+                                <p th:text="${boardDetail.user_kor_nm}"></p>
+                            </div>
+                            <div class="reg_dt">
+                                <!-- <p>날짜 :&nbsp;</p> -->
+                                <p th:text="${boardDetail.write_dt}"></p>
+                                <p th:text="${boardDetail.select_cnt}" class="reg_dt__selectCnt"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="line"></div>
+                    <div class="board_cntn">
+                        <!-- <p>내용</p>
+                        <div class="line"></div> -->
+                        <p th:text="${boardDetail.board_cntn}"></p>
+                        <!-- <textarea name="" id="" cols="30" rows="10" th:text="${boardDetail.board_cntn}"></textarea> -->
+                    </div>
+                    <div class="board_cntn_likeIcon">
+                        <div class="board_cntn_likeIcon_left">
+                            <i class="far fa-heart"></i>
+                            <p class="board_cntn_likeCnt" th:text="${boardDetail.select_cnt}"></p>
+                        </div>
+                        <div class="board_cntn_likeIcon_right">
+                            <a th:href="@{/sgc_007_02_02-UPDATE( board_div_cd=${boardDetail.board_div_cd}, board_no=${boardDetail.board_no})}" >수정</a>
+                            <a th:onclick="comDoAction('boardDelete','sgc_007_02_02')">삭제</a>
+                        </div>
+                    </div>
+                    <div class="line bottom"></div>
+                </div>
+                <div class="boardReply__title">
+                    <p >댓글</p>
+                </div>
+                <div th:if="${boardReplyList}" id="boardReplyList">
+                    <div class="replyCntnList" th:classappend="${row.re_reply_no} != '' ? moveRightReply" th:each="row : ${boardReplyList}" th:id="'reply_' + ${row.reply_no_id}">
+                        <div class="replyCntnList__outter">
+                            <div class="replyCntnList__leftBox">
+                                <div class="replyCntnList__leftBox__profile">
+                                    <img th:src="${row.social_profile_url}" alt="댓글작성자프로필">
+                                </div>
+                            </div>
+                            <div class="replyCntnList__rightBox">
+                                <div class="replyCntnList__rightBox__name">
+                                    <p class="replyUserId" th:text="${row.user_kor_nm}">댓글작성자이름</p>
+                                </div>
+                                <div class="replyCntnList__rightBox__top">
+                                    <p class="replyCntn" th:text="${row.reply_cntn}" >댓글내용</p>
+                                </div>
+                                <div class="replyCntnList__rightBox__bottom">
+                                    <div class="leftBox">
+                                        <p class="rightBox__bottom__yymmdd" th:text="${row.write_dt}">2020.10.21</p>
+                                        <p class="rightBox__bottom__hhmi" th:text="${row.time}">22:20</p>
+                                        <a th:onclick="comMakeReplyForm([[${row.reply_no}]], 'page_007_02_02' , [[${row.reply_no_id}]])">답글쓰기</a>
+                                    </div>
+                                    <div class="rightBox">
+                                        <a th:onclick="replyUpdate([[${row.reply_no}]], [[${row.re_reply_no}]] , 'page_007_02_02' , [[${row.reply_no_id}]],  [[${row.reply_cntn}]])">수정</a>
+                                        <a th:onclick="replyDelete([[${row.reply_no}]], [[${row.re_reply_no}]] , 'page_007_02_02', [[${row.reply_no_id}]])">삭제</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="lightLine bottom"></div>
+                    </div>
+                </div>
+                <div class="boardReply__cntn">
+                    <div class="boardReply__cntn__outterLine">
+                        <div class="boardReply__user_nm">
+                            <!-- <p th:text-"${}"></p> -->
+                            <p sec:authentication="name">사용자이름</p>
+                            <span style="display: none;" sec:authentication="principal.user.user_id" id="text_user_id">사용자ID</span>
+                        </div>
+                        <textarea name="text_reply_cntn" id="text_reply_cntn" placeholder="댓글을 남겨보세요" onkeydown="resize(this)" onkeyup="resize(this)"></textarea>
+                        <div class="reply__bottom">
+                            <div class="optionItems">
+                                <i class="fas fa-camera-retro"></i>
+                                <i class="far fa-smile"></i>
+                            </div>
+                            <div class="replyRegBtn">
+                                <button class="btn" type="button" onclick="comDoAction('replySave','page_007_02_02')">등록</button>
+                         </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="btns">
+                    <button class="cancel" th:onclick="movePage('sgc_007_02')" >목록</button>
+                    <button class="cancel" onclick=""><i class="fas fa-sort-up"></i>TOP</button>
+                </div>
+            </div> 
+        </section> 
+    </div>
+
+    <!-- <div layout:fragment="content">
+        <form action="#" id="hiddenForm" th:if="${board != null}">
+            <input type="hidden" name="board_div_cd" id="board_div_cd" th:value="${board.board_div_cd}">
+            <input type="hidden" name="board_no" id="board_no" th:value="${board.board_no}">
+        </form> -->
+        <!-- content1st -->
+        <!-- <section id="content1st">
             <div class="content1st__inner board_cntn_area width_1000" id="boardDetail_bind">
                 <div th:if="${boardDetail != null}">
                     <div th:if="${boardDetail != null}" class="board_title">
@@ -42,11 +164,10 @@
                     </div>
                 </div>
                 <div class="btns">
-                    <button class="cancel" th:onclick="movePage('SGC_007_01')" >목록</button>
+                    <button class="cancel" th:onclick="movePage('SGC_007_01')" >목록</button> -->
                     <!-- <button class="cancel" ><a th:href="@{/SGC_007_02}">목록으로</a></button> -->
-                </div>
+                <!-- </div>
             </div>
         </section> 
-
-    </div>
+    </div> -->
 </html>

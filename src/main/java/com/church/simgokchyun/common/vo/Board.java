@@ -46,8 +46,10 @@ public class Board {
     private String user_kor_nm;
     private String board_div_nm;
     private String worship_order_nm;
-    
-
+    private String page_name;
+    private String callback_yn;
+    private String click_user_id;
+    private String favorit_yn_of_click_user;
 
     // 조인해서 사용할 유저정보
     private String social_profile_url;

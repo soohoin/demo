@@ -38,7 +38,7 @@ public class Sgc_002Controller {
      * @param model
      * @return
      */
-    @RequestMapping("/SGC_002_01")
+    @RequestMapping("/sgc_002_01")
     String sgc_002_01(Model model) {
         logger.info("call Controller : sgc_002_01");
         try {
@@ -66,7 +66,7 @@ public class Sgc_002Controller {
      * @param board
      * @return String
      */
-    @RequestMapping(value = "/SGC_002_01-S", method = RequestMethod.POST)
+    @RequestMapping(value = "/sgc_002_01-S", method = RequestMethod.POST)
     String sgc_002_01_S(Model model, Pagination reqPagination, Board board ) {
         logger.info("call Controller : sgc_002_01_S");
 
@@ -89,7 +89,7 @@ public class Sgc_002Controller {
      * @param model
      * @return String
      */    
-    @RequestMapping("/SGC_002_01-CREATE")
+    @RequestMapping("/sgc_002_01-CREATE")
     String sgc_002_01_CREATE(Model model) {
         logger.info("call Controller : sgc_002_01_CREATE");
         try {
@@ -115,7 +115,7 @@ public class Sgc_002Controller {
      * @param board
      * @return
      */  
-    @RequestMapping(value = "/SGC_002_01-SAVE", method = RequestMethod.POST)
+    @RequestMapping(value = "/sgc_002_01-SAVE", method = RequestMethod.POST)
     // String sgc_002_01_SAVE(@RequestParam("img_upload") MultipartFile file_01, Board board, Model model) {
     String sgc_002_01_SAVE(@RequestParam Map<String,MultipartFile> MapFiles, Board board, Model model) {
         logger.info("call Controller : sgc_002_01_SAVE");
@@ -163,7 +163,7 @@ public class Sgc_002Controller {
      * @param board
      * @return String
      */  
-    @RequestMapping("/SGC_002_01-DETAIL")
+    @RequestMapping("/sgc_002_01-DETAIL")
     String sgc_002_01_DETAIL(Board board, Model model) {
         logger.info("call Controller : sgc_002_01_DETAIL");
         try {
@@ -186,7 +186,7 @@ public class Sgc_002Controller {
      * @param board
      * @return
      */  
-    @RequestMapping(value = "/SGC_002_01-DETAIL-S", method = RequestMethod.POST)
+    @RequestMapping(value = "/sgc_002_01-DETAIL-S", method = RequestMethod.POST)
     String sgc_002_01_DETAIL_S(Board board, Model model, @AuthenticationPrincipal PrincipalDetails userDetails, HttpServletRequest request) {
         logger.info("call Controller : sgc_002_01_DETAIL_S");
         try {
@@ -199,7 +199,7 @@ public class Sgc_002Controller {
 
 
 
-    @RequestMapping("/SGC_002_02")
+    @RequestMapping("/sgc_002_02")
     String sgc_002_02(Model model) {
         model.addAttribute("dept_01", "말씀/찬양");
         model.addAttribute("dept_02", "성가대찬양");

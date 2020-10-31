@@ -14,14 +14,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-public class sgc_006Controller {
+public class Sgc_006Controller {
     
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -38,7 +37,7 @@ public class sgc_006Controller {
      * @param model
      * @return
      */
-    @RequestMapping("/SGC_006_01")
+    @RequestMapping("/sgc_006_01")
     String sgc_006_01(Model model) {
         logger.info("call Controller : sgc_006_01");
         try {
@@ -64,7 +63,7 @@ public class sgc_006Controller {
      * @param board
      * @return String
      */
-    @RequestMapping(value = "/SGC_006_01-S", method = RequestMethod.POST)
+    @RequestMapping(value = "/sgc_006_01-S", method = RequestMethod.POST)
     String sgc_006_01_S(Model model, Pagination reqPagination, Board board ) {
         logger.info("call Controller : sgc_006_01_S");
 
@@ -88,7 +87,7 @@ public class sgc_006Controller {
      * @param model
      * @return String
      */
-    @RequestMapping("/SGC_006_01-CREATE")
+    @RequestMapping("/sgc_006_01-CREATE")
     String sgc_006_01_CREATE(Model model) {
         logger.info("call Controller : sgc_006_01_CREATE");
         try {
@@ -113,7 +112,7 @@ public class sgc_006Controller {
      * @param board
      * @return
      */  
-    @RequestMapping(value = "/SGC_006_01-SAVE", method = RequestMethod.POST)
+    @RequestMapping(value = "/sgc_006_01-SAVE", method = RequestMethod.POST)
     String sgc_006_01_SAVE(Board board, Model model) {
         logger.info("call Controller : sgc_006_01_SAVE");
         try {
@@ -138,7 +137,7 @@ public class sgc_006Controller {
      * @param board
      * @return String
      */  
-    @RequestMapping("/SGC_006_01-DETAIL")
+    @RequestMapping("/sgc_006_01-DETAIL")
     String sgc_006_01_DETAIL(Board board, Model model) {
         logger.info("call Controller : sgc_006_01_DETAIL");
         try {
@@ -160,7 +159,7 @@ public class sgc_006Controller {
      * @param board
      * @return
      */  
-    @RequestMapping(value = "/SGC_006_01-DETAIL-S", method = RequestMethod.POST)
+    @RequestMapping(value = "/sgc_006_01-DETAIL-S", method = RequestMethod.POST)
     String sgc_006_01_DETAIL_S(Board board, Model model, @AuthenticationPrincipal PrincipalDetails userDetails, HttpServletRequest  request) {
         logger.info("call Controller : sgc_006_01_DETAIL_S");
         try {
@@ -187,7 +186,7 @@ public class sgc_006Controller {
      * @param model
      * @return
      */
-    @RequestMapping("/SGC_006_02")
+    @RequestMapping("/sgc_006_02")
     String sgc_006_02(Model model) {
         logger.info("call Controller : sgc_006_02");
         try {
@@ -213,7 +212,7 @@ public class sgc_006Controller {
      * @param board
      * @return String
      */
-    @RequestMapping(value = "/SGC_006_02-S", method = RequestMethod.POST)
+    @RequestMapping(value = "/sgc_006_02-S", method = RequestMethod.POST)
     String sgc_006_02_S(Model model, Pagination reqPagination, Board board ) {
         logger.info("call Controller : sgc_006_02_S");
 
@@ -237,7 +236,7 @@ public class sgc_006Controller {
      * @param model
      * @return String
      */
-    @RequestMapping("/SGC_006_02-CREATE")
+    @RequestMapping("/sgc_006_02-CREATE")
     String sgc_006_02_CREATE(Model model) {
         logger.info("call Controller : sgc_006_02_CREATE");
         try {
@@ -262,7 +261,7 @@ public class sgc_006Controller {
      * @param board
      * @return
      */  
-    @RequestMapping(value = "/SGC_006_02-SAVE", method = RequestMethod.POST)
+    @RequestMapping(value = "/sgc_006_02-SAVE", method = RequestMethod.POST)
     String sgc_006_02_SAVE(Board board, Model model) {
         logger.info("call Controller : sgc_006_02_SAVE");
         try {
@@ -287,7 +286,7 @@ public class sgc_006Controller {
      * @param board
      * @return String
      */  
-    @RequestMapping("/SGC_006_02-DETAIL")
+    @RequestMapping("/sgc_006_02-DETAIL")
     String sgc_006_02_DETAIL(Board board, Model model) {
         logger.info("call Controller : sgc_006_02_DETAIL");
         try {
@@ -309,7 +308,7 @@ public class sgc_006Controller {
      * @param board
      * @return
      */  
-    @RequestMapping(value = "/SGC_006_02-DETAIL-S", method = RequestMethod.POST)
+    @RequestMapping(value = "/sgc_006_02-DETAIL-S", method = RequestMethod.POST)
     String sgc_006_02_DETAIL_S(Board board, Model model, @AuthenticationPrincipal PrincipalDetails userDetails, HttpServletRequest request) {
         logger.info("call Controller : sgc_006_02_DETAIL_S");
         try {

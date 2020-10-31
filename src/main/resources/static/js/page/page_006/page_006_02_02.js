@@ -2,5 +2,5 @@
 
 $(document).ready(function (){
 
-    comDoAction("search","SGC_006_02");
+    comDoAction("search","sgc_006_02");
 });

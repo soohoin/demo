@@ -10,7 +10,7 @@ function doAction(acNm) {
     let reqUrl, formName, bindId, callback;
     switch(acNm) {
         case "search":
-            reqUrl = "SGC_002_01-DETAIL-S";
+            reqUrl = "sgc_002_01-DETAIL-S";
             formName = "hiddenForm";
             bindId = "boardDetail_bind";
             callback = setVideo;

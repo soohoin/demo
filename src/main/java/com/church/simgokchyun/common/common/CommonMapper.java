@@ -60,6 +60,14 @@ public interface CommonMapper {
     int insertBoard(Board board)throws Exception;
 
     /**
+     * 게시글 삭제
+     * @param board
+     * @return
+     * @throws Exception
+     */
+    int updateBoardDeleteY(Board board)throws Exception;
+
+    /**
      * 총 게시글 목록 count
      * @param board
      * @return
@@ -141,27 +149,63 @@ public interface CommonMapper {
     /**
      * 게시글의 오늘 좋아요 중복 여부를 확인한다.
      * @param boardLike
-     * @return
+     * @return Map<String,Object>
      * @throws Exception
      */
     Map<String, Object> getBoardLikeExistYn(BoardLike boardLike)throws Exception;
 
     /**
-     * 댓글 INSERT 
+     * 댓글 추가
      * @param boardReply
-     * @return
+     * @return int
      * @throws Exception
      */
     int insertBoardReply(BoardReply boardReply)throws Exception;
 
 
     /**
-     * 댓글 INSERT 
+     * 댓글 수정
+     * @param boardReply
+     * @return int
+     * @throws Exception
+     */
+    int updateBoardReply(BoardReply boardReply)throws Exception;
+
+
+    /**
+     * 답글 추가
+     * @param boardReReply
+     * @return int
+     * @throws Exception
+     */
+    int insertBoardReReply(BoardReReply boardReReply)throws Exception;
+
+
+    /**
+     * 답글 수정
      * @param boardReReply
      * @return
      * @throws Exception
      */
-    int insertBoardReReply(BoardReReply boardReReply)throws Exception;
+    int updateBoardReReply(BoardReReply boardReReply)throws Exception;
+
+
+    /**
+     * 댓글 삭제
+     * @param boardReReply
+     * @return int
+     * @throws Exception
+     */
+    int deleteBoardReply(BoardReply boardReply)throws Exception;
+
+    /**
+     * 답글 삭제
+     * @param boardReReply
+     * @return int
+     * @throws Exception
+     */
+    int deleteBoardReReply(BoardReply boardReply)throws Exception;
+
 
     /**
      * 조회고객 정보 INSERT
@@ -187,6 +231,31 @@ public interface CommonMapper {
      */
     int increaseBoard(BoardLike boardLike) throws Exception;
     
+    /**
+     * 좋아요 클릭여부
+     * @param boardLike
+     * @return
+     * @throws Exception
+     */
+    String getLikeYn(BoardLike boardLike) throws Exception;
+    
+    /**
+     * 게시글의 좋아요 정보를 삭제(DEL_YN = 'Y')한다.
+     * @param boardLike
+     * @return
+     * @throws Exception
+     */
+    int onBoardLike(BoardLike boardLike) throws Exception;
+
+    /**
+     * 게시글의 좋아요 정보를 생성(INSERT / UPDATE)
+     * @param boardLike
+     * @return
+     * @throws Exception
+     */
+    int offBoardLike(BoardLike boardLike) throws Exception;
+
+
 }
 
 

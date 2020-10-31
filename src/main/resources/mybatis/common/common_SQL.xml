@@ -124,6 +124,50 @@
            , (SELECT USER_KOR_NM FROM USER_INFO WHERE USER_ID = A.USER_ID) AS USER_KOR_NM     
            , A.BOARD_DIV_CD        
            , CONCAT(SUBSTRING(A.WRITE_DT, 3, 2),'-',SUBSTRING(A.WRITE_DT, 5, 2),'-',SUBSTRING(A.WRITE_DT, 7, 2))  AS WRITE_DT         
+           , C.FAVORIT_CNT
+           , (SELECT CASE WHEN COUNT(1) = 0
+                               THEN 'N'
+                          ELSE 'Y'
+                      END
+                FROM BOARD_LIKE
+               WHERE 1=1
+                 AND BOARD_DIV_CD = A.BOARD_DIV_CD
+                 AND BOARD_NO = A.BOARD_NO
+                 AND CLICK_DIV_CD = '02'
+                 AND DEL_YN = 'N'
+                 AND CLICK_USER_ID = #{click_user_id}
+              ) AS FAVORIT_YN_OF_CLICK_USER
+           , A.BOARD_TITLE
+           , A.BOARD_CNTN
+           , A.BIBLE_INDEX_CNTN
+           , A.SELECT_CNT
+           , A.VIDEO_DIV_CD
+           , B.SOCIAL_PROFILE_URL
+           , A.VIDEO_ID
+           , A.PHOTO_ID
+           , A.YOUTUBE_IFRM_SRC
+           , A.DEL_YN
+           , A.REG_USER_ID
+           , A.REG_DT
+        FROM BOARD A
+       INNER JOIN USER_INFO B
+          ON A.USER_ID = A.USER_ID
+         AND BOARD_DIV_CD = #{board_div_cd}
+         AND BOARD_NO = #{board_no}
+       CROSS JOIN (SELECT COUNT(1) AS FAVORIT_CNT
+                     FROM BOARD_LIKE 
+                    WHERE 1=1
+                      AND BOARD_DIV_CD = #{board_div_cd}
+                      AND CLICK_DIV_CD = '02'
+                      AND BOARD_NO = #{board_no}
+                      AND DEL_YN = 'N'
+                   ) C 
+        
+      <!-- SELECT A.BOARD_NO
+           , A.USER_ID        
+           , (SELECT USER_KOR_NM FROM USER_INFO WHERE USER_ID = A.USER_ID) AS USER_KOR_NM     
+           , A.BOARD_DIV_CD        
+           , CONCAT(SUBSTRING(A.WRITE_DT, 3, 2),'-',SUBSTRING(A.WRITE_DT, 5, 2),'-',SUBSTRING(A.WRITE_DT, 7, 2))  AS WRITE_DT         
            , A.BOARD_TITLE
            , A.BOARD_CNTN
            , A.BIBLE_INDEX_CNTN
@@ -141,7 +185,7 @@
           ON A.USER_ID = A.USER_ID
        WHERE 1=1
          AND BOARD_DIV_CD = #{board_div_cd}
-         AND BOARD_NO = #{board_no}
+         AND BOARD_NO = #{board_no} -->
     </select> 
 
 
@@ -166,39 +210,45 @@
            , A.CHG_DT
            , A.REG_USER_ID
            , A.REG_DT
-        FROM (SELECT BOARD_DIV_CD
-				   , BOARD_NO
-				   , REPLY_NO
-				   , ''              AS RE_REPLY_NO
-				   , WRITE_DT
-				   , USER_ID
-				   , REPLY_CNTN
-				   , DEL_YN
-				   , CHG_USER_ID
-				   , CHG_DT
-				   , REG_USER_ID
-				   , REG_DT
-				FROM BOARD_REPLY 
-			   WHERE 1=1
-				 AND BOARD_DIV_CD = #{board_div_cd}
-				 AND BOARD_NO = #{board_no}
-			   UNION ALL  
-			  SELECT BOARD_DIV_CD
-				   , BOARD_NO
-				   , REPLY_NO
-				   , RE_REPLY_NO
-				   , WRITE_DT
-				   , USER_ID
-				   , RE_REPLY_CNTN
-				   , DEL_YN
-				   , CHG_USER_ID
-				   , CHG_DT
-				   , REG_USER_ID
-				   , REG_DT
-				FROM BOARD_RE_REPLY 
-			   WHERE 1=1
-				 AND BOARD_DIV_CD = #{board_div_cd}
-				 AND BOARD_NO = #{board_no}
+        FROM ( SELECT BOARD_DIV_CD
+                    , BOARD_NO
+                    , REPLY_NO
+                    , ''              AS RE_REPLY_NO
+                    , WRITE_DT
+                    , USER_ID
+                    , CASE WHEN DEL_YN = 'Y' 
+                                THEN '삭제 된 내용 입니다.'
+                           ELSE REPLY_CNTN
+                       END AS REPLY_CNTN
+                    , DEL_YN
+                    , CHG_USER_ID
+                    , CHG_DT
+                    , REG_USER_ID
+                    , REG_DT
+                 FROM BOARD_REPLY 
+                WHERE 1=1
+                  AND BOARD_DIV_CD = #{board_div_cd}
+                  AND BOARD_NO = #{board_no}
+                UNION ALL  
+               SELECT BOARD_DIV_CD
+                    , BOARD_NO
+                    , REPLY_NO
+                    , RE_REPLY_NO
+                    , WRITE_DT
+                    , USER_ID
+                    , CASE WHEN DEL_YN = 'Y' 
+                                THEN '삭제 된 내용 입니다.'
+                           ELSE RE_REPLY_CNTN
+                       END AS RE_REPLY_CNTN
+                    , DEL_YN
+                    , CHG_USER_ID
+                    , CHG_DT
+                    , REG_USER_ID
+                    , REG_DT
+                 FROM BOARD_RE_REPLY 
+                WHERE 1=1
+                  AND BOARD_DIV_CD = #{board_div_cd}
+                  AND BOARD_NO = #{board_no}
               ) A
        INNER JOIN USER_INFO B
           ON A.USER_ID = B.USER_ID
@@ -248,9 +298,14 @@
     <!-- 게시글 저장 -->
     <insert id="insertBoard" parameterType="Board">
         <selectKey keyProperty="board_no" resultType="String" order="BEFORE">
+            <if test="board_no == null or board_no == '' "> 
             SELECT NVL(MAX(CAST(board_no AS UNSIGNED)), 0) + 1
               FROM BOARD
              WHERE BOARD_DIV_CD = #{board_div_cd}
+            </if>
+            <if test="board_no != null and board_no != '' "> 
+            SELECT #{board_no}
+            </if> 
         </selectKey> 
         INSERT INTO 
          BOARD ( BOARD_DIV_CD          /* 게시판구분코드 */    
@@ -281,6 +336,8 @@
                </if>
                , SELECT_CNT            /* 조회수 */            
                , DEL_YN                /* 삭제여부 */          
+               , CHG_USER_ID           /* 수정자 */
+               , CHG_DT                /* 수정일자 */
                , REG_USER_ID           /* 등록자 */            
                , REG_DT                /* 등록일자 */          
                )
@@ -312,10 +369,49 @@
                </if>
                , '0'
                , 'N'
+               , ''
+               , ''
                , #{user_id}
                , DATE_FORMAT(now(), '%Y%m%d%H%i%s')
-               )  
+               )
+            ON DUPLICATE KEY 
+        UPDATE BOARD_TITLE = #{board_title} /* 제목 */              
+              <if test="board_cntn != null and board_cntn != '' ">
+              , BOARD_CNTN = #{board_cntn} /* 내용 */              
+              </if>
+              <if test="bible_index_cntn != null and bible_index_cntn != '' ">
+              , BIBLE_INDEX_CNTN = #{bible_index_cntn} /* 성경본문내용 */      
+              </if>
+              <if test="video_div_cd != null and video_div_cd != '' ">
+              , VIDEO_DIV_CD = #{video_div_cd} /* 영상구분코드 */      
+              </if>
+              <if test="youtube_ifrm_src != null and youtube_ifrm_src != '' ">
+              , YOUTUBE_IFRM_SRC = #{youtube_ifrm_src} /* 유뷰트 IFRAME 소스 */
+              </if>
+              <if test="worship_order_cd != null and worship_order_cd != '' ">
+              , WORSHIP_ORDER_CD = #{worship_order_cd} /* 예배순서코드 */      
+              </if>
+              <if test="video_id != null and video_id != '' ">
+              , VIDEO_ID = #{video_id} /* 영상 ID */      
+              </if>
+              <if test="photo_id != null and photo_id != '' ">
+              , PHOTO_ID = #{photo_id} /* 이미지 ID */      
+              </if>
+              , CHG_USER_ID = #{user_id} /* 수정자 */
+              , CHG_DT = DATE_FORMAT(now(), '%Y%m%d%H%i%s') /* 수정일자 */
     </insert>
+
+    <!-- 게시글 삭제 -->
+    <update id="updateBoardDeleteY" parameterType="Board">
+      UPDATE BOARD
+         SET DEL_YN = 'Y'
+           , CHG_USER_ID = #{user_id}
+           , CHG_DT = DATE_FORMAT(now(), '%Y%m%d%H%i%s')
+       WHERE 1=1
+         AND BOARD_DIV_CD = #{board_div_cd}
+         AND BOARD_NO = #{board_no}
+    </update>
+
     
     <!-- 댓글 저장 -->
     <insert id="insertBoardReply" parameterType="BoardReply">
@@ -348,6 +444,43 @@
                , DATE_FORMAT(now(), '%Y%m%d%H%i%s')
                )  
     </insert>
+
+    <!-- 댓글 삭제 -->
+    <update id="deleteBoardReply" parameterType="BoardReply">
+      UPDATE BOARD_REPLY
+         SET DEL_YN = 'Y'
+           , CHG_USER_ID = #{user_id}
+           , CHG_DT = DATE_FORMAT(now(), '%Y%m%d%H%i%s')
+       WHERE 1=1
+         AND BOARD_DIV_CD = #{board_div_cd}
+         AND BOARD_NO = #{board_no}
+         AND REPLY_NO = #{reply_no}
+    </update>
+
+    <!-- 답글 삭제 -->
+    <update id="deleteBoardReReply" parameterType="BoardReply">
+      UPDATE BOARD_RE_REPLY
+         SET DEL_YN = 'Y'
+           , CHG_USER_ID = #{user_id}
+           , CHG_DT = DATE_FORMAT(now(), '%Y%m%d%H%i%s')
+       WHERE 1=1
+         AND BOARD_DIV_CD = #{board_div_cd}
+         AND BOARD_NO = #{board_no}
+         AND REPLY_NO = #{reply_no}
+         AND RE_REPLY_NO = #{re_reply_no}
+    </update>
+
+    <!-- 댓글 수정 -->
+    <update id="updateBoardReply" parameterType="BoardReply">
+      UPDATE BOARD_REPLY
+         SET REPLY_CNTN = #{reply_cntn}
+           , CHG_USER_ID = #{user_id}
+           , CHG_DT = DATE_FORMAT(now(), '%Y%m%d%H%i%s')
+       WHERE 1=1
+         AND BOARD_DIV_CD = #{board_div_cd}
+         AND BOARD_NO = #{board_no}
+         AND REPLY_NO = #{reply_no} 
+    </update>
 
 
     <!-- 답글 저장 -->
@@ -382,8 +515,21 @@
                , 'N'
                , #{user_id}
                , DATE_FORMAT(now(), '%Y%m%d%H%i%s')
-               )  
+               )
     </insert>
+
+    <!-- 답글 수정 -->
+    <update id="updateBoardReReply" parameterType="BoardReReply">
+      UPDATE BOARD_RE_REPLY
+         SET RE_REPLY_CNTN = #{re_reply_cntn}
+           , CHG_USER_ID = #{user_id}
+           , CHG_DT = DATE_FORMAT(now(), '%Y%m%d%H%i%s')
+       WHERE 1=1
+         AND BOARD_DIV_CD = #{board_div_cd}
+         AND BOARD_NO = #{board_no}
+         AND REPLY_NO = #{reply_no} 
+         AND RE_REPLY_NO = #{re_reply_no}
+    </update>
 
 
     <!-- 이메일 중복여부 -->
@@ -557,7 +703,7 @@
        WHERE 1=1
          AND A.USER_ID = #{user_id}
          AND A.USE_YN = 'Y'
-   </select>
+    </select>
 
 
     <!-- 사용자 인증여부 활성화 -->
@@ -569,7 +715,7 @@
     </update>
 
 
-    <!-- 게시판 조회수 증가 -->
+    <!-- 게시글 조회수 증가 -->
     <update id="increaseBoard" parameterType="Board">
       UPDATE BOARD
             SET SELECT_CNT = SELECT_CNT + 1
@@ -581,8 +727,8 @@
 
     <!-- 게시글의 오늘 좋아요 중복 여부를 확인한다. -->
     <select id="getBoardLikeExistYn" resultType="HashMap"> 
-      SELECT A.LIKE_EXISTYN
-           , B.BOARD_EXISTYN
+      SELECT A.LIKE_EXISTYN       <!-- 오늘 게시글 조회수를 올린 여부 -->
+           , B.BOARD_EXISTYN      <!-- 게시글 존재여부 -->
         FROM (SELECT CASE WHEN COUNT(1) = 0 
                                THEN 'N'
                          ELSE 'Y'
@@ -628,7 +774,7 @@
 
 
     <!-- 게시글 조회 고객정보 insert -->
-    <insert id="insertBoardlike" parameterType="Board">
+    <insert id="insertBoardlike" parameterType="BoardLike">
       INSERT INTO 
       BOARD_LIKE ( BOARD_DIV_CD                 /* 게시판구분코드 */
                  , CLICK_DIV_CD                 /* 조회 좋아요 구분코드*/
@@ -646,9 +792,61 @@
               , #{click_user_id}
               , DATE_FORMAT(now(), '%Y%m%d%H%i%s')
               )  
-  </insert>
+    </insert>
 
-  
+    <!-- 게시글의 좋아요 클릭 여부를 조회한다. -->
+    <select id="getLikeYn" parameterType="BoardLike" resultType="String">
+      SELECT CASE WHEN COUNT(1) = 0
+                      THEN 'N'
+                  ELSE 'Y'
+              END AS LIKE_YN
+        FROM BOARD_LIKE A 
+      WHERE 1=1
+        AND A.BOARD_DIV_CD = #{board_div_cd}
+        AND A.CLICK_DIV_CD = #{click_div_cd}
+        AND A.BOARD_NO = #{board_no}
+        AND A.CLICK_USER_ID = #{click_user_id}
+        AND A.DEL_YN = 'N'
+    </select>    
+
+    <!-- 게시글의 좋아요 정보를 삭제(DEL_YN = 'Y')한다. -->
+    <update id="offBoardLike" parameterType="BoardLike">
+      UPDATE BOARD_LIKE A <!-- 좋아요 / 조회수 정보  -->
+        SET DEL_YN = 'Y'
+          , CHG_USER_ID = #{click_user_id}
+          , CHG_DT = DATE_FORMAT(now(), '%Y%m%d%H%i%s')
+      WHERE 1=1
+      AND A.BOARD_DIV_CD = #{board_div_cd}
+      AND A.CLICK_DIV_CD = #{click_div_cd}
+      AND A.BOARD_NO = #{board_no}
+      AND A.CLICK_USER_ID = #{click_user_id}
+    </update>
+
+
+    <!-- 게시글 조회 고객정보 생성(INSERT / UPDATE) -->
+    <insert id="onBoardLike" parameterType="BoardLike">
+      INSERT INTO 
+      BOARD_LIKE ( BOARD_DIV_CD                 /* 게시판구분코드 */
+                 , CLICK_DIV_CD                 /* 조회 좋아요 구분코드*/
+                 , BOARD_NO                     /* 글번호 */
+                 , CLICK_USER_ID                /* 선택유저아이디 */
+                 , DEL_YN                       /* 삭제여부 */
+                 , REG_USER_ID                  /* 등록자 */
+                 , REG_DT                       /* 등록일자 */
+                 )
+      VALUES ( #{board_div_cd}
+             , #{click_div_cd}
+             , #{board_no}
+             , #{click_user_id}
+             , 'N'
+             , #{click_user_id}
+             , DATE_FORMAT(now(), '%Y%m%d%H%i%s')
+             )
+          ON DUPLICATE KEY
+      UPDATE DEL_YN = 'N' <!-- 좋아요 / 조회수 정보  -->
+           , CHG_USER_ID = #{click_user_id}
+           , CHG_DT = DATE_FORMAT(now(), '%Y%m%d%H%i%s')
+    </insert>
 
 
 </mapper>

@@ -22,7 +22,7 @@
                 <div class="board__top pagination">
                     <div class="board__top__left"></div>
                     <div class="board__top__right">
-                        <button id="board__top__right__write" type="button" onclick="movePage('SGC_006_01-CREATE')" >글 작성</button>
+                        <button id="board__top__right__write" type="button" onclick="movePage('sgc_006_01-CREATE')" >글 작성</button>
                     </div>
                 </div>
                 <div class="board__filter pagination">
@@ -73,7 +73,7 @@
                                 <img th:src="@{/uploadImg/} + ${row.real_file_nm}" alt="이미지">
                             </div>
                             <div class="title__area">
-                                <p ><a th:text="${row.board_title}" th:href="@{/SGC_006_01-DETAIL( board_div_cd=${row.board_div_cd}, board_no=${row.board_no})}"></a></p>
+                                <p ><a th:text="${row.board_title}" th:href="@{/sgc_006_01-DETAIL( board_div_cd=${row.board_div_cd}, board_no=${row.board_no})}"></a></p>
                             </div>
                             <div class="writer__area">
                                 <p th:text="${row.user_kor_nm}" class="board__writer">작성자</p>

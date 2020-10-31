@@ -13,7 +13,7 @@ function doAction(acNm, pageNo) {
         case "search":
 
             // 1. url 
-            reqUrl = "SGC_006_02-S";
+            reqUrl = "sgc_006_02-S";
 
             // 2. form data 일 경우 form id 지정
             formName = "";

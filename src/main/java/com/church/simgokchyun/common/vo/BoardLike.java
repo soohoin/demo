@@ -21,4 +21,7 @@ public class BoardLike {
     private String chg_dt;
     private String reg_user_id;
     private String reg_dt;
+
+    private String callback_yn;
+    private String page_name;
 }

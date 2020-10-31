@@ -22,7 +22,7 @@
                 <div class="board__top pagination">
                     <div class="board__top__left"></div>
                     <div class="board__top__right">
-                        <button id="board__top__right__write" type="button" onclick="movePage('SGC_005_01-CREATE')" >글 작성</button>
+                        <button id="board__top__right__write" type="button" onclick="movePage('sgc_005_01-CREATE')" >글 작성</button>
                     </div>
                 </div>
                 <div class="board__filter pagination">
@@ -77,7 +77,7 @@
                 <div id="boardList__bind">
                     <div th:if="${boardList}" th:each="row : ${boardList}" class="board__contents row_cnt_6">
                         <p th:text="${row.board_no}">1</p>
-                        <p ><a th:text="${row.board_title}" th:href="@{/SGC_005_01-DETAIL( board_div_cd=${row.board_div_cd}, board_no=${row.board_no})}"></a></p>
+                        <p ><a th:text="${row.board_title}" th:href="@{/sgc_005_01-DETAIL( board_div_cd=${row.board_div_cd}, board_no=${row.board_no})}"></a></p>
                         <p th:text="${row.user_kor_nm}">작성자</p>
                         <p th:text="${row.write_dt}">20.01.01</p> 
                         <p th:text="${row.select_cnt}">0</p>

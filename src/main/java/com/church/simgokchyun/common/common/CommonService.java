@@ -17,6 +17,7 @@ import com.church.simgokchyun.common.vo.Board;
 import com.church.simgokchyun.common.vo.BoardLike;
 import com.church.simgokchyun.common.vo.BoardReReply;
 import com.church.simgokchyun.common.vo.BoardReply;
+import com.church.simgokchyun.common.vo.CallPageInfo;
 import com.church.simgokchyun.common.vo.Comcode;
 import com.church.simgokchyun.common.vo.User;
 import com.church.simgokchyun.config.auth.PrincipalDetails;
@@ -289,47 +290,122 @@ public class CommonService {
         BoardLike boardLike =  new BoardLike();
         
 
-        // 1. 게시글 조회시 조회 수 를 올려준다. 
-        //    1-1. 고객ID와 게시글 번호를 가지고 오늘 조회한 조회 목록을 확인한다.
-        boardLike.setBoard_div_cd(board.getBoard_div_cd());
-        boardLike.setBoard_no(board.getBoard_no());
-        boardLike.setClick_div_cd("01");  // 01: 조회수 ,  02: 좋아요
-
-
-        //    1-2. 로그인 회원이면 ID를 넣고 로그인 정보가 없으면 IP주소를 넣는다.
+        // 1. 로그인 회원이면 ID를 넣고 로그인 정보가 없으면 IP주소를 넣는다.
         if(userDetails != null) {
             // logger.info("userDetails : " + userDetails.getUser());    
             boardLike.setClick_user_id(userDetails.getUser().getUser_id());
+            board.setClick_user_id(userDetails.getUser().getUser_id());
         } else {
             String userIp = this.getIp(request);
             logger.info("userIp : " + userIp);
             logger.info("userIp.length : " + userIp.length());
             boardLike.setClick_user_id(userIp);
+            board.setClick_user_id(userIp);
         }
 
-        map = mapper.getBoardLikeExistYn(boardLike);
-
-        //    2-1. 오늘 조회수를 올린적이 없다면 해당 게시글의 조회수를 올려준다.
-        if("N".equals(map.get("LIKE_EXISTYN"))) {
-
-            // 게시글이 기존에 존재하면 update
-            if("Y".equals(map.get("BOARD_EXISTYN"))) {
-                mapper.updateBoardlike(boardLike);
-                
-                // 게시글이 기존에 존재하지 않으면 insert
-            } else {
-                mapper.insertBoardlike(boardLike);
-            }
+        // 2. callback 호출이 아니면 조회 수 관련 logic을 수행한다.
+        if("N".equals(board.getCallback_yn())){
+            // 2-1. 게시글 조회 시 조회 수 를 올려준다. 
             
-            // 최종 게시글 증가
-            mapper.increaseBoard(boardLike);
-        }
+            boardLike.setBoard_div_cd(board.getBoard_div_cd());
+            boardLike.setBoard_no(board.getBoard_no());
+            boardLike.setClick_div_cd("01");  // 01: 조회수 ,  02: 좋아요
 
+            map = mapper.getBoardLikeExistYn(boardLike);
+
+            //  2-2. 오늘 조회수를 올린적이 없다면 해당 게시글의 조회수를 올려준다.
+            if("N".equals(map.get("LIKE_EXISTYN"))) {
+
+                // 게시글이 기존에 존재하면 update
+                if("Y".equals(map.get("BOARD_EXISTYN"))) {
+                    mapper.updateBoardlike(boardLike);
+                    
+                    // 게시글이 기존에 존재하지 않으면 insert
+                } else {
+                    mapper.insertBoardlike(boardLike);
+                }
+                
+                // 최종 게시글 증가
+                mapper.increaseBoard(boardLike);
+            }
+        }
+        
         return mapper.select_boardDetail(board);
     }
 
     public List<BoardReply> select_boardReply(Board board)throws Exception {
         return mapper.select_boardReply(board);
+    }
+
+    // 공통 댓글 , 답글  DELETE
+    public int deleteBoardReply_reReply(BoardReply boardReply) throws Exception {
+        int rsltVal = 0;
+
+        // 1. 댓글을  삭제한다.
+        if("REPLY".equals(boardReply.getKind_of_reply())) {
+            rsltVal = mapper.deleteBoardReply(boardReply);
+
+        // 2. 답글을 삭제한다.
+        } else if("REREPLY".equals(boardReply.getKind_of_reply())) {
+            rsltVal = mapper.deleteBoardReReply(boardReply);
+        }
+
+        return rsltVal;
+    }
+
+    // 공통 댓글 , 답글   INSERT, UPDATE
+    public int insertBoardReply_reReply(BoardReply boardReply) throws Exception {
+        int rsltVal = 0;
+        BoardReReply boardReReply = new BoardReReply();
+
+        // 1. 댓글을 저장한다.
+        if("REPLY".equals(boardReply.getKind_of_reply())) {
+
+            // 1-1. 댓글 UPDATE
+            if("Y".equals(boardReply.getUpdate_yn()) ) {
+                rsltVal = updateBoardReply(boardReply);
+            // 2-1. 댓글 INSERT
+            } else {
+                rsltVal = insertBoardReply(boardReply);
+            }
+        
+
+        // 2. 답글을 저장한다.
+        } else if("REREPLY".equals(boardReply.getKind_of_reply())) {
+            boardReReply.setBoard_div_cd(boardReply.getBoard_div_cd());
+            boardReReply.setBoard_no(boardReply.getBoard_no());
+            boardReReply.setReply_no(boardReply.getReply_no());
+            boardReReply.setRe_reply_no(boardReply.getRe_reply_no());
+            boardReReply.setUser_id(boardReply.getUser_id());
+            boardReReply.setRe_reply_cntn(boardReply.getReply_cntn());
+
+            // 2-1. 답글 UPDATE
+            if("Y".equals(boardReply.getUpdate_yn()) ) {
+                rsltVal = updateBoardReReply(boardReReply);
+            // 2-2. 답글 INSERT
+            } else {
+                boardReReply.setRe_reply_no("");
+                rsltVal = insertBoardReReply(boardReReply);
+            }
+        }
+
+        return rsltVal;
+    }
+    
+    
+    /**
+     * 공통 댓글 삭제
+     */
+    public int deleteBoardReply(BoardReply boardReply) throws Exception {
+        return mapper.deleteBoardReply(boardReply);
+    }
+
+
+    /**
+     * 공통 답글 삭제
+     */
+    public int deleteBoardReReply(BoardReply boardReply) throws Exception {
+        return mapper.deleteBoardReReply(boardReply);
     }
 
 
@@ -338,6 +414,13 @@ public class CommonService {
      */
     public int insertBoard(Board board) throws Exception {
         return mapper.insertBoard(board);
+    }
+
+    /**
+     * 공통 게시글 삭제
+     */
+    public int updateBoardDeleteY(Board board) throws Exception {
+        return mapper.updateBoardDeleteY(board);
     }
 
     /**
@@ -352,13 +435,34 @@ public class CommonService {
 
 
     /**
-     * 댓글의 답글 추가
+     * 댓글 수정
+     * @param boardReply
+     * @return
+     * @throws Exception
+     */
+    public int updateBoardReply(BoardReply boardReply) throws Exception{
+        return mapper.updateBoardReply(boardReply);
+    }
+
+
+    /**
+     * 답글 추가
      * @param boardReReply
      * @return
      * @throws Exception
      */
     public int insertBoardReReply(BoardReReply boardReReply) throws Exception{
         return mapper.insertBoardReReply(boardReReply);
+    }
+
+    /**
+     * 답글 수정
+     * @param boardReReply
+     * @return
+     * @throws Exception
+     */
+    public int updateBoardReReply(BoardReReply boardReReply) throws Exception{
+        return mapper.updateBoardReReply(boardReReply);
     }
 
 
@@ -482,6 +586,66 @@ public class CommonService {
             sb.append(charSet[idx]); 
         } 
         return sb.toString(); 
+    }
+
+    /**
+     * 좋아요 클릭여부
+     * @param vo
+     * @return
+     */
+    public String getLikeYn(BoardLike vo) throws Exception{
+        return mapper.getLikeYn(vo);
+    }
+
+    /**
+     * 게시글의 좋아요 정보를 삭제(DEL_YN = 'Y')
+     * @param vo
+     * @return
+     */
+    public int onBoardLike(BoardLike vo) throws Exception{
+        return mapper.onBoardLike(vo);
+    }
+    
+    /**
+     * 게시글의 좋아요 정보를 생성(INSERT / UPDATE)
+     * @param vo
+     * @return
+     */
+    public int offBoardLike(BoardLike vo) throws Exception{
+        return mapper.offBoardLike(vo);
+    }
+
+    /**
+     * return 할 페이지 명을 만든다. [리턴 시 binding 할 부분의 id를 찾아서 부분 페이지를 파싱한다.
+     * @param pageInfo
+     * @return
+     */
+    public String getReturnUrl(CallPageInfo pageInfo) {
+        String returnUrl = "";
+        String page_name;
+        page_name = pageInfo.getPage_name();
+
+        if(page_name.contains("002")) {
+            returnUrl = "page/page_002/page_002_01_02 :: #";
+        } else if(page_name.contains("005_01")) {
+            returnUrl = "page/page_005/page_005_01_02 :: #";
+        } else if(page_name.contains("005_02")) {
+            returnUrl = "page/page_005/page_005_02_02 :: #";
+        } else if(page_name.contains("005_03")) {
+            returnUrl = "page/page_005/page_005_03_02 :: #";
+        } else if(page_name.contains("005_04")) {
+            returnUrl = "page/page_005/page_005_04_02 :: #";
+        } else if(page_name.contains("006_01")) {
+            returnUrl = "page/page_006/page_006_01_02 :: #";
+        } else if(page_name.contains("006_02")) {
+            returnUrl = "page/page_006/page_006_02_02 :: #";
+        } else if(page_name.contains("007_01")) {
+            returnUrl = "page/page_007/page_007_01_02 :: #";
+        } else if(page_name.contains("007_02")) {
+            returnUrl = "page/page_007/page_007_02_02 :: #";
+        }
+        returnUrl += pageInfo.getBind_id();
+        return returnUrl;
     }
 
 

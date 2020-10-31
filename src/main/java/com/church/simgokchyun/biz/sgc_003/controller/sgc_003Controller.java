@@ -6,9 +6,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class sgc_003Controller {
+public class Sgc_003Controller {
     
-    @RequestMapping("/SGC_003_01")
+    @RequestMapping("/sgc_003_01")
     String sgc_003_01(Model model) {
 
         model.addAttribute("dept_01", "양육/교육");
@@ -18,7 +18,7 @@ public class sgc_003Controller {
 
     }
 
-    @RequestMapping("/SGC_003_02")
+    @RequestMapping("/sgc_003_02")
     String sgc_003_02(Model model) {
         model.addAttribute("dept_01", "양육/교육");
         model.addAttribute("dept_02", "교육사역");
@@ -26,7 +26,7 @@ public class sgc_003Controller {
         return "page/page_003/page_003_02";
     }
 
-    @RequestMapping("/SGC_003_03")
+    @RequestMapping("/sgc_003_03")
     String sgc_003_03(Model model) {
         model.addAttribute("dept_01", "양육/교육");
         model.addAttribute("dept_02", "일대일양육");
@@ -34,7 +34,7 @@ public class sgc_003Controller {
         return "page/page_003/page_003_03";
     }
 
-    @RequestMapping("/SGC_003_04")
+    @RequestMapping("/sgc_003_04")
     String sgc_003_04(Model model) {
         model.addAttribute("dept_01", "교회소개");
         model.addAttribute("dept_02", "오시는길");

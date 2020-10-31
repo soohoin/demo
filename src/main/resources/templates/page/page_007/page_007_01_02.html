@@ -18,10 +18,17 @@
         <form action="#" id="hiddenForm" th:if="${board != null}">
             <input type="hidden" name="board_div_cd" id="board_div_cd" th:value="${board.board_div_cd}">
             <input type="hidden" name="board_no" id="board_no" th:value="${board.board_no}">
-            <input type="hidden" name="user_id" id="user_id">
+            <input type="hidden" name="user_id" id="user_id">             <!-- 글 작성자가 아닌 현재 게시글을 읽고있는 사용자 ID 이다. -->
             <input type="hidden" name="reply_cntn" id="reply_cntn">
             <input type="hidden" name="user_nm" id="user_nm">
             <input type="hidden" name="reply_no" id="reply_no">
+            <input type="hidden" name="re_reply_no" id="re_reply_no">
+            <input type="hidden" name="update_yn" id="update_yn">          <!-- 댓글 저장 시 생성/수정 구분  Y:수정, N:생성 -->
+            <input type="hidden" name="kind_of_reply" id="kind_of_reply">  <!-- 댓글 / 답글 구분코드  REPLY:댓글, REREPLY:답글 -->
+            <input type="hidden" name="page_name" id="page_name">          <!-- 페이지명 -->
+            <input type="hidden" name="callback_yn" id="callback_yn" value="N"> <!-- 상세 페이지 조회 시 callback or 사용자의 게시글 상세버튼 클릭인지 구분하기 위한 data   -->
+
+
             <p style="display: none;" name="user_nm_tmp" id="user_nm_tmp" sec:authentication="name"></p>
         </form>
         <!-- content1st -->
@@ -31,7 +38,7 @@
                     <div th:if="${boardDetail != null}" class="board_title">
                         <p th:text="${boardDetail.board_title}">제목</p>
                         <div class="btns">
-                            <button class="returnList" th:onclick="movePage('SGC_007_01')">목록</button>
+                            <button class="returnList" th:onclick="movePage('sgc_007_01')">목록</button>
                         </div>
                     </div>
                     <div class="line top"></div>
@@ -59,8 +66,15 @@
                         <!-- <textarea name="" id="" cols="30" rows="10" th:text="${boardDetail.board_cntn}"></textarea> -->
                     </div>
                     <div class="board_cntn_likeIcon">
-                        <i class="far fa-heart"></i>
-                        <p class="board_cntn_likeCnt" th:text="${boardDetail.select_cnt}"></p>
+                        <div class="board_cntn_likeIcon_left">
+                            <a th:if="${boardDetail.favorit_yn_of_click_user} == 'N' " th:onclick="comDoAction('clickLike','sgc_007_01_02')"><i class="far fa-heart"></i></a>
+                            <a th:if="${boardDetail.favorit_yn_of_click_user} == 'Y' " th:onclick="comDoAction('clickLike','sgc_007_01_02')"><i class="fas fa-heart"></i></a>
+                            <p class="board_cntn_likeCnt" th:text="${boardDetail.favorit_cnt}"></p>
+                        </div>
+                        <div class="board_cntn_likeIcon_right">
+                            <a th:href="@{/sgc_007_01_02-UPDATE( board_div_cd=${boardDetail.board_div_cd}, board_no=${boardDetail.board_no})}" >수정</a>
+                            <a th:onclick="comDoAction('boardDelete','sgc_007_01_02')">삭제</a>
+                        </div>
                     </div>
                     <div class="line bottom"></div>
                 </div>
@@ -83,9 +97,15 @@
                                     <p class="replyCntn" th:text="${row.reply_cntn}" >댓글내용</p>
                                 </div>
                                 <div class="replyCntnList__rightBox__bottom">
-                                    <p class="rightBox__bottom__yymmdd" th:text="${row.write_dt}">2020.10.21</p>
-                                    <p class="rightBox__bottom__hhmi" th:text="${row.time}">22:20</p>
-                                    <a th:onclick="makeReplyForm([[${row.reply_no}]],[[${row.reply_no_id}]])">답글쓰기</a>
+                                    <div class="leftBox">
+                                        <p class="rightBox__bottom__yymmdd" th:text="${row.write_dt}">2020.10.21</p>
+                                        <p class="rightBox__bottom__hhmi" th:text="${row.time}">22:20</p>
+                                        <a th:onclick="comMakeReplyForm([[${row.reply_no}]], 'page_007_01_02' , [[${row.reply_no_id}]])">답글쓰기</a>
+                                    </div>
+                                    <div class="rightBox">
+                                        <a th:onclick="replyUpdate([[${row.reply_no}]], [[${row.re_reply_no}]] , 'page_007_01_02' , [[${row.reply_no_id}]],  [[${row.reply_cntn}]])">수정</a>
+                                        <a th:onclick="replyDelete([[${row.reply_no}]], [[${row.re_reply_no}]] , 'page_007_01_02', [[${row.reply_no_id}]])">삭제</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -106,13 +126,13 @@
                                 <i class="far fa-smile"></i>
                             </div>
                             <div class="replyRegBtn">
-                                <button class="btn" type="button" onclick="doAction('save')">등록</button>
+                                <button class="btn" type="button" onclick="comDoAction('insertReply','page_007_01_02')">등록</button>
                          </div>
                         </div>
                     </div>
                 </div>
                 <div class="btns">
-                    <button class="cancel" th:onclick="movePage('SGC_007_01')" >목록</button>
+                    <button class="cancel" th:onclick="movePage('sgc_007_01')" >목록</button>
                     <button class="cancel" onclick=""><i class="fas fa-sort-up"></i>TOP</button>
                 </div>
             </div> 

@@ -813,8 +813,26 @@
   #boardDetail_bind .board_cntn_likeIcon {
     font-size: var(--font-small);
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  #boardDetail_bind .board_cntn_likeIcon .board_cntn_likeIcon_left {
+    display: flex;
     align-items: center;
     opacity: 0.8;
+  }
+  #boardDetail_bind .board_cntn_likeIcon .board_cntn_likeIcon_left .fa-heart{
+    cursor: pointer;
+  }
+  #boardDetail_bind .board_cntn_likeIcon .board_cntn_likeIcon_left p{
+    cursor: pointer;
+  }
+  #boardDetail_bind .board_cntn_likeIcon a {
+    cursor: pointer;
+  }
+  #boardDetail_bind .board_cntn_likeIcon a:hover {
+    opacity: 0.7;
+    color: var(--color-pink);
   }
   #boardDetail_bind .board_cntn_likeCnt::before {
     content: '좋아요';
@@ -900,12 +918,27 @@
     flex-direction: column;
     justify-content: space-between;
     align-content: space-between;
+    width: 100%;
   }
   #boardDetail_bind .replyCntnList .replyCntnList__rightBox__bottom {
+    width: 100%;
     margin: 10px 5px 0 0;
     display: flex;
     align-items: baseline;
+    justify-content: space-between;
+
     flex-direction: row;
+  }
+  #boardDetail_bind .replyCntnList .replyCntnList__rightBox__bottom .leftBox {
+    display: flex;
+    align-items: baseline;
+  }
+  #boardDetail_bind .replyCntnList .replyCntnList__rightBox__bottom .rightBox {
+    display: flex;
+
+  }
+  #boardDetail_bind .replyCntnList .replyCntnList__rightBox__bottom .rightBox a:nth-child(1){
+    margin-right: 5px;
   }
   #boardDetail_bind .replyCntnList__rightBox__bottom .rightBox__bottom__yymmdd {
     margin-right: 10px;
@@ -916,8 +949,14 @@
   #boardDetail_bind .replyCntnList__rightBox__bottom a {
     cursor: pointer;
   }
+  #boardDetail_bind .replyCntnList__rightBox__bottom a:hover {
+    opacity: 0.8;
+    color: var(--color-pink);
+    /* color:  #FAEBD7; */
+  }
   #boardDetail_bind #boardReplyList .moveRightReply{
     margin-left: 60px;
+    width: 940px;
   }  
   #boardDetail_bind .boardReply__title > p{
     font-size: var(--font-medium);

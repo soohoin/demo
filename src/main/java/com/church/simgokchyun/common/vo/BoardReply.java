@@ -29,6 +29,8 @@ public class BoardReply {
     private String user_kor_nm;
     private String reply_no_id;
     private String re_reply_no;
+    private String update_yn;
+    private String kind_of_reply;
 
     // 댓글 사용자 프로필 사용
     private String social_profile_url;
