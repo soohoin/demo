@@ -60,3 +60,8 @@ function doAction(acNm, pageNo) {
             break;    
     }
 }
+
+// 상세 페이지 이동 
+function goDetail(board_no) {
+    $("#page_move"+ board_no).get(0).click();
+}

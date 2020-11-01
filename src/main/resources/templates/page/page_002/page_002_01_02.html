@@ -15,47 +15,76 @@
     </th:block>
 
     <div layout:fragment="content">
-        <form action="#" id="hiddenForm">
+        <form action="#" id="hiddenForm" th:if="${board != null}">
             <input type="hidden" name="board_div_cd" id="board_div_cd" th:value="${board.board_div_cd}">
             <input type="hidden" name="board_no" id="board_no" th:value="${board.board_no}">
+            <input type="hidden" name="user_id" id="user_id">             <!-- 글 작성자가 아닌 현재 게시글을 읽고있는 사용자 ID 이다. -->
+            <input type="hidden" name="reply_cntn" id="reply_cntn">
+            <input type="hidden" name="user_nm" id="user_nm">
+            <input type="hidden" name="reply_no" id="reply_no">
+            <input type="hidden" name="re_reply_no" id="re_reply_no">
+            <input type="hidden" name="update_yn" id="update_yn">          <!-- 댓글 저장 시 생성/수정 구분  Y:수정, N:생성 -->
+            <input type="hidden" name="kind_of_reply" id="kind_of_reply">  <!-- 댓글 / 답글 구분코드  REPLY:댓글, REREPLY:답글 -->
+            <input type="hidden" name="page_name" id="page_name">          <!-- 페이지명 -->
+            <input type="hidden" name="callback_yn" id="callback_yn" value="N"> <!-- 상세 페이지 조회 시 callback or 사용자의 게시글 상세버튼 클릭인지 구분하기 위한 data   -->
+
+            <p style="display: none;" name="user_nm_tmp" id="user_nm_tmp" sec:authentication="name"></p>
         </form>
         <!-- content1st -->
         <section id="content1st">
             <div class="content1st__inner board_cntn_area width_1000" id="boardDetail_bind">
-                <div  th:if="${boardDetail != null}">
+                <div th:if="${boardDetail != null}">
                     <div th:if="${boardDetail != null}" class="board_title">
                         <p th:text="${boardDetail.board_title}">제목</p>
+                        <div class="btns">
+                            <button class="returnList" th:onclick="movePage('sgc_002_01')">목록</button>
+                        </div>
                     </div>
                     <div class="line top"></div>
-                    <div class="board_kor_nm">
-                        <p>작성자 :&nbsp;</p>
-                        <p th:text="${boardDetail.user_kor_nm}"></p>
-                        <!-- <p>&nbsp;담임목사</p> -->
-                    </div>
-                    <!-- <div class="index_cntn">
-                        <p>본문 :&nbsp;</p>
-                        <p th:text="${boardDetail.bible_index_cntn}"></p>
-                    </div> -->
-                    <div class="reg_dt">
-                        <p>날짜 :&nbsp;</p>
-                        <p th:text="${boardDetail.write_dt}"></p>
+                    <div class="writer__info">
+                        <div class="writer__info__profileImg">
+                            <img th:src="${boardDetail.social_profile_url}" alt="작성자프로필">
+                        </div>
+                        <div class="writer__info__etc">
+                            <div class="board_kor_nm">
+                                <!-- <p>작성자 :&nbsp;</p> -->
+                                <p th:text="${boardDetail.user_kor_nm}"></p>
+                            </div>
+                            <div class="reg_dt">
+                                <!-- <p>날짜 :&nbsp;</p> -->
+                                <p th:text="${boardDetail.write_dt}"></p>
+                                <p th:text="${boardDetail.select_cnt}" class="reg_dt__selectCnt"></p>
+                            </div>
+                        </div>
                     </div>
                     <div class="line"></div>
-                    <div class="btns">
-                        <button class="cancel" ><a th:href="@{/sgc_002_01}">목록으로</a></button>
+                    <!-- <div class="board_cntn"> -->
+                        <div th:if="${boardDetail.video_div_cd != '01' }" class="board_video">
+                            <p>설교영상</p>
+                            <div id="youtube_video"></div>
+                            <input type="hidden" id="youtube_src" th:if="${boardDetail.video_div_cd == '02' }" th:value="${boardDetail.youtube_ifrm_src}">
+                        </div>
+                        <!-- <p th:text="${boardDetail.board_cntn}"></p> -->
+                    <!-- </div> -->
+                    <div class="board_cntn_likeIcon">
+                        <div class="board_cntn_likeIcon_left">
+                            <!-- <a sec:authorize="isAnonymous()" th:onclick="comDoAction('joinInfo','sgc_002_01_02')"><i class="far fa-heart"></i></a>
+                            <a sec:authorize="isAuthenticated()" th:if="${boardDetail.favorit_yn_of_click_user} == 'N' " th:onclick="comDoAction('clickLike','sgc_002_01_02')"><i class="far fa-heart"></i></a>
+                            <a sec:authorize="isAuthenticated()" th:if="${boardDetail.favorit_yn_of_click_user} == 'Y' " th:onclick="comDoAction('clickLike','sgc_002_01_02')"><i class="fas fa-heart"></i></a>
+                            <p class="board_cntn_likeCnt" th:text="${boardDetail.favorit_cnt}"></p> -->
+                        </div>
+                        <div class="board_cntn_likeIcon_right">
+                            <a th:href="@{/sgc_002_01_02-UPDATE( board_div_cd=${boardDetail.board_div_cd}, board_no=${boardDetail.board_no})}" >수정</a>
+                            <a th:onclick="comDoAction('boardDelete','sgc_002_01_02')">삭제</a>
+                        </div>
                     </div>
-                    <!-- <div class="board_cntn">
-                        <p>내용</p>
-                        <textarea name="" id="" cols="30" rows="10" th:text="${boardDetail.board_cntn}"></textarea>
-                    </div> -->
-                    <div th:if="${boardDetail.video_div_cd != '01' }" class="board_video">
-                        <p>설교영상</p>
-                        <div id="youtube_video"></div>
-                        <input type="hidden" id="youtube_src" th:if="${boardDetail.video_div_cd == '02' }" th:value="${boardDetail.youtube_ifrm_src}">
-                    </div>
+                    <div class="line bottom"></div>
                 </div>
-            </div>
+                
+                <div class="btns">
+                    <button class="cancel" th:onclick="movePage('sgc_002_01')" >목록</button>
+                </div>
+            </div> 
         </section> 
-
     </div>
 </html>

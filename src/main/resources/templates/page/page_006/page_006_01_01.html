@@ -28,6 +28,10 @@
                         <label for="board_title">제목</label>
                         <input type="text" name="board_title" id="board_title" placeholder="제목을 입력하세요">
                     </div>
+                    <div class="img__upload">
+                        <label for="img_upload">이미지 업로드 파일</label>
+                        <input type="file" name="img_upload" id="img_upload" placeholder="이미지 선택">
+                    </div>
                     <div class="content">
                         <label for="board_cntn">내용</label>
                         <textarea th:if="${ #strings.isEmpty(boardDetail) }" name="board_cntn" id="board_cntn" cols="100" rows="20" placeholder="내용을 입력하세요"></textarea>
@@ -39,7 +43,7 @@
                         <p th:text="${boardDetail.write_dt}"></p>
                     </div>
                     <div class="btns">
-                        <button class="save" type="button" onclick="comDoAction('save','sgc_006_01')" >저장</button>
+                        <button class="save" type="button" onclick="doAction('save')">저장</button>
                         <button class="cancel" type="button" onclick="movePage('sgc_006_01')">취소</button>
                     </div>
                 </form>

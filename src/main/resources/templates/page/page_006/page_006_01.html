@@ -5,9 +5,9 @@
       layout:decorator="layout/subPage_01_layout">
 
     <!-- index.html 고유 CSS 추가 -->
-    <!-- <th:block layout:fragment="css">
+    <th:block layout:fragment="css">
         <link rel="stylesheet" th:href="@{/css/page/page_006/page_006_01.css}" >
-    </th:block> -->
+    </th:block>
     
     <!-- index.html 고유 스크립트 추가 -->
     <th:block layout:fragment="script">
@@ -70,10 +70,10 @@
                     <div class="boardList__bind__cntn">
                         <div th:if="${boardList}" th:each="row : ${boardList}" class="box_cntn">
                             <div class="img__area">
-                                <img th:src="@{/uploadImg/} + ${row.real_file_nm}" alt="이미지">
+                                <img th:src="@{/uploadImg/} + ${row.real_file_nm}" alt="이미지" th:onclick="goDetail( [[${row.board_no}]] )">
                             </div>
                             <div class="title__area">
-                                <p ><a th:text="${row.board_title}" th:href="@{/sgc_006_01-DETAIL( board_div_cd=${row.board_div_cd}, board_no=${row.board_no})}"></a></p>
+                                <p ><a th:text="${row.board_title}" th:href="@{/sgc_006_01-DETAIL( board_div_cd=${row.board_div_cd}, board_no=${row.board_no}, user_id=${row.user_id} )}" th:id="'page_move' + ${row.board_no}"></a></p>
                             </div>
                             <div class="writer__area">
                                 <p th:text="${row.user_kor_nm}" class="board__writer">작성자</p>

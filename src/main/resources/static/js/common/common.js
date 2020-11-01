@@ -40,7 +40,7 @@ function comDoAction(acNm, pageName, replyNo) {
             data = null;
             formName = "hiddenForm";
             bindId = "boardDetail_bind";
-            callback = update_callback_y();
+            callback = update_callback_y;
             ajaxCall(reqUrl, data, formName, bindId, callback);
             break;
 
@@ -135,7 +135,18 @@ function comDoAction(acNm, pageName, replyNo) {
             bindId = null;
             callback = basicSearch;
             ajaxCall(reqUrl, data, formName, bindId, callback);
-            break;    
+            break;
+
+        /* 비 로그인 상태의 사용자가 좋아요를 클릭 했을 때 alert으로 회원 가입을 유도한다. */
+        case "joinInfo" :
+            if (!confirm("해당 기능은 회원 만 가능 합니다. \n\r 간편 회원가입 화면으로 이동할까요?")) return;
+            movePage("loginForm");
+            break;
+
+        /* 공사중인 페이지 */
+        case "repairPage" :
+            alert("현재 이용이 잠시 중단 된 페이지 입니다.");
+            break;
     }
 }
 

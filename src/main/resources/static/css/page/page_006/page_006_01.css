@@ -1,17 +1,18 @@
   /*****************************************************/
   /*********************** content1 *********************/
   /*****************************************************/
-  #content1st {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 60px 0;
+  #boardList__bind .board__bibleIndex::before {
+    content: "본문 : ";
   }
-
-  .content1st__inner {
-    display: flex;
-    justify-content: center;
-    width: 1195px;
+  #boardList__bind .board__writer::before {
+    content: "작성자 : ";
   }
-
+  /* #boardList__bind .board__writer::after {
+    content: " 목사";
+  } */
+  #boardList__bind .board__date::before {
+    content: "날짜 : ";
+  }
+  #boardList__bind .board_viewCount::before {
+    content: "조회수 : ";
+  }

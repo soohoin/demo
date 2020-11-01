@@ -124,7 +124,9 @@
            , (SELECT USER_KOR_NM FROM USER_INFO WHERE USER_ID = A.USER_ID) AS USER_KOR_NM     
            , A.BOARD_DIV_CD        
            , CONCAT(SUBSTRING(A.WRITE_DT, 3, 2),'-',SUBSTRING(A.WRITE_DT, 5, 2),'-',SUBSTRING(A.WRITE_DT, 7, 2))  AS WRITE_DT         
-           , C.FAVORIT_CNT
+           , D.FAVORIT_CNT
+           , C.REAL_FILE_NM
+           , CONCAT(C.FILE_PATH,C.REAL_FILE_NM)  AS IMG_PATH
            , (SELECT CASE WHEN COUNT(1) = 0
                                THEN 'N'
                           ELSE 'Y'
@@ -151,9 +153,11 @@
            , A.REG_DT
         FROM BOARD A
        INNER JOIN USER_INFO B
-          ON A.USER_ID = A.USER_ID
+          ON A.USER_ID = B.USER_ID
          AND BOARD_DIV_CD = #{board_div_cd}
          AND BOARD_NO = #{board_no}
+        LEFT JOIN FILE_UPLOAD_INFO C
+          ON A.PHOTO_ID = C.FILE_ID  
        CROSS JOIN (SELECT COUNT(1) AS FAVORIT_CNT
                      FROM BOARD_LIKE 
                     WHERE 1=1
@@ -161,7 +165,7 @@
                       AND CLICK_DIV_CD = '02'
                       AND BOARD_NO = #{board_no}
                       AND DEL_YN = 'N'
-                   ) C 
+                   ) D 
         
       <!-- SELECT A.BOARD_NO
            , A.USER_ID        

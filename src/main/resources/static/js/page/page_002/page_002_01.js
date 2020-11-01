@@ -69,10 +69,6 @@ function goDetail(board_no) {
 }
 
 
-/**
- *  유튜브 & 동영상을 bind 한다.
- */
-
 
 function popOpen(divText) {
 

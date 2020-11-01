@@ -1,13 +1,16 @@
 package com.church.simgokchyun.biz.sgc_006.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.church.simgokchyun.common.common.CommonMapper;
 import com.church.simgokchyun.common.common.CommonService;
 import com.church.simgokchyun.common.paging.Pagination;
 import com.church.simgokchyun.common.vo.Board;
+import com.church.simgokchyun.common.vo.BoardReply;
 import com.church.simgokchyun.config.auth.PrincipalDetails;
 
 import org.slf4j.Logger;
@@ -18,6 +21,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class Sgc_006Controller {
@@ -27,6 +33,8 @@ public class Sgc_006Controller {
     @Autowired
     CommonService comService;
 
+    @Autowired
+    CommonMapper mapper;
 
 
     /**************************************************************************************/
@@ -69,7 +77,7 @@ public class Sgc_006Controller {
 
         try {
             // 1. 공통 paging 서비스 호출
-            board.setBoard_div_cd("01");
+            board.setBoard_div_cd("11");
             comService.getPaginationInfo(comService.getTotalCnt(board), reqPagination, model, board); 
 
 
@@ -113,19 +121,47 @@ public class Sgc_006Controller {
      * @return
      */  
     @RequestMapping(value = "/sgc_006_01-SAVE", method = RequestMethod.POST)
-    String sgc_006_01_SAVE(Board board, Model model) {
+    String sgc_006_01_SAVE(@RequestParam Map<String,MultipartFile> MapFiles, Board board, Model model, @AuthenticationPrincipal PrincipalDetails userDetails) {
         logger.info("call Controller : sgc_006_01_SAVE");
         try {
             
+            String img_id;
+
             // 1. 유저 정보를 셋팅한다.
-            board.setUser_id("100001");
-            board.setBoard_div_cd("12");  // 변경 필요함 , 화면에서 받아서 글 생성
+            board.setUser_id(userDetails.getUser().getUser_id());
+            board.setBoard_div_cd("11");
+
+            // 2. 업로드한 이미지 / 영상을 DB와 서버 경로에 저장하고 업로드 한 id를 board객체에 넣어준다.
+            //     2-1. 이미지 처리
+            if(MapFiles.get("img_upload") != null) {
+                img_id = comService.fileSave(MapFiles.get("img_upload"),"01");
+                board.setPhoto_id(img_id);
+            }
 
             // 2. 새 글을 INSERT 한다.
             comService.insertBoard(board);
             model.addAttribute("errYn", "N");
         } catch(Exception e) {
             model.addAttribute("errYn", "Y");
+            logger.error(e.getMessage(), e);
+        }
+        return "page/page_006/page_006_01";
+    }
+
+    /**
+     * 행사앨범 게시글 삭제
+     * @param model
+     * @param board
+     * @return
+     */  
+    @RequestMapping(value = "/sgc_006_01_02-DELETE", method = RequestMethod.POST)
+    String sgc_006_01_02_DELETE(Board board, Model model) {
+        logger.info("call Controller : sgc_006_01_02_DELETE");
+        model.addAttribute("errYn", "Y");
+        try {
+            comService.updateBoardDeleteY(board);
+            model.addAttribute("errYn", "N");
+        } catch(Exception e) {
             logger.error(e.getMessage(), e);
         }
         return "page/page_006/page_006_01";
@@ -164,10 +200,95 @@ public class Sgc_006Controller {
         logger.info("call Controller : sgc_006_01_DETAIL_S");
         try {
             model.addAttribute("boardDetail", comService.select_boardDetail(board, userDetails, request));
+            model.addAttribute("boardReplyList", comService.select_boardReply(board));
         } catch(Exception e) {
             logger.error(e.getMessage(), e);
         }
         return "page/page_006/page_006_01_02 :: #boardDetail_bind";
+    }
+
+    /**
+     * 행사앨범 게시글 수정 화면오픈
+     * @param model
+     * @param board
+     * @return String
+     */  
+    @RequestMapping("/sgc_006_01_02-UPDATE")
+    String sgc_006_01_02_UPDATE(Board board, Model model) {
+        logger.info("call Controller : sgc_006_01_02_UPDATE");
+        try {
+            model.addAttribute("dept_01", "포토존");
+            model.addAttribute("dept_02", "행사앨범");
+            model.addAttribute("img_path", "imgs/page/page_006_bg.jpg");
+            model.addAttribute("board", board);
+            model.addAttribute("page_name", "sgc_006_01_02");
+
+        } catch(Exception e) {
+            logger.error(e.getMessage(), e);
+        }
+        return "commonPage/com_page_update";
+    }
+
+
+    /**
+     * 행사앨범 게시글 수정 조회
+     * @param model
+     * @param board
+     * @return
+     */  
+    @RequestMapping(value = "/sgc_006_01_02-UPDATE-S", method = RequestMethod.POST)
+    String sgc_006_01_02_UPDATE_S(Board board, Model model) {
+        logger.info("call Controller : sgc_006_01_02_UPDATE_S");
+        try {
+            model.addAttribute("boardDetail", mapper.select_boardDetail(board));
+            model.addAttribute("page_name", "sgc_006_01");
+        } catch(Exception e) {
+            logger.error(e.getMessage(), e);
+        }
+        return "commonPage/com_page_update :: #boardDetail_bind";
+    }
+
+    /**
+     * 행사앨범 댓글, 답글 저장
+     * @param model
+     * @param board
+     * @return
+     */  
+    
+    @RequestMapping(value = "/page_006_01_02-SAVE", method = RequestMethod.POST)
+     @ResponseBody Map<String,Object> page_006_01_02_SAVE( BoardReply boardReply, Model model) {
+        logger.info("call Controller : page_006_01_02_SAVE");
+        Map<String,Object> resMap = new HashMap<String,Object>();
+        resMap.put("errYn", "Y");
+        try {
+            comService.insertBoardReply_reReply(boardReply);
+            resMap.put("errYn", "N");
+            // resMap.put("rsltMsg", "저장완료");
+        } catch(Exception e) {
+            logger.error(e.getMessage(), e);
+        }
+        return resMap;
+    }
+
+    /**
+     * 행사앨범 댓글, 답글 삭제
+     * @param model
+     * @param board
+     * @return
+     */  
+    
+    @RequestMapping(value = "/page_006_01_02-REPLY-DELETE", method = RequestMethod.POST)
+     @ResponseBody Map<String,Object> page_006_01_02_REPLY_DELETE( BoardReply boardReply, Model model) {
+        logger.info("call Controller : page_006_01_02_REPLY_DELETE");
+        Map<String,Object> resMap = new HashMap<String,Object>();
+        resMap.put("errYn", "Y");
+        try {
+            comService.deleteBoardReply_reReply(boardReply);
+            resMap.put("errYn", "N");
+        } catch(Exception e) {
+            logger.error(e.getMessage(), e);
+        }
+        return resMap;
     }
     /**************************************************************************************/
     /************************************  SGC_005_01 END *********************************/
@@ -182,7 +303,7 @@ public class Sgc_006Controller {
     /************************************  SGC_006_02 START *******************************/
     /**************************************************************************************/
     /**
-     * 행사앨범 화면 오픈
+     * 동영상 화면 오픈
      * @param model
      * @return
      */
@@ -206,7 +327,7 @@ public class Sgc_006Controller {
     }
 
     /**
-     * 행사앨범 글 목록 조회
+     * 동영상 글 목록 조회
      * @param model
      * @param reqPagination
      * @param board
@@ -218,7 +339,7 @@ public class Sgc_006Controller {
 
         try {
             // 1. 공통 paging 서비스 호출
-            board.setBoard_div_cd("01");
+            board.setBoard_div_cd("12");
             comService.getPaginationInfo(comService.getTotalCnt(board), reqPagination, model, board); 
 
 
@@ -232,7 +353,7 @@ public class Sgc_006Controller {
 
 
     /**
-     * 행사앨범 게시글 작성 화면오픈
+     * 동영상 게시글 작성 화면오픈
      * @param model
      * @return String
      */
@@ -256,7 +377,7 @@ public class Sgc_006Controller {
     }
 
     /**
-     * 행사앨범 게시글 저장
+     * 동영상 게시글 저장
      * @param model
      * @param board
      * @return
@@ -281,7 +402,7 @@ public class Sgc_006Controller {
     }
 
     /**
-     * 행사앨범 게시글 상세 화면오픈
+     * 동영상 게시글 상세 화면오픈
      * @param model
      * @param board
      * @return String

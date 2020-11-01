@@ -34,7 +34,7 @@ function doAction(acNm) {
 }
 
 function afterSave() {
-    alert("저장완료");
+    // alert("저장완료");
     window.location = '/sgc_002_01';
 }
 

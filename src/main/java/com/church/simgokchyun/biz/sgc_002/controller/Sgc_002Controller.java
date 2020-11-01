@@ -34,7 +34,7 @@ public class Sgc_002Controller {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     
     /**
-     * 설교영상 글 목록 화면 오픈
+     * 설교영상 화면 오픈
      * @param model
      * @return
      */
@@ -117,7 +117,7 @@ public class Sgc_002Controller {
      */  
     @RequestMapping(value = "/sgc_002_01-SAVE", method = RequestMethod.POST)
     // String sgc_002_01_SAVE(@RequestParam("img_upload") MultipartFile file_01, Board board, Model model) {
-    String sgc_002_01_SAVE(@RequestParam Map<String,MultipartFile> MapFiles, Board board, Model model) {
+    String sgc_002_01_SAVE(@RequestParam Map<String,MultipartFile> MapFiles, Board board, Model model, @AuthenticationPrincipal PrincipalDetails userDetails) {
         logger.info("call Controller : sgc_002_01_SAVE");
         try {
 
@@ -125,22 +125,21 @@ public class Sgc_002Controller {
             String img_id = "";
 
             // 1. 유저 정보를 셋팅한다.
-            board.setUser_id("100001");
+            board.setUser_id(userDetails.getUser().getUser_id());
             board.setBoard_div_cd("01");
             
 
             logger.info("이미지 파일명 : " + MapFiles.get("img_upload").getOriginalFilename());
             logger.info("동영상 파일명 : " + MapFiles.get("video_upload").getOriginalFilename());
             // 2. 업로드한 이미지 / 영상을 DB와 서버 경로에 저장하고 업로드 한 id를 board객체에 넣어준다.
-            
 
-            // 2-1. 이미지 처리
+            //     2-1. 이미지 처리
             if(MapFiles.get("img_upload") != null) {
                 img_id = comService.fileSave(MapFiles.get("img_upload"),"01");
                 board.setPhoto_id(img_id);
             }
 
-            // 2-2. 동영상 처리
+            //     2-2. 동영상 처리
             // if(MapFiles.get("img_upload") != null) {
             //     video_id = comService.fileSave(MapFiles.get("img_upload"),"02");
             //     board.setVideo_id(video_id);
@@ -151,7 +150,6 @@ public class Sgc_002Controller {
             model.addAttribute("errYn", "N");
         } catch(Exception e) {
             model.addAttribute("errYn", "Y");
-            model.addAttribute("errMsg", e.getMessage());
             logger.error(e.getMessage(), e);
         }
         return "page/page_002/page_002_01";

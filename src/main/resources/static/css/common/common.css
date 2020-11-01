@@ -805,8 +805,17 @@
     flex-direction: column;
     margin-top: 20px;
   }
+  #boardDetail_bind .img__area > img {
+    width: 100%;
+    object-fit: cover;
+  }
   #boardDetail_bind .board_cntn {
     margin: 20px 0 180px 20px;
+    display: flex;
+    flex-direction: column;
+  }
+  #boardDetail_bind .board_cntn.img_mix {
+    margin: 20px 0 60px 0;
     display: flex;
     flex-direction: column;
   }
@@ -822,9 +831,6 @@
     opacity: 0.8;
   }
   #boardDetail_bind .board_cntn_likeIcon .board_cntn_likeIcon_left .fa-heart{
-    cursor: pointer;
-  }
-  #boardDetail_bind .board_cntn_likeIcon .board_cntn_likeIcon_left p{
     cursor: pointer;
   }
   #boardDetail_bind .board_cntn_likeIcon a {

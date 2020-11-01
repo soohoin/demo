@@ -2,8 +2,23 @@
 
 $(document).ready(function (){
 
-    doAction("search");
+    basicSearch();
+    $("#user_nm").val($("#user_nm_tmp").text());
 });
+
+// 댓글 작성 후 댓글 재 조회 
+function basicSearch() {
+    doAction("search","sgc_002_01");
+}
+
+function MoveMainBoard() {
+    movePage('sgc_002_01');
+}
+
+function MoveBoardDetail() {
+    movePage('sgc_002_01_02');
+}
+
 
 // action (CRUD 등등...) 을 수행한다.
 function doAction(acNm) {
@@ -22,4 +37,5 @@ function doAction(acNm) {
 // 유튜브 & 동영상을 bind 한다.
 function setVideo() {
     $("#youtube_video").html($("#youtube_src").val());
+    update_callback_y();
 }

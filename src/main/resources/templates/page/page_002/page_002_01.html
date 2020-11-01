@@ -69,11 +69,8 @@
                 <div id="boardList__bind">
                     <div class="boardList__bind__cntn">
                         <div th:if="${boardList}" th:each="row : ${boardList}" class="box_cntn">
-                            <!-- <input type="text" th:id=" 'board_div_cd_' + ${row.board_no} " th:value="${row.board_div_cd}"> -->
-                            <!-- <input type="text" th:id=" 'board_no_' + ${row.board_no} " th:value="${row.board_no}"> -->
                             <div class="img__area">                                
                                 <img th:src="@{/uploadImg/} + ${row.real_file_nm}" th:onclick="goDetail( [[${row.board_no}]] )" alt="설교영상 이미지">
-                                <!-- <i class="fas fa-tv"></i> -->
                             </div>
                             <div class="title__area">
                                 <p><a th:text="${row.board_title}" th:href="@{/sgc_002_01-DETAIL( board_div_cd=${row.board_div_cd}, board_no=${row.board_no}, user_id=${row.user_id} )}" th:id="'page_move' + ${row.board_no}"></a></p>
