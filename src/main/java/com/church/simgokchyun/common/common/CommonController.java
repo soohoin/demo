@@ -5,10 +5,12 @@ import javax.servlet.http.HttpServletRequest;
 import com.church.simgokchyun.common.vo.Board;
 import com.church.simgokchyun.common.vo.BoardLike;
 import com.church.simgokchyun.common.vo.CallPageInfo;
+import com.church.simgokchyun.config.auth.PrincipalDetails;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -74,7 +76,42 @@ public class CommonController {
         return comService.getReturnUrl(pageInfo);
     }
 
+    /**
+     * 공통 게시글 부분조회 - likeIcon
+     * @param model
+     * @param board
+     * @return
+     */  
+    @RequestMapping(value = "/common_likeInfo_search", method = RequestMethod.POST)
+    String common_likeInfo_search(Board board, Model model, CallPageInfo pageInfo, @AuthenticationPrincipal PrincipalDetails userDetails, HttpServletRequest  request) {
+        logger.info("call Controller : common_likeInfo_search");
+        try {
+            model.addAttribute("boardDetail", comService.selectLikeInfo(board, userDetails, request));
+            pageInfo.setBind_id("likeIcon");
+        } catch(Exception e) {
+            logger.error(e.getMessage(), e);
+        }
+        // return "page/page_005/page_005_01_02 :: #likeIcon";
+        return comService.getReturnUrl(pageInfo);
+    }
 
+    /**
+     * 공통 게시글 부분조회 - 댓글/답글 
+     * @param model
+     * @param board
+     * @return
+     */  
+    @RequestMapping(value = "/common_boardReply_search", method = RequestMethod.POST)
+    String common_boardReply_search(Board board, Model model, CallPageInfo pageInfo, @AuthenticationPrincipal PrincipalDetails userDetails, HttpServletRequest  request) {
+        logger.info("call Controller : common_boardReply_search");
+        try {
+            model.addAttribute("boardReplyList", comService.select_boardReply(board));
+            pageInfo.setBind_id("boardReplyList");
+        } catch(Exception e) {
+            logger.error(e.getMessage(), e);
+        }
+        return comService.getReturnUrl(pageInfo);
+    }
     /**************************************************************************************/
     /************************************  common END *********************************/
     /**************************************************************************************/

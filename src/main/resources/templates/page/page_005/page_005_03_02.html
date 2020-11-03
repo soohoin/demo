@@ -64,10 +64,10 @@
                         <p th:text="${boardDetail.board_cntn}"></p>
                         <!-- <textarea name="" id="" cols="30" rows="10" th:text="${boardDetail.board_cntn}"></textarea> -->
                     </div>
-                    <div class="board_cntn_likeIcon">
+                    <div class="board_cntn_likeIcon" id="likeIcon">
                         <div class="board_cntn_likeIcon_left">
-                            <a th:if="${boardDetail.favorit_yn_of_click_user} == 'N' " th:onclick="comDoAction('clickLike','sgc_007_01_02')"><i class="far fa-heart"></i></a>
-                            <a th:if="${boardDetail.favorit_yn_of_click_user} == 'Y' " th:onclick="comDoAction('clickLike','sgc_007_01_02')"><i class="fas fa-heart"></i></a>
+                            <a th:if="${boardDetail.favorit_yn_of_click_user} == 'N' " th:onclick="comDoAction('clickLike','sgc_005_03_02')"><i class="far fa-heart"></i></a>
+                            <a th:if="${boardDetail.favorit_yn_of_click_user} == 'Y' " th:onclick="comDoAction('clickLike','sgc_005_03_02')"><i class="fas fa-heart"></i></a>
                             <p class="board_cntn_likeCnt" th:text="${boardDetail.favorit_cnt}"></p>
                         </div>
                         <div class="board_cntn_likeIcon_right">
@@ -80,56 +80,58 @@
                 <div class="boardReply__title">
                     <p >댓글</p>
                 </div>
-                <div th:if="${boardReplyList}" id="boardReplyList">
-                    <div class="replyCntnList" th:classappend="${row.re_reply_no} != '' ? moveRightReply" th:each="row : ${boardReplyList}" th:id="'reply_' + ${row.reply_no_id}">
-                        <div class="replyCntnList__outter">
-                            <div class="replyCntnList__leftBox">
-                                <div class="replyCntnList__leftBox__profile">
-                                    <img th:src="${row.social_profile_url}" alt="댓글작성자프로필">
-                                </div>
-                            </div>
-                            <div class="replyCntnList__rightBox">
-                                <div class="replyCntnList__rightBox__name">
-                                    <p class="replyUserId" th:text="${row.user_kor_nm}">댓글작성자이름</p>
-                                </div>
-                                <div class="replyCntnList__rightBox__top">
-                                    <p class="replyCntn" th:text="${row.reply_cntn}" >댓글내용</p>
-                                </div>
-                                <div class="replyCntnList__rightBox__bottom">
-                                    <div class="leftBox">
-                                        <p class="rightBox__bottom__yymmdd" th:text="${row.write_dt}">2020.10.21</p>
-                                        <p class="rightBox__bottom__hhmi" th:text="${row.time}">22:20</p>
-                                        <a th:onclick="comMakeReplyForm([[${row.reply_no}]], 'page_005_03_02' , [[${row.reply_no_id}]])">답글쓰기</a>
-                                    </div>
-                                    <div class="rightBox">
-                                        <a th:onclick="replyUpdate([[${row.reply_no}]], [[${row.re_reply_no}]] , 'page_005_03_02' , [[${row.reply_no_id}]],  [[${row.reply_cntn}]])">수정</a>
-                                        <a th:onclick="replyDelete([[${row.reply_no}]], [[${row.re_reply_no}]] , 'page_005_03_02', [[${row.reply_no_id}]])">삭제</a>
+                <div id="boardReplyList">
+                    <div th:if="${boardReplyList}" id="boardReplyList">
+                        <div class="replyCntnList" th:classappend="${row.re_reply_no} != '' ? moveRightReply" th:each="row : ${boardReplyList}" th:id="'reply_' + ${row.reply_no_id}">
+                            <div class="replyCntnList__outter">
+                                <div class="replyCntnList__leftBox">
+                                    <div class="replyCntnList__leftBox__profile">
+                                        <img th:src="${row.social_profile_url}" alt="댓글작성자프로필">
                                     </div>
                                 </div>
+                                <div class="replyCntnList__rightBox">
+                                    <div class="replyCntnList__rightBox__name">
+                                        <p class="replyUserId" th:text="${row.user_kor_nm}">댓글작성자이름</p>
+                                    </div>
+                                    <div class="replyCntnList__rightBox__top">
+                                        <p class="replyCntn" th:text="${row.reply_cntn}" >댓글내용</p>
+                                    </div>
+                                    <div class="replyCntnList__rightBox__bottom">
+                                        <div class="leftBox">
+                                            <p class="rightBox__bottom__yymmdd" th:text="${row.write_dt}">2020.10.21</p>
+                                            <p class="rightBox__bottom__hhmi" th:text="${row.time}">22:20</p>
+                                            <a th:onclick="comMakeReplyForm([[${row.reply_no}]], 'page_005_03_02' , [[${row.reply_no_id}]])">답글쓰기</a>
+                                        </div>
+                                        <div class="rightBox">
+                                            <a th:onclick="replyUpdate([[${row.reply_no}]], [[${row.re_reply_no}]] , 'page_005_03_02' , [[${row.reply_no_id}]],  [[${row.reply_cntn}]])">수정</a>
+                                            <a th:onclick="replyDelete([[${row.reply_no}]], [[${row.re_reply_no}]] , 'page_005_03_02', [[${row.reply_no_id}]])">삭제</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="lightLine bottom"></div>
+                        </div>
+                    </div>
+                    <div class="boardReply__cntn">
+                        <div class="boardReply__cntn__outterLine">
+                            <div class="boardReply__user_nm">
+                                <!-- <p th:text-"${}"></p> -->
+                                <p sec:authentication="name">사용자이름</p>
+                                <span style="display: none;" sec:authentication="principal.user.user_id" id="text_user_id">사용자ID</span>
+                            </div>
+                            <textarea name="text_reply_cntn" id="text_reply_cntn" placeholder="댓글을 남겨보세요" onkeydown="resize(this)" onkeyup="resize(this)"></textarea>
+                            <div class="reply__bottom">
+                                <div class="optionItems">
+                                    <i class="fas fa-camera-retro"></i>
+                                    <i class="far fa-smile"></i>
+                                </div>
+                                <div class="replyRegBtn">
+                                    <button class="btn" type="button" onclick="comDoAction('insertReply','page_005_03_02')">등록</button>
+                            </div>
                             </div>
                         </div>
-                        <div class="lightLine bottom"></div>
                     </div>
-                </div>
-                <div class="boardReply__cntn">
-                    <div class="boardReply__cntn__outterLine">
-                        <div class="boardReply__user_nm">
-                            <!-- <p th:text-"${}"></p> -->
-                            <p sec:authentication="name">사용자이름</p>
-                            <span style="display: none;" sec:authentication="principal.user.user_id" id="text_user_id">사용자ID</span>
-                        </div>
-                        <textarea name="text_reply_cntn" id="text_reply_cntn" placeholder="댓글을 남겨보세요" onkeydown="resize(this)" onkeyup="resize(this)"></textarea>
-                        <div class="reply__bottom">
-                            <div class="optionItems">
-                                <i class="fas fa-camera-retro"></i>
-                                <i class="far fa-smile"></i>
-                            </div>
-                            <div class="replyRegBtn">
-                                <button class="btn" type="button" onclick="comDoAction('replySave','page_005_03_02')">등록</button>
-                         </div>
-                        </div>
-                    </div>
-                </div>
+                </div>    
                 <div class="btns">
                     <button class="cancel" th:onclick="movePage('sgc_005_03')" >목록</button>
                     <button class="cancel" onclick=""><i class="fas fa-sort-up"></i>TOP</button>

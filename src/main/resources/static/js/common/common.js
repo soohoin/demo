@@ -29,6 +29,8 @@ $(document).ready(function () {
 // 공통 doAction 함수 
 // action (CRUD 등등...) 을 수행한다.
 function comDoAction(acNm, pageName, replyNo) {
+    $("#page_name").val(pageName);
+
     // 사용자 id input value 에 셋팅
     $("#user_id").val($("#text_user_id").text());
     let reqUrl, data, formName, bindId, callback;
@@ -43,6 +45,26 @@ function comDoAction(acNm, pageName, replyNo) {
             callback = update_callback_y;
             ajaxCall(reqUrl, data, formName, bindId, callback);
             break;
+        
+        /* 댓글 / 답글 조회 */
+        case "commonBoardReplySearch":
+            reqUrl = "common_boardReply_search";
+            data = null;
+            formName = "hiddenForm";
+            bindId = "boardReplyList";
+            callback = null;
+            ajaxCall(reqUrl, data, formName, bindId, callback);
+            break;
+
+         /* like 조회 */
+        case "commonSearchLikeIcon":
+            reqUrl = "common_likeInfo_search";
+            data = null;
+            formName = "hiddenForm";
+            bindId = "likeIcon";
+            callback = null;
+            ajaxCall(reqUrl, data, formName, bindId, callback);
+            break;   
 
         /* 공통 게시글 저장 (각 게시글 작성 페이지와 게시글 수정 페이지 에서 CALL )*/
         case "save":
@@ -100,7 +122,7 @@ function comDoAction(acNm, pageName, replyNo) {
             data = null;
             formName = "hiddenForm";
             bindId = null;
-            callback = basicSearch;
+            callback = basicSearch_02;
             ajaxCall(reqUrl, data, formName, bindId, callback);
             break;
 
@@ -111,7 +133,7 @@ function comDoAction(acNm, pageName, replyNo) {
             data = null;
             formName = "hiddenForm";
             bindId = null;
-            callback = basicSearch;
+            callback = basicSearch_02;
             ajaxCall(reqUrl, data, formName, bindId, callback);
             break;
 
@@ -133,7 +155,7 @@ function comDoAction(acNm, pageName, replyNo) {
             data = null;
             formName = "hiddenForm";
             bindId = null;
-            callback = basicSearch;
+            callback = basicSearch_03;
             ajaxCall(reqUrl, data, formName, bindId, callback);
             break;
 
@@ -164,7 +186,7 @@ function comAfterSave(pageName) {
 /* 게시글 상세 페이지의  callback_yn 변수는 기본 Y 값이고 조회 후 N으로 값을 넣어서 최초 조회와 callback의 호출을 구분하기 위해서 사용한다.*/
 function update_callback_y() {
     /* callback 함수가  basicSearch로 doAction('search',something) 을 호출 시 꼭 셋팅해줘야 함 */
-    $("#callback_yn").val("Y"); 
+    $("#callback_yn").val("Y");
 }
 
 

@@ -208,6 +208,40 @@ public class Sgc_006Controller {
     }
 
     /**
+     * 행사앨범 게시글 부분조회 - 댓글/답글 
+     * @param model
+     * @param board
+     * @return
+     */  
+    @RequestMapping(value = "/sgc_006_01-DETAIL-S-02", method = RequestMethod.POST)
+    String sgc_006_01_DETAIL_S_02(Board board, Model model, @AuthenticationPrincipal PrincipalDetails userDetails, HttpServletRequest  request) {
+        logger.info("call Controller : sgc_006_01_DETAIL_S_02");
+        try {
+            model.addAttribute("boardReplyList", comService.select_boardReply(board));
+        } catch(Exception e) {
+            logger.error(e.getMessage(), e);
+        }
+        return "page/page_006/page_006_01_02 :: #boardReplyList";
+    }
+
+    /**
+     * 행사앨범 게시글 부분조회 - likeIcon
+     * @param model
+     * @param board
+     * @return
+     */  
+    @RequestMapping(value = "/sgc_006_01-DETAIL-S-03", method = RequestMethod.POST)
+    String sgc_006_01_DETAIL_S_03(Board board, Model model, @AuthenticationPrincipal PrincipalDetails userDetails, HttpServletRequest  request) {
+        logger.info("call Controller : sgc_006_01_DETAIL_S_03");
+        try {
+            model.addAttribute("boardDetail", comService.select_boardDetail(board, userDetails, request));
+        } catch(Exception e) {
+            logger.error(e.getMessage(), e);
+        }
+        return "page/page_006/page_006_01_02 :: #likeIcon";
+    }
+
+    /**
      * 행사앨범 게시글 수정 화면오픈
      * @param model
      * @param board

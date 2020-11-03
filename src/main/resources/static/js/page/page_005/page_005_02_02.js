@@ -6,9 +6,19 @@ $(document).ready(function (){
     $("#user_nm").val($("#user_nm_tmp").text());
 });
 
-// 댓글 작성 후 댓글 재 조회 
+// 기본 상세화면 모든 데이터 조회
 function basicSearch() {
     comDoAction("search","sgc_005_02");
+}
+
+// 부분조회 - 답글 / 댓글
+function basicSearch_02() {
+    comDoAction("commonBoardReplySearch","sgc_005_02");
+}
+
+// 부분조회 - 좋아요 영역
+function basicSearch_03() {
+    comDoAction("commonSearchLikeIcon","sgc_005_02");
 }
 
 function MoveMainBoard() {

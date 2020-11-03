@@ -333,6 +333,24 @@ public class CommonService {
         return mapper.select_boardDetail(board);
     }
 
+    /**
+     * 공통 게시글  likeInfo 조회
+     */
+    public Board selectLikeInfo(Board board, PrincipalDetails userDetails, HttpServletRequest request) throws Exception {
+        
+        // 1. 로그인 회원이면 ID를 넣고 로그인 정보가 없으면 IP주소를 넣는다.
+        if(userDetails != null) {
+            // logger.info("userDetails : " + userDetails.getUser());    
+            board.setClick_user_id(userDetails.getUser().getUser_id());
+        } else {
+            String userIp = this.getIp(request);
+            logger.info("userIp : " + userIp);
+            logger.info("userIp.length : " + userIp.length());
+            board.setClick_user_id(userIp);
+        }
+        return mapper.select_boardDetail(board);
+    }
+
     public List<BoardReply> select_boardReply(Board board)throws Exception {
         return mapper.select_boardReply(board);
     }

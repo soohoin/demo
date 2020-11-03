@@ -205,6 +205,23 @@ public class Sgc_007Controller {
     }
 
     /**
+     * 자유게시판 게시글 부분조회 - 댓글/답글 
+     * @param model
+     * @param board
+     * @return
+     */  
+    @RequestMapping(value = "/sgc_007_01-DETAIL-S-02", method = RequestMethod.POST)
+    String sgc_007_01_DETAIL_S_02(Board board, Model model, @AuthenticationPrincipal PrincipalDetails userDetails, HttpServletRequest request) {
+        logger.info("call Controller : sgc_007_01_DETAIL_S_02");
+        try {
+            model.addAttribute("boardReplyList", comService.select_boardReply(board));
+        } catch(Exception e) {
+            logger.error(e.getMessage(), e);
+        }
+        return "page/page_007/page_007_01_02 :: #boardReplyList";
+    }
+
+    /**
      * 자유게시판 게시글 수정 화면오픈
      * @param model
      * @param board
