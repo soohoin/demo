@@ -14,6 +14,7 @@ public class MainController {
 
     @RequestMapping({"/main","/",""})
     String mainPage(Model model) {
+        
         logger.info("mainPage()");
         return "page/main/main";
     }

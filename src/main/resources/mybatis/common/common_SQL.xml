@@ -61,7 +61,10 @@
              , (SELECT CODE_KNM FROM COM_CODE WHERE CD_GRP_ENM = 'BOARD_DIV_CD' AND CODE = A.BOARD_DIV_CD) AS BOARD_DIV_NM
              , A.USER_ID                 
              , (SELECT USER_KOR_NM FROM USER_INFO WHERE USER_ID = A.USER_ID) AS USER_KOR_NM
-             , CONCAT(SUBSTRING(A.WRITE_DT, 3, 2),'-',SUBSTRING(A.WRITE_DT, 5, 2),'-',SUBSTRING(A.WRITE_DT, 7, 2))  AS WRITE_DT
+             , CASE WHEN A.CHG_DT IS NULL OR A.CHG_DT = ''
+                         THEN CONCAT(SUBSTRING(A.WRITE_DT, 3, 2),'-',SUBSTRING(A.WRITE_DT, 5, 2),'-',SUBSTRING(A.WRITE_DT, 7, 2))
+                    ELSE CONCAT(SUBSTRING(A.CHG_DT, 3, 2),'-',SUBSTRING(A.CHG_DT, 5, 2),'-',SUBSTRING(A.CHG_DT, 7, 2))
+               END WRITE_DT
              , A.BOARD_TITLE
              , A.BOARD_CNTN
              , A.BIBLE_INDEX_CNTN
@@ -122,8 +125,11 @@
       SELECT A.BOARD_NO
            , A.USER_ID        
            , (SELECT USER_KOR_NM FROM USER_INFO WHERE USER_ID = A.USER_ID) AS USER_KOR_NM     
-           , A.BOARD_DIV_CD        
-           , CONCAT(SUBSTRING(A.WRITE_DT, 3, 2),'-',SUBSTRING(A.WRITE_DT, 5, 2),'-',SUBSTRING(A.WRITE_DT, 7, 2))  AS WRITE_DT         
+           , A.BOARD_DIV_CD
+           , CASE WHEN A.CHG_DT IS NULL OR A.CHG_DT = ''
+                         THEN CONCAT(SUBSTRING(A.WRITE_DT, 3, 2),'-',SUBSTRING(A.WRITE_DT, 5, 2),'-',SUBSTRING(A.WRITE_DT, 7, 2))
+                    ELSE CONCAT(SUBSTRING(A.CHG_DT, 3, 2),'-',SUBSTRING(A.CHG_DT, 5, 2),'-',SUBSTRING(A.CHG_DT, 7, 2))
+               END WRITE_DT
            , D.FAVORIT_CNT
            , C.REAL_FILE_NM
            , CONCAT(C.FILE_PATH,C.REAL_FILE_NM)  AS IMG_PATH
@@ -203,8 +209,14 @@
                   ELSE CONCAT(A.REPLY_NO,'_',A.RE_REPLY_NO)
               END      AS REPLY_NO_ID
            , A.RE_REPLY_NO
-           , CONCAT(SUBSTRING(A.WRITE_DT, 1, 4),'.',SUBSTRING(A.WRITE_DT, 5, 2),'.',SUBSTRING(A.WRITE_DT, 7, 2))  AS WRITE_DT         
-           , CONCAT(SUBSTRING(A.REG_DT, 9, 2),':',SUBSTRING(A.REG_DT, 11, 2))  AS TIME
+           , CASE WHEN A.CHG_DT IS NULL OR A.CHG_DT = ''
+                         THEN CONCAT(SUBSTRING(A.WRITE_DT, 1, 4),'-',SUBSTRING(A.WRITE_DT, 5, 2),'-',SUBSTRING(A.WRITE_DT, 7, 2))
+                    ELSE CONCAT(SUBSTRING(A.CHG_DT, 1, 4),'-',SUBSTRING(A.CHG_DT, 5, 2),'-',SUBSTRING(A.CHG_DT, 7, 2))
+               END WRITE_DT
+           , CASE WHEN  A.CHG_DT IS NULL OR A.CHG_DT = ''
+                        THEN CONCAT(SUBSTRING(A.REG_DT, 9, 2),':',SUBSTRING(A.REG_DT, 11, 2))
+                  ELSE CONCAT(SUBSTRING(A.CHG_DT, 9, 2),':',SUBSTRING(A.CHG_DT, 11, 2))
+              END TIME
            , A.USER_ID
            , B.USER_KOR_NM
            , B.SOCIAL_PROFILE_URL
@@ -632,6 +644,7 @@
                   AND CODE = A.ROLE_CD 
                 )  AS ROLE_NM                 /* 권한명 */
             , CHURCH_ROLE_CD                 /* 교회직분코드 */
+            , SOCIAL_PROFILE_URL             /* 소셜 프로필 이미지 */
             , USE_YN                         /* 사용여부 */
             , REG_USER_ID                    /* 등록사용자ID */
             , REG_DT                         /* 등록일자 */
@@ -660,6 +673,7 @@
                   AND CODE = A.ROLE_CD 
                 )  AS ROLE_NM                 /* 권한명 */
             , CHURCH_ROLE_CD                 /* 교회직분코드 */
+            , SOCIAL_PROFILE_URL             /* 소셜 프로필 이미지 */
             , USE_YN                         /* 사용여부 */
             , REG_USER_ID                    /* 등록사용자ID */
             , REG_DT                         /* 등록일자 */
@@ -700,6 +714,7 @@
                  AND CODE = A.ROLE_CD 
                )  AS ROLE_NM                 /* 권한명 */
            , CHURCH_ROLE_CD                 /* 교회직분코드 */
+           , SOCIAL_PROFILE_URL             /* 소셜 프로필 이미지 */
            , USE_YN                         /* 사용여부 */
            , REG_USER_ID                    /* 등록사용자ID */
            , REG_DT                         /* 등록일자 */

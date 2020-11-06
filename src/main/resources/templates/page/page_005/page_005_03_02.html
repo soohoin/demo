@@ -47,11 +47,9 @@
                         </div>
                         <div class="writer__info__etc">
                             <div class="board_kor_nm">
-                                <!-- <p>작성자 :&nbsp;</p> -->
                                 <p th:text="${boardDetail.user_kor_nm}"></p>
                             </div>
                             <div class="reg_dt">
-                                <!-- <p>날짜 :&nbsp;</p> -->
                                 <p th:text="${boardDetail.write_dt}"></p>
                                 <p th:text="${boardDetail.select_cnt}" class="reg_dt__selectCnt"></p>
                             </div>
@@ -59,10 +57,7 @@
                     </div>
                     <div class="line"></div>
                     <div class="board_cntn">
-                        <!-- <p>내용</p>
-                        <div class="line"></div> -->
                         <p th:text="${boardDetail.board_cntn}"></p>
-                        <!-- <textarea name="" id="" cols="30" rows="10" th:text="${boardDetail.board_cntn}"></textarea> -->
                     </div>
                     <div class="board_cntn_likeIcon" id="likeIcon">
                         <div class="board_cntn_likeIcon_left">
@@ -70,7 +65,7 @@
                             <a th:if="${boardDetail.favorit_yn_of_click_user} == 'Y' " th:onclick="comDoAction('clickLike','sgc_005_03_02')"><i class="fas fa-heart"></i></a>
                             <p class="board_cntn_likeCnt" th:text="${boardDetail.favorit_cnt}"></p>
                         </div>
-                        <div class="board_cntn_likeIcon_right">
+                        <div class="board_cntn_likeIcon_right" th:if="${boardDetail.user_id} == ${#authentication.principal.user.user_id}">
                             <a th:href="@{/sgc_005_03_02-UPDATE( board_div_cd=${boardDetail.board_div_cd}, board_no=${boardDetail.board_no})}" >수정</a>
                             <a th:onclick="comDoAction('boardDelete','sgc_005_03_02')">삭제</a>
                         </div>
@@ -102,7 +97,7 @@
                                             <p class="rightBox__bottom__hhmi" th:text="${row.time}">22:20</p>
                                             <a th:onclick="comMakeReplyForm([[${row.reply_no}]], 'page_005_03_02' , [[${row.reply_no_id}]])">답글쓰기</a>
                                         </div>
-                                        <div class="rightBox">
+                                        <div class="rightBox" th:if="${row.user_id} == ${#authentication.principal.user.user_id} and ${row.del_yn} == 'N' ">
                                             <a th:onclick="replyUpdate([[${row.reply_no}]], [[${row.re_reply_no}]] , 'page_005_03_02' , [[${row.reply_no_id}]],  [[${row.reply_cntn}]])">수정</a>
                                             <a th:onclick="replyDelete([[${row.reply_no}]], [[${row.re_reply_no}]] , 'page_005_03_02', [[${row.reply_no_id}]])">삭제</a>
                                         </div>
@@ -115,7 +110,6 @@
                     <div class="boardReply__cntn">
                         <div class="boardReply__cntn__outterLine">
                             <div class="boardReply__user_nm">
-                                <!-- <p th:text-"${}"></p> -->
                                 <p sec:authentication="name">사용자이름</p>
                                 <span style="display: none;" sec:authentication="principal.user.user_id" id="text_user_id">사용자ID</span>
                             </div>

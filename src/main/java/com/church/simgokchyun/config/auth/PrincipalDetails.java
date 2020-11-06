@@ -109,6 +109,10 @@ public class PrincipalDetails implements UserDetails, OAuth2User{
         return attributes;
     }
 
+    public Map<String,Object> getProfileImgUrl() {
+        return (Map<String,Object>)((Map<String,Object>)((Map<String,Object>)attributes.get("kakao_account")).get("profile")).get("thumbnail_image_url");
+    }
+
     @Override
     public String getName() {
         return user.getUser_id()+"";

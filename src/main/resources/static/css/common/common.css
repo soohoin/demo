@@ -228,23 +228,54 @@
     display: none;
   }
   .navbar__loginjoin {
+    display: flex;
     align-self: flex-start;
-    padding-top: 13px;
+    /* padding-top: 13px; */
     z-index: 2;
   }
-  .navbar__loginjoin__ul {
+  /* .navbar__loginjoin__ul {
     display: flex;
     align-items: center;
     justify-content: space-between;
     cursor: pointer;
     width: 145px;
+  } */
+  .navbar__loginjoin__ul.loginjoin_left {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    width: 50px;
   }
-  .navbar__loginjoin__ul > li:nth-child(2) {
+  .navbar__loginjoin .navbar__loginjoin__ul.loginjoin_left .navbar__loginjoin__ul__item .fa-user-circle{
+    font-size: 40px;
+    opacity: 0.8;
+  }
+  .navbar__loginjoin .navbar__loginjoin__ul.loginjoin_left .navbar__loginjoin__ul__item  img {
+    width: 45px;
+    height: 45px;
+    border-radius:75px;
+    border: 1px solid #7c7979;
+    margin: 5px 10px 0 0 ;
+    opacity: 0.8;
+  }
+  .navbar__loginjoin .navbar__loginjoin__ul.loginjoin_right .navbar__loginjoin__ul__item span::after {
+    content: ' 님';
+  } 
+  .navbar__loginjoin__ul.loginjoin_right {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    cursor: pointer;
+    width: 70px;
+    margin-top: 22px;
+  }
+  /* .navbar__loginjoin__ul > li:nth-child(2) {
       border-right: 1px solid var(--color-white);
       padding:0;
-      height: 20px;
+      height: 2px;
+      width: 30px;
       line-height: 100%;
-  }
+  } */
   .navbar__outter-box a,
   .navbar__loginjoin__ul li {
     color: var(--color-white);

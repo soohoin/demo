@@ -47,33 +47,24 @@
                         </div>
                         <div class="writer__info__etc">
                             <div class="board_kor_nm">
-                                <!-- <p>작성자 :&nbsp;</p> -->
                                 <p th:text="${boardDetail.user_kor_nm}"></p>
                             </div>
                             <div class="reg_dt">
-                                <!-- <p>날짜 :&nbsp;</p> -->
                                 <p th:text="${boardDetail.write_dt}"></p>
                                 <p th:text="${boardDetail.select_cnt}" class="reg_dt__selectCnt"></p>
                             </div>
                         </div>
                     </div>
                     <div class="line"></div>
-                    <!-- <div class="board_cntn"> -->
                         <div th:if="${boardDetail.video_div_cd != '01' }" class="board_video">
                             <p>설교영상</p>
                             <div id="youtube_video"></div>
                             <input type="hidden" id="youtube_src" th:if="${boardDetail.video_div_cd == '02' }" th:value="${boardDetail.youtube_ifrm_src}">
                         </div>
-                        <!-- <p th:text="${boardDetail.board_cntn}"></p> -->
-                    <!-- </div> -->
                     <div class="board_cntn_likeIcon">
                         <div class="board_cntn_likeIcon_left">
-                            <!-- <a sec:authorize="isAnonymous()" th:onclick="comDoAction('joinInfo','sgc_002_01_02')"><i class="far fa-heart"></i></a>
-                            <a sec:authorize="isAuthenticated()" th:if="${boardDetail.favorit_yn_of_click_user} == 'N' " th:onclick="comDoAction('clickLike','sgc_002_01_02')"><i class="far fa-heart"></i></a>
-                            <a sec:authorize="isAuthenticated()" th:if="${boardDetail.favorit_yn_of_click_user} == 'Y' " th:onclick="comDoAction('clickLike','sgc_002_01_02')"><i class="fas fa-heart"></i></a>
-                            <p class="board_cntn_likeCnt" th:text="${boardDetail.favorit_cnt}"></p> -->
                         </div>
-                        <div class="board_cntn_likeIcon_right">
+                        <div class="board_cntn_likeIcon_right" th:if="${boardDetail.user_id} == ${#authentication.principal.user.user_id}">
                             <a th:href="@{/sgc_002_01_02-UPDATE( board_div_cd=${boardDetail.board_div_cd}, board_no=${boardDetail.board_no})}" >수정</a>
                             <a th:onclick="comDoAction('boardDelete','sgc_002_01_02')">삭제</a>
                         </div>
