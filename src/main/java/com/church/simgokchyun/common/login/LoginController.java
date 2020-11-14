@@ -124,7 +124,7 @@ public class LoginController {
 
             // 6. 사용자의 이메일로 인증 api 발송
             comService.sendAuthApiUrl(user);
-
+            
             resMap.put("errYn", "N");
         }catch(Exception e) {
             e.printStackTrace();
@@ -206,10 +206,43 @@ public class LoginController {
      * @return
      */
     @RequestMapping("/findPw")
-    public String findPassword(Model model) {
+    public @ResponseBody Map<String,Object> findPassword(Model model, User user) {
+        Map<String,Object> resMap = new HashMap<String,Object>();
+        String tmpPw;         // 임시 비밀번호
+        String encryptTmpPw;  // 암호화 된 임시 비밀번호
+        resMap.put("errYn", "N");
+        resMap.put("rsltMsg", "임시 비밀번호 발급완료");
+        try {
+            // 1. 입력 한 이메일 주소가 실제 회원정보에 있는지 확인한다.
+            String existYn = comService.emailDubYn(user);
 
+            // 2. 있으면 페스워드를 임시로 변경해서 해당 메일로 전송하고 view에 success를 return한다.
+            if("Y".equals(existYn)) {
 
-        return "";
+                // 2-1 임시비밀번호 만들기
+                tmpPw = comService.getRamdomPassword(10);
+                
+                // 2-2. 임시비밀번호 암호화 
+                encryptTmpPw = pwdEncoder.encode(tmpPw);
+                user.setPassword(encryptTmpPw);
+
+                // 2-3. 임시 페스워드로 회원정보 변경
+                comService.changeUserPw(user);
+
+                // 2-4. 임시 페스워드 이메일 전송하기
+                comService.sendTmpPw(user, tmpPw);
+
+            } else {
+                resMap.put("errYn", "Y");
+                resMap.put("rsltMsg", "해당 이메일의 회원 정보가 없습니다.");
+            }
+
+            // 3. 없으면 입력한 정보가 정확하지 않다는 문구를 보여 주도록 fail을 return 한다.                
+        } catch (Exception e) {
+            resMap.put("errYn", "Y");
+            resMap.put("msg", "해당 이메일의 회원 정보가 없습니다.");
+        }
+        return resMap;
     }
 
 

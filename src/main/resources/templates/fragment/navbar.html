@@ -11,6 +11,7 @@
             </div>
             <div class="navbar__menu">
                 <ul class="navbar__menu__ul">
+                    <li class="mobile__line"></li>
                     <li class="navbar__menu__ul__item">
                         <P ><a  th:href="@{/sgc_001_01}">교회소개</a></P>
                         <ul class="sub__menu__ul hide">
@@ -20,6 +21,7 @@
                             <li class="sub__menu__ul__item"><a th:href="@{/sgc_001_04}">오시는길</a></li>
                         </ul>
                     </li>
+                    <li class="mobile__line"></li>
                     <li class="navbar__menu__ul__item">
                         <P><a  th:href="@{/sgc_002_01}">말씀/찬양</a></P>
                         <ul class="sub__menu__ul hide ">
@@ -28,6 +30,7 @@
                             <li class="sub__menu__ul__item"><a th:onclick="comDoAction('repairPage','sgc_002_02')">성가대찬양</a></li>
                         </ul>
                     </li>
+                    <li class="mobile__line"></li>
                     <li class="navbar__menu__ul__item">
                         <P><a  th:href="@{/sgc_003_01}">양육/교육</a></P>
                         <ul class="sub__menu__ul hide " >
@@ -36,6 +39,7 @@
                             <li class="sub__menu__ul__item"><a th:href="@{/sgc_003_03}">일대일양육</a></li>
                         </ul>
                     </li>
+                    <li class="mobile__line"></li>
                     <li class="navbar__menu__ul__item">
                         <P><a  th:href="@{/sgc_004_01}">교회학교 </a></P>
                         <ul class="sub__menu__ul hide ">
@@ -44,6 +48,7 @@
                             <li class="sub__menu__ul__item"><a th:href="@{/sgc_004_03}">대학청년부</a></li>
                         </ul>
                     </li>
+                    <li class="mobile__line"></li>
                     <li class="navbar__menu__ul__item">
                         <P><a  th:href="@{/sgc_005_01}">자치기관</a></P>
                         <ul class="sub__menu__ul hide ">
@@ -53,6 +58,7 @@
                             <li class="sub__menu__ul__item"><a th:href="@{/sgc_005_04}">찬양단</a></li>
                         </ul>
                     </li>
+                    <li class="mobile__line"></li>
                     <li class="navbar__menu__ul__item">
                         <P><a  th:href="@{/sgc_006_01}">포토존</a></P>
                         <ul class="sub__menu__ul hide ">
@@ -61,6 +67,7 @@
                             <li class="sub__menu__ul__item"><a th:onclick="comDoAction('repairPage','sgc_006_02')">동영상</a></li>
                         </ul>
                     </li>
+                    <li class="mobile__line"></li>
                     <li class="navbar__menu__ul__item">
                         <P><a th:href="@{/sgc_007_01}">나눔</a></P>
                         <ul class="sub__menu__ul hide">
@@ -74,32 +81,27 @@
                 <ul class="navbar__loginjoin__ul loginjoin_left change_color">
                     <li class="navbar__loginjoin__ul__item">
                         <i sec:authorize="isAnonymous()" class="far fa-user-circle"></i>
-                        <img sec:authorize="isAuthenticated()" th:src="${#authentication.principal.user.social_profile_url}" alt="사용자프로필">
+                        <i sec:authorize="isAuthenticated()" th:if="${#authentication.principal.user.social_profile_url == null}" class="far fa-user-circle"></i>
+                        <img sec:authorize="isAuthenticated()"  th:if="${#authentication.principal.user.social_profile_url != null}" th:src="${#authentication.principal.user.social_profile_url}" alt="사용자프로필">
                     </li>
                 </ul>
                 <ul class="navbar__loginjoin__ul loginjoin_right change_color">
-
-                    <!-- <sec:authorize access="isAuthenticated()">
-                        <li class="navbar__loginjoin__ul__item"><a th:href="@{/loginForm}">로그인</a></li>
-                    </sec:authorize>
-                    <sec:authorize access="isAuthenticated()">
-                        <span sec:authentication="name" style="color: white;" >사용자닉네임</span>
-                    </sec:authorize> -->
+                    <li class="mobile__line"></li>
                     <li class="navbar__loginjoin__ul__item">
+                        <i sec:authorize="isAnonymous()" class="far fa-user-circle"></i>
+                        <i sec:authorize="isAuthenticated()" th:if="${#authentication.principal.user.social_profile_url == null}" class="far fa-user-circle"></i>
+                        <img sec:authorize="isAuthenticated()"  th:if="${#authentication.principal.user.social_profile_url != null}" th:src="${#authentication.principal.user.social_profile_url}" alt="사용자프로필">
                         <a sec:authorize="isAnonymous()" th:href="@{/loginForm}">로그인</a>
                         <span sec:authorize="isAuthenticated()" sec:authentication="name" style="color: white;" >사용자닉네임</span>
                     </li>
-                    <li class="navbar__loginjoin__ul__item"></li>
+                    <!-- <li class="navbar__loginjoin__ul__item "></li> -->
+                    <li class="mobile__line"></li>
                     <li class="navbar__loginjoin__ul__item">
+                        <i class="fas fa-sign-out-alt"></i>
                         <a sec:authorize="isAnonymous()"  th:href="@{/joinForm}">회원가입</a>
                         <a sec:authorize="isAuthenticated()" th:href="@{/logout}">로그아웃</a>
                     </li>
                 </ul>
-                <!-- <ul sec:authorize="isAuthenticated()" class="navbar__loginjoin__ul change_color">
-                    <li class="navbar__loginjoin__ul__item"><p th:text="${session['user_nic_nm']}"></p></li>
-                    <li class="navbar__loginjoin__ul__item"></li>
-                    <li class="navbar__loginjoin__ul__item"><a th:href="@{/logout}">로그아웃</a></li>
-                </ul> -->
             </div>
             <!-- Toggle button -->
             <button class="navbar__toggle-btn">

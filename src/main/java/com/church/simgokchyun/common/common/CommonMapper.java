@@ -123,6 +123,15 @@ public interface CommonMapper {
     String getUserId(User user) throws Exception;
 
     /**
+     * 사용자 password 변경
+     * @param user
+     * @return
+     * @throws Exception
+     */
+    int changeUserPw(User user) throws Exception;
+
+
+    /**
      * 사용자 정보 조회 used userId
      * @param user
      * @return

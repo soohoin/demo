@@ -568,6 +568,34 @@ public class CommonService {
     }
 
     /**
+     * 회원 이메일로 임시 비밀번호를 전송한다.
+     * 
+     * @param user
+     * @throws Exception
+     */
+    public void sendTmpPw(User user, String tmpPw) throws Exception {
+        // logger.info("FROM_ADDRESS : " + FROM_ADDRESS);
+        // logger.info("getEmail_addr : " + user.getEmail_addr());
+
+        String subject = "심곡천교회 임시 페스워드 발급";
+        StringBuffer content = new StringBuffer();
+        content.append("<div class='mail__body' style='display: flex; align-items: center;flex-direction: column;'>")
+                .append("<h1> 임시 비밀번호 : "+ tmpPw +" </h1>").append("<div class='content'>")
+                .append("<p style='color: red;'>임시 비밀번호는 회원관리 화면에서 변경 가능합니다.</p>").append("</div>")
+                .append("</div>");
+
+        MailHandler mailHandler = new MailHandler(mailSender);
+        mailHandler.setTo(user.getEmail_addr());
+        mailHandler.setFrom(FROM_ADDRESS);
+        mailHandler.setSubject(subject);
+        mailHandler.setText(content.toString(), true);
+        // mailHandler.setAttach("새로운파일명", "파일경로+파일명");
+        // mailHandler.setInline("새로운이미지명", "파일경로+이미지명");
+        mailHandler.send();
+    }
+
+
+    /**
      * 사용자 ID 조회
      * 
      * @param user
@@ -576,6 +604,15 @@ public class CommonService {
      */
     public String getUserId(User user) throws Exception {
         return mapper.getUserId(user);
+    }
+
+    /**
+     * 사용자 password 변경
+     * @param user
+     * @return
+     */
+    public int changeUserPw(User user)throws Exception {
+        return mapper.changeUserPw(user);
     }
 
     /**

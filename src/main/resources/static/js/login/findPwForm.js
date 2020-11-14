@@ -9,15 +9,13 @@ $(document).ready(function () {
 // 이벤트 생성 
 function initEvent() {
 
-    $(".loginBtn").on("click",function () {
+    $("#executeBtn").on("click",function () {
         doAction("execJoin");
     });
-  
 }
 
 function doAction(acNm) {
-    let reqData;
-    let url;
+    let data, reqUrl, formName, bindId, callback;
     switch (acNm) {
         case "execJoin":
             
@@ -25,8 +23,13 @@ function doAction(acNm) {
             if(validn()) {
                 break;
             }
+            reqUrl = "findPw";
+            data = null;
+            formName = "findEmailForm";
+            bindId = null
+            callback = movePage("loginForm");
+            ajaxCall(reqUrl, data, formName, bindId, callback);
 
-            $("#loginForm").submit();
             break
     }
 }
@@ -42,18 +45,11 @@ function validn() {
         msg = "이메일을 입력하세요";
         isErr = true;
         $("#email_addr").focus();    
-    } else if(!checkMail.test(userEmail)) {
-        msg = "이메일 형식이 맞지 않습니다.";
-        isErr = true;
-        $("#email_addr").focus();    
-    } else if(isNull($("#user_pw").val())) {
-        msg = "비밀번호를 입력 하세요";
-        isErr = true;
-        $("#user_pw").focus();    
     }
 
     if(isErr) {
         alert(msg);
     }
+    return isErr;
 }
 

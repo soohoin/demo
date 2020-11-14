@@ -1,29 +1,89 @@
 'use strict';
 
 let navbar = "";
-let navbarHeight = "";
+let navbarHeight;
+let navbarWidth;         // 모바일 버전에서 메뉴바 상세 hover 이벤트 제어변수
 let position = 0;        // 스크롤이 위/아래 인지 구분하기 위한 변수
 let replyFormNo = 0;     // 상세 게시글의 답글쓰기 form의 댓글번호 
 let eventReplyNoid = ""; // 상세 게시글의 답글수정 에 사용 할 변수 
-
+let isMobileMenuOn = false;  // 모바일 버전에서 메뉴바의 show상태
+let lv2_on_menu_index = -1;  // 메뉴바 lv2 의 on상태인 메뉴그룹 index
 $(document).ready(function () {
     navbar = document.querySelector('#navbar');
     navbarHeight = navbar.getBoundingClientRect().height;
 
     // 메뉴 hover 이벤트
     $(".navbar__menu__ul").hover(function () {
-        $('.sub__menu__ul').removeClass('hide');
-        $('.sub__menu__ul').addClass('showme');
-        $('.menu__bg').removeClass('hide');
-        $('.navbar__menu__ul').css('height', '200');
+        navbarWidth = navbar.getBoundingClientRect().width;
+        if(navbarWidth >= 768) { 
+            $('.sub__menu__ul').removeClass('hide');
+            $('.sub__menu__ul').addClass('showme');
+            $('.menu__bg').removeClass('hide');
+        }
     }, function () {
-        $('.sub__menu__ul').addClass('hide');
-        $('.sub__menu__ul').removeClass('showme');
-        $('.menu__bg').addClass('hide');
-        $('.navbar__menu__ul').css('height', '80');
+        navbarWidth = navbar.getBoundingClientRect().width;
+        if(navbarWidth >= 768) { 
+            $('.sub__menu__ul').addClass('hide');
+            $('.sub__menu__ul').removeClass('showme');
+            $('.menu__bg').addClass('hide');
+        }
     });
 
+    // 모바일 레이아웃 일 때 햄버거 flag 기능
+    $(".navbar__toggle-btn").on('click', ()=>{
+        if(isMobileMenuOn) {
+            $(".navbar__loginjoin").hide();
+            $(".navbar__menu").hide();
+            isMobileMenuOn = false;
+        } else {
+            $(".navbar__loginjoin").show();
+            $(".navbar__menu").show();
+            isMobileMenuOn = true;
+
+
+            // 대 메뉴(a태그)의 href속성을 #으로 변경하고 onclick 이벤트를 넣어서 하위 메뉴를  show한다.
+            let lv1_menus_for_a = $(".navbar__menu__ul__item > p > a");
+            $.each(lv1_menus_for_a, (index,item) => {
+                // console.log('index : ' + index);
+                $(item).removeAttr('href');
+                console.log($(item).parent().html());
+            });
+            
+            let lv1_menus_for_p = $(".navbar__menu__ul__item > p");
+            $.each(lv1_menus_for_p, (index,item) => {
+                // console.log('index : ' + index);
+                $(item).attr('onclick','mobile_lv2menu_flag( '+index+' ) ');
+            });
+        }
+    });
 });
+
+// mobile 화면에서 lv2 메뉴의 flag 이벤트 
+function mobile_lv2menu_flag(reqIndex) {
+    
+    let lv2_menus = $(".sub__menu__ul");
+
+    //  (li 태그) 중매뉴 중 선택된 태그 표시
+    $.each(lv2_menus, (index,item) => {
+        $(item).addClass('hide');
+        if(index == reqIndex && lv2_on_menu_index != index) {
+            $(item).removeClass('hide');
+            lv2_on_menu_index = index;
+        } else if(index == reqIndex && lv2_on_menu_index == index){
+            lv2_on_menu_index = -1;
+        }
+    });
+    
+    //  (li 태그) 대매뉴 중 선택된 태그 표시
+    let lv1_menus_li = $(".navbar__menu__ul__item");
+    $.each(lv1_menus_li, (index2,item) => {
+        $(item).removeClass('active');
+        if(reqIndex == index2) {
+            $(item).addClass('active');
+        }
+    });
+    
+}
 
 
 // 공통 doAction 함수 

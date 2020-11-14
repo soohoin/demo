@@ -19,18 +19,18 @@
         <!-- content1st -->
         <section id="content1st">
             <div class="content1st__inner">
-                <form id="findEmailForm" method="POST" action="/find">
+                <form id="findEmailForm" method="POST">
                     <div class="login_top">
-                        <p>이메일 찾기</p>
+                        <p>비밀번호 찾기</p>
                     </div>
                     <div class="login_middle_01">
                         <div class="box_01">
                             <label for="user_nm">이메일</label>
                         </div>
                         <div class="box_02">
-                            <input type="text" placeholder="이메일 전체입력" id="user_nm" name="user_nm">
+                            <input type="text" placeholder="이메일 전체입력" id="email_addr" name="email_addr">
                         </div>
-                        <div class="box_03" >
+                        <div class="box_03" id="executeBtn">
                             <p>전송</p>
                         </div>
                     </div>
@@ -42,7 +42,7 @@
             </div>
             <div class="info_cntn2">
                 <p>입력하신 이메일로 임시 비밀번호를 발송 합니다.</p>
-                <p>임시 비밀번호는 비밀번호 변경을 통해서 사용하시는걸 권장합니다.</p>
+                <p>발급 받은 임시 비밀번호는 "비밀번호 변경" 을 통해 사용하시는 걸 권장합니다.</p>
             </div>
         </section> 
 

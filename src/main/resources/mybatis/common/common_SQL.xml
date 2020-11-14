@@ -724,6 +724,15 @@
          AND A.USE_YN = 'Y'
     </select>
 
+    <update id="changeUserPw" parameterType="User">
+      UPDATE USER_INFO A
+         SET PASSWORD = #{password}
+           , CHG_USER_ID = 'SYSTEM'
+           , CHG_DT = DATE_FORMAT(now(), '%Y%m%d%H%i%s')
+       WHERE 1=1
+         AND A.EMAIL_ADDR = #{email_addr}
+    </update>
+
 
     <!-- 사용자 인증여부 활성화 -->
     <update id="successJoin" parameterType="Board">
@@ -734,7 +743,7 @@
     </update>
 
 
-    <!-- 게시글 조회수 증가 -->
+    <!-- 게시글 조회 수 증가 -->
     <update id="increaseBoard" parameterType="Board">
       UPDATE BOARD
             SET SELECT_CNT = SELECT_CNT + 1
