@@ -81,7 +81,8 @@
                             <div class="replyCntnList__outter">
                                 <div class="replyCntnList__leftBox">
                                     <div class="replyCntnList__leftBox__profile">
-                                        <img th:src="${row.social_profile_url}" alt="댓글작성자프로필">
+                                        <img  th:if="${row.social_profile_url != null}" th:src="${row.social_profile_url}" alt="프로필">
+                                        <i th:if="${row.social_profile_url == null}" class="far fa-user-circle"></i>
                                     </div>
                                 </div>
                                 <div class="replyCntnList__rightBox">
@@ -95,7 +96,7 @@
                                         <div class="leftBox">
                                             <p class="rightBox__bottom__yymmdd" th:text="${row.write_dt}">2020.10.21</p>
                                             <p class="rightBox__bottom__hhmi" th:text="${row.time}">22:20</p>
-                                            <a th:onclick="comMakeReplyForm([[${row.reply_no}]], 'page_005_03_02' , [[${row.reply_no_id}]])">답글쓰기</a>
+                                            <a th:if="${row.del_yn} == 'N' " th:onclick="comMakeReplyForm([[${row.reply_no}]], 'page_005_03_02' , [[${row.reply_no_id}]])">답글쓰기</a>
                                         </div>
                                         <div class="rightBox" th:if="${row.user_id} == ${#authentication.principal.user.user_id} and ${row.del_yn} == 'N' ">
                                             <a th:onclick="replyUpdate([[${row.reply_no}]], [[${row.re_reply_no}]] , 'page_005_03_02' , [[${row.reply_no_id}]],  [[${row.reply_cntn}]])">수정</a>

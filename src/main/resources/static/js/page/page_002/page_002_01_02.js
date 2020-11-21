@@ -38,4 +38,8 @@ function doAction(acNm) {
 function setVideo() {
     $("#youtube_video").html($("#youtube_src").val());
     update_callback_y();
+    $videoIframe = $('iframe');
+    $videoIframe.css('position','absolute');
+    $videoIframe.css('width', '100%');
+    $videoIframe.css('height', '100%');
 }

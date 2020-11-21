@@ -43,7 +43,6 @@ public class Board {
     private String search_text;
     private String strt_write_dt;
     private String end_write_dt;
-    private String user_kor_nm;
     private String board_div_nm;
     private String worship_order_nm;
     private String page_name;
@@ -53,4 +52,7 @@ public class Board {
 
     // 조인해서 사용할 유저정보
     private String social_profile_url;
+    private String user_kor_nm;
+    private String user_nic_nm;
+
 }

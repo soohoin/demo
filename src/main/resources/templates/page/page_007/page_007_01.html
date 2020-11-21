@@ -16,7 +16,6 @@
 
     <div layout:fragment="content">
 
-        <!-- content1st -->
         <section id="content1st">
             <div class="content1st__inner board_cntn_area width_1195">
                 <div class="board__top pagination">
@@ -47,12 +46,6 @@
                             <option value="11">11월</option>
                             <option value="12">12월</option>
                         </select>
-                        <!-- <select th:if="${WORSHIP_ORDER_CD != null}" name="worship_order_cd" id="worship_order_cd">
-                            <option th:each="row : ${WORSHIP_ORDER_CD}" 
-                                    th:text="${row.code_knm}" 
-                                    th:value="${row.code}">코드명
-                            </option>
-                        </select> -->
                     </div>
                     <div class="board__filter__right">
                         <select name="search_div_cd" id="search_div_cd">
@@ -63,6 +56,7 @@
                         </select>
                         <input type="text" id="search_text">
                         <button id="search" onclick="doAction('search')">검색</button>
+                        <button id="board__filter__right__write" type="button" onclick="movePage('sgc_007_01-CREATE')" >글 작성</button>
                     </div>
                 </div>
                 <div class="bottom__line pagination"></div>
@@ -82,6 +76,29 @@
                         <p th:text="${row.write_dt}">20.01.01</p> 
                         <p th:text="${row.select_cnt}">0</p>
                         <p th:text="${row.favorit_cnt}">0</p>
+                    </div>
+                    <div th:if="${boardList}" th:each="row : ${boardList}" class="board__mobile__contents">
+                        <a th:href="@{/sgc_007_01-DETAIL( board_div_cd=${row.board_div_cd}, board_no=${row.board_no})}">
+                            <div class="left__box" >
+                                <div class="inner__box">
+                                    <div class="left__box__top">
+                                        <p th:text="${row.board_title}"></p>
+                                    </div>
+                                    <div class="left__box__bottom">
+                                        <p th:text="${row.user_kor_nm}"></p>
+                                        <p th:text="${row.write_dt}">20.01.01</p> 
+                                        <p th:text="${row.select_cnt}">0</p>
+                                        <span style="display: none;" sec:authentication="principal.user.user_id" >사용자ID</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        <div class="right__box">
+                            <div class="inner__box">
+                                <p>2</p>
+                                <p>댓글</p>
+                            </div>
+                        </div>
                     </div>
                     <p th:if="${totalListCnt == 0}">조회 된 글이 없습니다.</p>
                     <div class="board__page__btn">
@@ -122,7 +139,7 @@
                     </div>
                 </div>
             </div>
-        </section> 
+        </section>
 
     </div>
 </html>

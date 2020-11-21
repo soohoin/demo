@@ -8,9 +8,12 @@
     justify-content: center;
     margin: 60px 0;
   }
-
   .content1st__inner {
     display: flex;
     justify-content: center;
-    width: 1195px;
+    max-width: 1195px;
+    width: 90%;
+  }
+  .content1st__inner > img {
+    width: 100%;
   }

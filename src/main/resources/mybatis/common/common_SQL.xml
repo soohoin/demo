@@ -151,6 +151,8 @@
            , A.SELECT_CNT
            , A.VIDEO_DIV_CD
            , B.SOCIAL_PROFILE_URL
+           , B.USER_KOR_NM
+           , B.USER_NIC_NM
            , A.VIDEO_ID
            , A.PHOTO_ID
            , A.YOUTUBE_IFRM_SRC

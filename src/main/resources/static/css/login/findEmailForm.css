@@ -1,9 +1,15 @@
   /*****************************************************/
   /*********************** content1 ********************/
   /*****************************************************/
-  
+  .content1st__inner {
+    max-width: 700px;
+    width: 90%;
+  }
+  #findEmailForm{
+    width: 100%;
+  }
   .bottom_line {
-    width: 700px;
+    width: 100%;
     margin:  5px 0 20px 0;
     border: 2px solid var(--color-light-grey);
   }
@@ -22,7 +28,7 @@
   }
   .login_top > p {
     opacity: 0.6;
-    font-size: 40px;
+    font-size: var(--font-large-medium);
     font-weight: 500;
     margin: 20px 0 20px 0;
   }
@@ -33,6 +39,7 @@
     height: 35px;
     line-height: 220%;
     font-weight: 400;
+    font-size: var(--font-small);
   }
   .box_01 label:nth-child(1) {
     margin-bottom: 5px;
@@ -67,9 +74,10 @@
     flex-direction: column;
   }
   .info_cntn2 {
-    width: 700px;
+    max-width: 700px;
+    width: 90%;
     height: 150px;
-    margin:  40px 40px;
+    margin:  40px 0;
     border: 3px solid var(--color-light-grey);
     opacity: 0.5;
     background-color: var(--color-light-white);
@@ -82,3 +90,19 @@
     margin: 10px 5px 5px 5px;
   }
   
+  @media screen and (max-width: 768px) {
+    :root {
+      --font-large-medium: 30px;
+      --font-regular_20: 17px;
+      --font-small:15px;
+    }
+    
+  }
+
+  @media screen and (max-width: 480px) {
+    :root {
+      --font-large-medium: 30px;
+      --font-regular_20: 13px;
+      --font-small:14px;
+    }
+  }

@@ -4,6 +4,7 @@
 
   .content1st__inner {
     flex-direction: column;
+    justify-content: center;
     width: 550px;
     border: 5px solid gray;
   }
@@ -13,7 +14,8 @@
   }
   .login_middle_02 {
     display: flex;
-    margin: 10px 145px;
+    justify-content: center;
+    margin: 10px 0;
   }
   .failMsg {
     display: flex;
@@ -32,12 +34,12 @@
   }
   .login_top > p {
     opacity: 0.6;
-    font-size: 40px;
+    font-size: var(--font-large-medium);
     font-weight: 500;
     margin: 20px 0 20px 0;
   }
   .box_01 {
-    width: 100px;
+    width: 18.5%;
   }
   .box_01 label {
     height: 35px;
@@ -48,7 +50,7 @@
     margin-bottom: 5px;
   }
   .box_02 {
-    width: 250px;
+    width: 45.5%;
   }
   .box_02 input {
     height: 35px;
@@ -61,7 +63,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 100px;
+    width: 18.5%;
     cursor: pointer;
     background-color: gray;
     margin-left: 10px;
@@ -80,7 +82,7 @@
     flex-direction: column;
   }
   hr {
-    width: 450px;
+    width: 100%
   }
   .login_bottom {
     display: flex;
@@ -99,3 +101,31 @@
     /* object-fit: cover; */
     background-size: cover
   }
+
+  @media screen and (max-width: 768px) {
+    .content1st__inner {
+      width: 450px;
+    }
+
+    .simple_for_kakao {
+      width: 450px;
+      height: 80px;
+    }
+    :root {
+      --font-large-medium: 35px
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    .content1st__inner {
+      width: 400px;
+    }
+    .simple_for_kakao {
+      width: 400px;
+      height: 75px;
+    }
+    :root {
+      --font-large-medium: 30px
+    }
+  }
+  

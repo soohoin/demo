@@ -1,17 +1,30 @@
 'use strict';
 
 let navbar = "";
-let navbarHeight;
-let navbarWidth;         // 모바일 버전에서 메뉴바 상세 hover 이벤트 제어변수
-let position = 0;        // 스크롤이 위/아래 인지 구분하기 위한 변수
-let replyFormNo = 0;     // 상세 게시글의 답글쓰기 form의 댓글번호 
-let eventReplyNoid = ""; // 상세 게시글의 답글수정 에 사용 할 변수 
-let isMobileMenuOn = false;  // 모바일 버전에서 메뉴바의 show상태
-let lv2_on_menu_index = -1;  // 메뉴바 lv2 의 on상태인 메뉴그룹 index
-$(document).ready(function () {
-    navbar = document.querySelector('#navbar');
-    navbarHeight = navbar.getBoundingClientRect().height;
+let replyFormNo = 0;          // 상세 게시글의 답글쓰기 form의 댓글번호 
+let window_width;             // window width size
+let navbarWidth;              // 모바일 버전에서 메뉴바 상세 hover 이벤트 제어변수
+let isMobileMenuOn = false;   // 모바일 버전에서 메뉴바의 show상태
+let position = 0;             // 스크롤이 위/아래 인지 구분하기 위한 변수
+let lv1_menu_href_array = []; // href 속성을 array에 넣어 뒀다가 다시 사용하기 위한 array
+let lv1_menus_for_a;        
+let lv1_menus_for_p;
 
+// iframe 반응형 관련 변수
+var $videoIframe;
+var responsiveHeight;
+
+$(document).ready(function () {
+    lv1_menus_for_a = $(".navbar__menu__ul__item > p > a");
+    lv1_menus_for_p = $(".navbar__menu__ul__item > p");
+    
+    comEventInit();
+});
+
+
+// 이벤트 생성 
+function comEventInit() {
+    navbar = document.querySelector('#navbar');
     // 메뉴 hover 이벤트
     $(".navbar__menu__ul").hover(function () {
         navbarWidth = navbar.getBoundingClientRect().width;
@@ -30,47 +43,109 @@ $(document).ready(function () {
     });
 
     // 모바일 레이아웃 일 때 햄버거 flag 기능
-    $(".navbar__toggle-btn").on('click', ()=>{
+    $(".navbar__toggle-btn").click((event)=>{
+        event.stopPropagation();
+
         if(isMobileMenuOn) {
             $(".navbar__loginjoin").hide();
             $(".navbar__menu").hide();
+            if(lv2_on_menu_object != -1) {
+                lv2_on_menu_object.addClass('hide');
+            }
             isMobileMenuOn = false;
+            transAttr_pcVersionEvent();
         } else {
             $(".navbar__loginjoin").show();
             $(".navbar__menu").show();
             isMobileMenuOn = true;
-
-
-            // 대 메뉴(a태그)의 href속성을 #으로 변경하고 onclick 이벤트를 넣어서 하위 메뉴를  show한다.
-            let lv1_menus_for_a = $(".navbar__menu__ul__item > p > a");
-            $.each(lv1_menus_for_a, (index,item) => {
-                // console.log('index : ' + index);
-                $(item).removeAttr('href');
-                console.log($(item).parent().html());
-            });
-            
-            let lv1_menus_for_p = $(".navbar__menu__ul__item > p");
-            $.each(lv1_menus_for_p, (index,item) => {
-                // console.log('index : ' + index);
-                $(item).attr('onclick','mobile_lv2menu_flag( '+index+' ) ');
-            });
+            transAttr_mobileVersionEvent();
         }
     });
-});
+
+    // 메뉴바 숨기기 & 스크롤시 변환이벤트
+    $(window).on('scroll', (event) => {
+        event.stopPropagation();
+        let isDown = true;
+        if (window.scrollY > position) {
+            isDown = true;
+        } else {
+            isDown = false;
+        }
+        position = window.scrollY;
+        let window_width = document.querySelector('body').getBoundingClientRect().width;
+        // console.log('isDown1 : '+ isDown);
+        if(window_width > 769 ) {
+            if(window.scrollY > 200 && isDown) {
+                navbar.classList.add('hide');
+            } else if(window.scrollY > 200 && !isDown) {
+                navbar.classList.remove('hide');
+            }
+        }
+         else {
+            if(isDown) {
+                // console.log('scroll 222 : ' + isMobileMenuOn);
+                $(".navbar__loginjoin").hide();
+                $(".navbar__menu").hide();
+                isMobileMenuOn = false;
+            }
+        }
+    });
+
+    // 화면 사이즈 변경 이벤트 
+    $(window).on('resize', () => { 
+        console.log('resize');
+        window_width = document.querySelector('body').getBoundingClientRect().width;
+        if(window_width > 769) {
+            $(".navbar__loginjoin").css('display','flex');
+            $(".navbar__menu").show();
+            if(lv2_on_menu_object != -1) {
+                lv2_on_menu_object.addClass('hide');
+            }
+        } else {
+            $(".navbar__loginjoin").hide();
+            $(".navbar__menu").hide();
+            transAttr_pcVersionEvent();
+        }
+    });
+}
+
+
+//  pc 버전 일 경우 href 속성을 복원하고, onclick 속성도 삭제한다.
+function transAttr_pcVersionEvent() {
+    $.each(lv1_menus_for_a, (index,item) => {
+        $(item).attr('href',lv1_menu_href_array[index]);
+    });
+    $.each(lv1_menus_for_p, (index,item) => {
+        $(item).removeAttr('onclick');
+    });
+}
+
+// 모바일 버전으로 화면이 변경되면 메뉴바의 이벤트 속성을 변경해준다.
+function transAttr_mobileVersionEvent() {
+    $.each(lv1_menus_for_a, (index,item) => {
+        lv1_menu_href_array[index] = $(item).attr('href');
+        $(item).removeAttr('href');
+    });
+    $.each(lv1_menus_for_p, (index,item) => {
+        $(item).attr('onclick','mobile_lv2menu_flag( '+index+' ) ');
+    });
+}
 
 // mobile 화면에서 lv2 메뉴의 flag 이벤트 
+let lv2_on_menu_index = -1;  // 메뉴바 lv2 의 on상태인 메뉴그룹 index
+let lv2_on_menu_object = -1; // 메뉴바 lv2 가 on상태인 메뉴그룹의 태그 object
 function mobile_lv2menu_flag(reqIndex) {
-    
     let lv2_menus = $(".sub__menu__ul");
-
     //  (li 태그) 중매뉴 중 선택된 태그 표시
     $.each(lv2_menus, (index,item) => {
         $(item).addClass('hide');
         if(index == reqIndex && lv2_on_menu_index != index) {
             $(item).removeClass('hide');
+            lv2_on_menu_object = $(item);
             lv2_on_menu_index = index;
         } else if(index == reqIndex && lv2_on_menu_index == index){
             lv2_on_menu_index = -1;
+            lv2_on_menu_object = -1;
         }
     });
     
@@ -85,9 +160,9 @@ function mobile_lv2menu_flag(reqIndex) {
     
 }
 
-
 // 공통 doAction 함수 
 // action (CRUD 등등...) 을 수행한다.
+let eventReplyNoid = ""; // 상세 게시글의 답글수정 에 사용 할 변수 
 function comDoAction(acNm, pageName, replyNo) {
     $("#page_name").val(pageName);
 
@@ -117,7 +192,6 @@ function comDoAction(acNm, pageName, replyNo) {
             break;
 
          /* like 조회 */
-        case "commonSearchLikeIcon":
             reqUrl = "common_likeInfo_search";
             data = null;
             formName = "hiddenForm";
@@ -385,34 +459,6 @@ function resize(obj) {
     obj.style.height = "1px";
     obj.style.height = (12 + obj.scrollHeight) + "px";
 }
-
-
-// 메뉴바 숨기기 & 스크롤시 변환이벤트
-document.addEventListener('scroll', (event) => {
-    let isDown = true;
-    if (window.scrollY > position) {
-        isDown = true;
-    } else {
-        isDown = false;
-    }
-
-    position = window.scrollY;
-
-    if (window.scrollY > 200) {
-        if (isDown) {
-            navbar.classList.add('hide');
-        } else {
-            navbar.classList.remove('hide');
-        }
-    }
-
-    // if(window.scrollY > navbarHeight) {
-    //     navbar.classList.add('navbar--dark');    
-    // } else {
-    //     navbar.classList.remove('navbar--dark');
-    // }
-
-});
 
 
 /** ajax 공부 

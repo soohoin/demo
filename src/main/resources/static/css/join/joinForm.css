@@ -3,7 +3,8 @@
   /*****************************************************/
 
   .content1st__inner {
-    width: 550px;
+    max-width: 550px;
+    width: 90%;
     /* border: 5px solid gray; */
   }
   .join_top {
@@ -12,7 +13,7 @@
   }
   .join_top > p {
     opacity: 0.6;
-    font-size: 40px;
+    font-size: var(--font-large-medium);
     font-weight: 500;
     margin: 20px 0;
   }
@@ -76,4 +77,14 @@
     font-size: larger;
   }
 
-  
+  @media screen and (max-width: 768px) {
+    :root {
+      --font-large-medium: 35px
+    }
+  }
+
+  @media screen and (max-width: 480px) {
+    :root {
+      --font-large-medium: 30px
+    }
+  }
