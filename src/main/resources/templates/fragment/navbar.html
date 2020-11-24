@@ -101,7 +101,7 @@
                     <li class="mobile__line"></li>
                     <li class="navbar__loginjoin__ul__item">
                         <i class="fas fa-sign-out-alt"></i>
-                        <a sec:authorize="isAnonymous()"  th:href="@{/joinForm}">회원가입</a>
+                        <a sec:authorize="isAnonymous()"  th:href="@{/joinRule}">회원가입</a>
                         <a sec:authorize="isAuthenticated()" th:href="@{/logout}">로그아웃</a>
                     </li>
                 </ul>

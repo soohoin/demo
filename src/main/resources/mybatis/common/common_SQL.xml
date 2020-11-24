@@ -81,7 +81,14 @@
              , A.DEL_YN
              , A.REG_USER_ID
              , A.REG_DT
-             , '1' AS FAVORIT_CNT
+             , (SELECT COUNT(1)
+                  FROM BOARD_LIKE IA
+                 WHERE 1=1
+                   AND IA.BOARD_DIV_CD = A.BOARD_DIV_CD
+                   AND IA.BOARD_NO     = A.BOARD_NO
+                   AND IA.CLICK_DIV_CD = '02'
+                ) AS FAVORIT_CNT
+             , D.REPLYS_CNT + D.RE_REPLYS_CNT AS REPLYS_CNT
           FROM BOARD A
          INNER JOIN USER_INFO B 
             ON A.USER_ID = B.USER_ID
@@ -90,6 +97,24 @@
             ON A.PHOTO_ID = C.FILE_ID
           <!-- LEFT JOIN FILE_UPLOAD_INFO D
             ON A.VIDEO_ID = C.FILE_ID -->
+         INNER JOIN (SELECT IA.BOARD_DIV_CD
+                          , IA.BOARD_NO
+                          , (SELECT COUNT(1)
+                               FROM BOARD_REPLY  
+                              WHERE 1=1
+                                AND BOARD_DIV_CD = IA.BOARD_DIV_CD
+                                AND BOARD_NO     = IA.BOARD_NO
+                              ) AS REPLYS_CNT
+                          , (SELECT COUNT(1)
+                               FROM BOARD_RE_REPLY 
+                              WHERE 1=1
+                                AND BOARD_DIV_CD = IA.BOARD_DIV_CD
+                                AND BOARD_NO     = IA.BOARD_NO
+                             ) AS RE_REPLYS_CNT 
+                       FROM BOARD IA   
+                     ) D
+            ON A.BOARD_DIV_CD = D.BOARD_DIV_CD 
+           AND A.BOARD_NO     = D.BOARD_NO   
          WHERE 1=1
            AND A.DEL_YN = 'N'
            AND (A.BOARD_DIV_CD = #{board_div_cd}
@@ -115,7 +140,7 @@
            <if test="user_kor_nm != null and user_kor_nm != '' ">
            AND B.USER_KOR_NM LIKE CONCAT('%', #{user_kor_nm}, '%')
            </if> 
-         ORDER BY CAST(BOARD_NO AS UNSIGNED) DESC
+         ORDER BY CAST(A.BOARD_NO AS UNSIGNED) DESC
          LIMIT #{start_index}, #{page_size}
     </select> 
 

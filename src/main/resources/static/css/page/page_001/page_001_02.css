@@ -9,7 +9,12 @@
   .greeting_img {
     display: flex;
     justify-content: center;
-    width: 1195px;
+    max-width: 1195px;
+    width: 100%
+  }
+
+  .greeting_img > img {
+    width: 110%; 
   }
 
 

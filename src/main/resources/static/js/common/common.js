@@ -9,6 +9,7 @@ let position = 0;             // 스크롤이 위/아래 인지 구분하기 위
 let lv1_menu_href_array = []; // href 속성을 array에 넣어 뒀다가 다시 사용하기 위한 array
 let lv1_menus_for_a;        
 let lv1_menus_for_p;
+let isScrollEvent = false;
 
 // iframe 반응형 관련 변수
 var $videoIframe;
@@ -17,7 +18,6 @@ var responsiveHeight;
 $(document).ready(function () {
     lv1_menus_for_a = $(".navbar__menu__ul__item > p > a");
     lv1_menus_for_p = $(".navbar__menu__ul__item > p");
-    
     comEventInit();
 });
 
@@ -45,12 +45,14 @@ function comEventInit() {
     // 모바일 레이아웃 일 때 햄버거 flag 기능
     $(".navbar__toggle-btn").click((event)=>{
         event.stopPropagation();
-
+        isScrollEvent = true;
         if(isMobileMenuOn) {
             $(".navbar__loginjoin").hide();
             $(".navbar__menu").hide();
             if(lv2_on_menu_object != -1) {
                 lv2_on_menu_object.addClass('hide');
+                lv2_on_menu_index = -1;
+                lv2_on_menu_object = -1;
             }
             isMobileMenuOn = false;
             transAttr_pcVersionEvent();
@@ -73,7 +75,7 @@ function comEventInit() {
         }
         position = window.scrollY;
         let window_width = document.querySelector('body').getBoundingClientRect().width;
-        // console.log('isDown1 : '+ isDown);
+        
         if(window_width > 769 ) {
             if(window.scrollY > 200 && isDown) {
                 navbar.classList.add('hide');
@@ -81,30 +83,25 @@ function comEventInit() {
                 navbar.classList.remove('hide');
             }
         }
-         else {
-            if(isDown) {
-                // console.log('scroll 222 : ' + isMobileMenuOn);
-                $(".navbar__loginjoin").hide();
-                $(".navbar__menu").hide();
-                isMobileMenuOn = false;
-            }
-        }
     });
 
     // 화면 사이즈 변경 이벤트 
     $(window).on('resize', () => { 
-        console.log('resize');
         window_width = document.querySelector('body').getBoundingClientRect().width;
         if(window_width > 769) {
             $(".navbar__loginjoin").css('display','flex');
             $(".navbar__menu").show();
-            if(lv2_on_menu_object != -1) {
-                lv2_on_menu_object.addClass('hide');
-            }
         } else {
             $(".navbar__loginjoin").hide();
             $(".navbar__menu").hide();
             transAttr_pcVersionEvent();
+            isMobileMenuOn = false;
+        }
+
+        if(lv2_on_menu_object != -1) {
+            lv2_on_menu_object.addClass('hide');
+            lv2_on_menu_index = -1;
+            lv2_on_menu_object = -1;
         }
     });
 }
@@ -157,7 +154,6 @@ function mobile_lv2menu_flag(reqIndex) {
             $(item).addClass('active');
         }
     });
-    
 }
 
 // 공통 doAction 함수 
@@ -190,7 +186,7 @@ function comDoAction(acNm, pageName, replyNo) {
             callback = null;
             ajaxCall(reqUrl, data, formName, bindId, callback);
             break;
-
+        case "commonSearchLikeIcon":
          /* like 조회 */
             reqUrl = "common_likeInfo_search";
             data = null;

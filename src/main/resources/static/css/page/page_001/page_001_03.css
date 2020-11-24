@@ -9,9 +9,17 @@
   .info_img {
     display: flex;
     justify-content: center;
-    width: 1195px;
+    max-width: 1195px;
+    width: 100%;
   }
 
   .info_img > img{
     margin: 90px 0;
+    width: 100%;
+  }
+
+  @media screen and (max-width: 480px) {
+    .info_img > img{
+      margin: 40px 0;
+    }
   }

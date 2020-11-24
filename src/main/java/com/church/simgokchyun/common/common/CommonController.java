@@ -51,6 +51,7 @@ public class CommonController {
             vo.setClick_div_cd("02");
             vo.setBoard_no(board.getBoard_no());
             vo.setClick_user_id(board.getUser_id());
+            board.setClick_user_id(board.getUser_id());
 
             // 1. 좋아요를 클릭했는지 확인한다.
             like_yn = comService.getLikeYn(vo);
@@ -66,9 +67,9 @@ public class CommonController {
 
             // 좋아요 총 개수, 좋아요 Y/N 을 model에 담아준다.
 
-            pageInfo.setBind_id("boardDetail_bind");
-            // model.addAttribute("boardDetail", mapper.select_boardDetail(board));
-            model.addAttribute("like_yn", "Y");
+            // pageInfo.setBind_id("boardDetail_bind");
+            // // model.addAttribute("like_yn", mapper.select_boardDetail(board));
+            // model.addAttribute("like_yn", "Y");
         } catch(Exception e) {
             logger.error(e.getMessage(), e);
         }
@@ -91,7 +92,6 @@ public class CommonController {
         } catch(Exception e) {
             logger.error(e.getMessage(), e);
         }
-        // return "page/page_005/page_005_01_02 :: #likeIcon";
         return comService.getReturnUrl(pageInfo);
     }
 

@@ -38,17 +38,18 @@ public class Board {
     // 테이블 외 정보들 
     private String real_file_nm;
     // private String video_path;
-    private int start_index;
-    private int page_size;
-    private String search_text;
+    private int start_index;                    // MYSQL 쿼리에서 페이징을 위한 변수
+    private int page_size;                      // MYSQL 쿼리에서 페이징을 위한 변수
+    private String search_text;                 // 조회 검색조건 text
     private String strt_write_dt;
-    private String end_write_dt;
-    private String board_div_nm;
-    private String worship_order_nm;
-    private String page_name;
-    private String callback_yn;
-    private String click_user_id;
-    private String favorit_yn_of_click_user;
+    private String end_write_dt;                
+    private String board_div_nm;                // 게시판 구분명
+    private String worship_order_nm;            // 예배순서명
+    private String page_name;                   // call 요청 한 page name
+    private String callback_yn;                 // 화면에서 callback 여부
+    private String click_user_id;               // 좋아요,글조회 누른 유저 id
+    private String favorit_yn_of_click_user;    // 접속유저의 좋아요 클릭 여부
+    private String replys_cnt;                  // 댓글,답글 총 개수
 
     // 조인해서 사용할 유저정보
     private String social_profile_url;
