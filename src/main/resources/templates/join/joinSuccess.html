@@ -6,12 +6,12 @@
 
     <!-- index.html 고유 CSS 추가 -->
     <th:block layout:fragment="css">
-        <link rel="stylesheet" th:href="@{/css/join/joinForm.css}" >
+        <link rel="stylesheet" th:href="@{/css/join/joinSuccess.css}" >
     </th:block>
     
     <!-- index.html 고유 스크립트 추가 -->
     <th:block layout:fragment="script">
-        <script th:src="@{/js/join/joinForm.js}"></script>
+        <script th:src="@{/js/join/joinSuccess.js}"></script>
     </th:block>
 
     <div layout:fragment="content">
@@ -100,8 +100,7 @@
                         </div>
                     </div>
                     <div class="btn_area">
-                        <!-- <button type="button" id="joinBtn" onclick="doAction('execJoin')">회원가입</button> -->
-                        <button type="button" id="joinBtn" onclick="movePage('joinSuccess')">회원가입</button>
+                        <button type="button" id="joinBtn" onclick="doAction('execJoin')">회원가입</button>
                     </div>
                 </form>
             </div>
