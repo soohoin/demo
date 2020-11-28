@@ -66,7 +66,6 @@
     position: relative;
     background: url(../../imgs/main/main_background.png) ;
     background-size: 100% 100%;
-    
   }
   #content2st .content2st__inner {
     display: flex;
@@ -469,11 +468,18 @@
    /* For below 915px screen width */
    @media screen and (max-width: 915px) {
     #content1st {
-      height: 380px;
+      height: 340px;
       margin-bottom: 0;
     }
     #slider {
       height: 380px;
+    }
+    #content2st {
+      background: url(../../imgs/main/main_background_mobile.png) ;
+      background-size: 100% 100%;
+    }
+    #content2st .content2st__inner{
+      margin-top: 0;
     }
     #content2st .content2st__inner > h1 {
       margin-bottom: 60px;
@@ -498,9 +504,7 @@
     h2 {
       font-size: x-large;
     }
-    #content2st .content2st__inner {
-      margin-top: 120px;
-    }
+    
     /* .content2st__icons__icon.no_01 img{
       width: 40px;
       height: 40px;
@@ -543,7 +547,7 @@
   /* For below 768px screen width */
   @media screen and (max-width: 768px) {
     #content1st {
-      height: 310px;
+      height: 300px;
       margin-bottom: 0;
     }
     #slider {
@@ -598,7 +602,7 @@
       height: 75%;
     } */
   }
-
+  
   @media screen and (max-width: 480px) {
     #content1st {
       height: 250px;
