@@ -1,5 +1,5 @@
 'use strict';
-
+checkIE();
 let navbar = "";
 let replyFormNo = 0;          // 상세 게시글의 답글쓰기 form의 댓글번호 
 let window_width;             // window width size
@@ -14,7 +14,6 @@ let isScrollEvent = false;
 // iframe 반응형 관련 변수
 var $videoIframe;
 var responsiveHeight;
-
 $(document).ready(function () {
     lv1_menus_for_a = $(".navbar__menu__ul__item > p > a");
     lv1_menus_for_p = $(".navbar__menu__ul__item > p");
@@ -43,7 +42,7 @@ function comEventInit() {
     });
 
     // 모바일 레이아웃 일 때 햄버거 flag 기능
-    $(".navbar__toggle-btn").click((event)=>{
+    $(".navbar__toggle-btn").click(function(event){
         event.stopPropagation();
         isScrollEvent = true;
         if(isMobileMenuOn) {
@@ -65,7 +64,7 @@ function comEventInit() {
     });
 
     // 메뉴바 숨기기 & 스크롤시 변환이벤트
-    $(window).on('scroll', (event) => {
+    $(window).on('scroll', function (event) {
         event.stopPropagation();
         let isDown = true;
         if (window.scrollY > position) {
@@ -86,7 +85,7 @@ function comEventInit() {
     });
 
     // 화면 사이즈 변경 이벤트 
-    $(window).on('resize', () => { 
+    $(window).on('resize', function() { 
         window_width = document.querySelector('body').getBoundingClientRect().width;
         if(window_width > 769) {
             $(".navbar__loginjoin").css('display','flex');
@@ -109,21 +108,21 @@ function comEventInit() {
 
 //  pc 버전 일 경우 href 속성을 복원하고, onclick 속성도 삭제한다.
 function transAttr_pcVersionEvent() {
-    $.each(lv1_menus_for_a, (index,item) => {
+    $.each(lv1_menus_for_a, function(index,item) {
         $(item).attr('href',lv1_menu_href_array[index]);
     });
-    $.each(lv1_menus_for_p, (index,item) => {
+    $.each(lv1_menus_for_p, function(index,item) {
         $(item).removeAttr('onclick');
     });
 }
 
 // 모바일 버전으로 화면이 변경되면 메뉴바의 이벤트 속성을 변경해준다.
 function transAttr_mobileVersionEvent() {
-    $.each(lv1_menus_for_a, (index,item) => {
+    $.each(lv1_menus_for_a, function(index,item) {
         lv1_menu_href_array[index] = $(item).attr('href');
         $(item).removeAttr('href');
     });
-    $.each(lv1_menus_for_p, (index,item) => {
+    $.each(lv1_menus_for_p, function(index,item) {
         $(item).attr('onclick','mobile_lv2menu_flag( '+index+' ) ');
     });
 }
@@ -134,7 +133,7 @@ let lv2_on_menu_object = -1; // 메뉴바 lv2 가 on상태인 메뉴그룹의 �
 function mobile_lv2menu_flag(reqIndex) {
     let lv2_menus = $(".sub__menu__ul");
     //  (li 태그) 중매뉴 중 선택된 태그 표시
-    $.each(lv2_menus, (index,item) => {
+    $.each(lv2_menus, function(index,item) {
         $(item).addClass('hide');
         if(index == reqIndex && lv2_on_menu_index != index) {
             $(item).removeClass('hide');
@@ -148,7 +147,7 @@ function mobile_lv2menu_flag(reqIndex) {
     
     //  (li 태그) 대매뉴 중 선택된 태그 표시
     let lv1_menus_li = $(".navbar__menu__ul__item");
-    $.each(lv1_menus_li, (index2,item) => {
+    $.each(lv1_menus_li, function(index2,item) {
         $(item).removeClass('active');
         if(reqIndex == index2) {
             $(item).addClass('active');
@@ -617,3 +616,10 @@ function isNull(val) {
     return false;
 }
 
+function checkIE() {
+    let agent = navigator.userAgent.toLowerCase();
+    if ( (navigator.appName == 'Netscape' && navigator.userAgent.search('Trident') != -1) || (agent.indexOf("msie") != -1) ) {
+        alert("IE는 사용이 불가능 합니다.");
+        window.history.back();
+    }
+}

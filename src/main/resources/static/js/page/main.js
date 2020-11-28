@@ -52,6 +52,8 @@ function eventInit() {
         movePage('sgc_006_01');
     });
 
+
+
 }
 
 // 아이템 fadein
@@ -118,23 +120,23 @@ function bannerAutoPlay() {
 }
 
 // content items effect function
-document.addEventListener('scroll',(event) => {
+// document.addEventListener('scroll',(event) => {
     
-    // fadein items
-    let content2stBoxsPsn = $(".content2st__boxs").offset().top;
-    let content2stIconsPsn = $(".content2st__icons").offset().top;
-    let windowBottmo = $(window).height() + window.scrollY;
-    if(windowBottmo >= content2stBoxsPsn) {
-        $(".content2st__boxs").animate({'opacity':'1','margin-left':'0px'},1000);
-    } else {
-        // $(".content2st__boxs").animate({'opacity':'0','margin-left':'0px'},1000);
-    }
-    if(windowBottmo >= content2stIconsPsn) {
-        $(".content2st__icons").animate({'opacity':'1','margin-left':'0px'},1000);
-    } else {
-        // $(".content2st__icons").animate({'opacity':'0','margin-left':'0px'},1000);
-    }
-});
+//     // fadein items
+//     let content2stBoxsPsn = $(".content2st__boxs").offset().top;
+//     let content2stIconsPsn = $(".content2st__icons").offset().top;
+//     let windowBottmo = $(window).height() + window.scrollY;
+//     if(windowBottmo >= content2stBoxsPsn) {
+//         $(".content2st__boxs").animate({'opacity':'1','margin-left':'0px'},1000);
+//     } else {
+//         // $(".content2st__boxs").animate({'opacity':'0','margin-left':'0px'},1000);
+//     }
+//     if(windowBottmo >= content2stIconsPsn) {
+//         $(".content2st__icons").animate({'opacity':'1','margin-left':'0px'},1000);
+//     } else {
+//         // $(".content2st__icons").animate({'opacity':'0','margin-left':'0px'},1000);
+//     }
+// });
 
 
 
