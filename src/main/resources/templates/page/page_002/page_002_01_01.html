@@ -62,10 +62,10 @@
                         <label for="video_upload">영상 업로드 파일</label>
                         <input type="file" name="video_upload" id="video_upload" placeholder="설교영상 선택">
                     </div>
-                    <div class="content">
+                    <!-- <div class="content">
                         <label for="board_cntn">내용</label>
                         <textarea th:if="${ #strings.isEmpty(boardDetail) }" name="board_cntn" id="board_cntn" cols="100" rows="20" placeholder="내용을 입력하세요"></textarea>
-                    </div>
+                    </div> -->
                     <div class="last__contents" th:if="${not #strings.isEmpty(boardDetail)}">
                         <p>작성자 :</p>
                         <p th:text="${boardDetail.user_kor_nm}"></p>
