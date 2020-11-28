@@ -67,6 +67,18 @@ public class LoginController {
         return "join/joinRule";
     }
 
+    /**
+     * 회원가입 이용약관 화면오픈
+     * @param model
+     * @return
+     */
+    @GetMapping("/joinSuccess")
+    public String joinSuccess(Model model) {
+        model.addAttribute("dept_01", "회원가입");
+        model.addAttribute("img_path", "imgs/page/page_002_bg.jpg");
+        return "join/joinSuccess";
+    }
+
 
     /**
      * 회원가입 화면 오픈
