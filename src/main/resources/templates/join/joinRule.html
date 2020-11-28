@@ -241,15 +241,15 @@
                             </textarea>
                         </div>
                         <div class="join_rule_cntn_03">
-                            <input type="radio" name="rule_yn" id="rule_y">
+                            <input type="radio" name="rule_yn" id="rule_y" value="Y">
                             <label for="rule_y">동의함</label>
-                            <input type="radio" name="rule_yn" id="rule_n" checked>
+                            <input type="radio" name="rule_yn" id="rule_n" value="N" checked>
                             <label for="rule_n">동의하지않음</label>
                         </div>
                     </div>
                 </div>
                 <div class="btn_area">
-                    <button type="button" id="joinBtn" onclick="movePage('joinForm')">다음단계</button>
+                    <button type="button" id="joinBtn" onclick="doAction('joinRuleApply')">다음단계</button>
                     <button type="button" onclick="movePage('main')">취소</button>
                 </div>
             </div>
