@@ -32,13 +32,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    opacity: 0.4;
     width: 20%;
   }
   .join_process .process_05 {
     display: flex;
     justify-content: center;
     align-items: center;
-    opacity: 0.4;
     width: 20%;
   }
   .join_process .process_02 {
@@ -50,6 +50,7 @@
     display: flex;
     justify-content: center;
     width: 20%;
+    opacity:0.3; 
   }
   .join_process .process_01_1,
   .join_process .process_03_1,
@@ -74,7 +75,6 @@
   }
   .join_process .process_05 .fa-check-square {
     font-size: var(--font-large-medium);
-    opacity: 0.6;
   }
   .join_process .process_02 .fa-arrow-right {
     font-size: var(--font-medium);
@@ -82,7 +82,7 @@
   }
   .join_process .process_04 .fa-arrow-right {
     font-size: var(--font-medium);
-    opacity: 0.7;
+    /* opacity: 0.7; */
   }
   .line {
     border: 1px solid var(--color-dark-white);
@@ -95,20 +95,29 @@
     color: var(--color-black);
     margin: auto;
   } 
-  #joinForm {
-    max-width: 600px;
-    width: 90%;
-    margin: auto;
-  }
   .join_top {
     display: flex;
-    align-items:  center;
+    justify-content: center;
+    margin: 20px 0;
   }
   .join_top > p {
     opacity: 0.7;
     font-size: var(--font-medium);
     font-weight: var(--weight-bold);
-    margin: 20px 0;
+  }
+  .success_info .success_info_cntn {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    height: 150px;
+    padding-top: 30px;
+    background-color: var(--color-light-white2);
+  }
+  .success_info .success_info_cntn p{
+    display: flex;
+    flex-wrap: wrap;
   }
   .content1st__inner label {
     margin-bottom: 10px;
@@ -116,55 +125,6 @@
   .content1st__inner input {
     height: 30px;
   }
-  #joinForm > .join_top,
-  #joinForm > .email_addr,
-  #joinForm > .password,
-  #joinForm > .password_confirm,
-  #joinForm > .user_nm,
-  #joinForm > .user_nic_nm,
-  #joinForm > .btn_area {
-    display: flex;
-    flex-direction: column;
-    margin: 10px 0;
-  }
-  .email_addr > label,
-  .password > label,
-  .password_confirm > label,
-  .user_nm > label,
-  .user_nic_nm > label {
-    font-size: var(--font-regular);
-    font-weight: var(--weight-bold);
-    opacity: 0.8;
-  }
-
-  .validation {
-    display: flex;
-    flex-direction: row;
-  }
-
-  .fa-check {
-    margin: 6px 8px 0 0;
-    color: greenyellow;
-    font-size: larger;
-  }
-
-  .fa-times {
-    margin: 6px 8px 0 0;
-    color: red;
-    font-size: larger;
-  }
-
-  #email_addr_vali.success::after {
-    content: " 사용가능";
-    font-weight: var(--weight-bold);
-  }
-
-  #email_addr_vali.fail::after {
-    content: " 이미 사용중 입니다.";
-    font-weight: var(--weight-bold);
-    opacity: 0.6;
-  }
-
   .btn_area > button {
     margin: 10px 0;
     font-size: larger;
