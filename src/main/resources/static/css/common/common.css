@@ -216,7 +216,7 @@
     position: relative;
   }
   .navbar__menu__ul__item > p > a:hover{
-    box-shadow: 0 10px 10px rgba(0,0,0,.7);
+    /* box-shadow: 0 10px 10px rgba(0,0,0,.7); */
   }
   .content1st__login {
     flex-direction: column;

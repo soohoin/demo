@@ -39,7 +39,7 @@ function initEvent() {
 }
 
 
-function doAction(acNm) {``
+function doAction(acNm) {
     let reqData;
     switch (acNm) {
         case "emailCheck":
