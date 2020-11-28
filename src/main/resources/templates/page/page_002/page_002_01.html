@@ -21,7 +21,7 @@
             <div class="content1st__inner board_cntn_area width_1195">
                 <div class="board__top pagination">
                     <div class="board__top__left"></div>
-                    <div class="board__top__right">
+                    <div class="board__top__right" sec:authorize="isAuthenticated()">
                         <button id="board__top__right__write" type="button" onclick="movePage('sgc_002_01-CREATE')" >글 작성</button>
                     </div>
                 </div>
