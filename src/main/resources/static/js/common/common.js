@@ -620,6 +620,11 @@ function checkIE() {
     let agent = navigator.userAgent.toLowerCase();
     if ( (navigator.appName == 'Netscape' && navigator.userAgent.search('Trident') != -1) || (agent.indexOf("msie") != -1) ) {
         alert("IE는 사용이 불가능 합니다.");
-        window.history.back();
+        window.location.href = 'https://www.naver.com/';
+        // if(window.history) {
+            
+        // } else {
+            
+        // }
     }
 }

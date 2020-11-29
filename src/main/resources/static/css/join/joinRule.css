@@ -171,4 +171,20 @@
     :root {
       --font-large-medium: 30px
     }
+
+    .join_process .process_01 {
+      width: 30%;
+    }
+    .join_process .process_03 {
+      width: 26%;
+    }
+    .join_process .process_05 {
+      width: 26%;
+    }
+    .join_process .process_02 {
+      width: 9%;
+    }
+    .join_process .process_04 {
+      width: 9%;
+    }
   }
