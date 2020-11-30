@@ -904,4 +904,33 @@
     </insert>
 
 
+    <!-- 대메뉴 목록-->
+    <select id="getMenu_lv01" resultType="Comcode">
+      SELECT A.CODE
+           , A.CODE_KNM
+           , CASE WHEN A.CODE = #{code}
+                       THEN 'Y'
+                  ELSE 'N'     
+              END AS SELECTED
+       FROM COM_CODE A
+      WHERE 1=1
+        AND A.CD_GRP_ENM = 'MENU_LV01'
+        AND A.USE_YN = 'Y'
+    </select>  
+
+    <!-- 중메뉴 목록-->
+    <select id="getMenu_lv02" parameterType="String" resultType="Comcode">
+      SELECT CODE
+           , CODE_KNM
+           , CASE WHEN A.CODE = #{code02}
+                       THEN 'Y'
+                  ELSE 'N'     
+              END AS SELECTED
+        FROM COM_CODE A
+       WHERE 1=1
+         AND CD_GRP_ENM = #{code01}
+         AND A.USE_YN = 'Y'
+    </select>  
+
+
 </mapper>

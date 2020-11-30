@@ -671,6 +671,25 @@ public class CommonService {
     }
 
     /**
+     * 대메뉴 목록
+     * @return List<Comcode>
+     */
+    public List<Comcode> getMenu_lv01(String code) throws Exception{
+        return mapper.getMenu_lv01(code);
+    }
+
+    /**
+     * 중메뉴 목록
+     * @param code
+     * @return List<Comcode>
+     */
+    public List<Comcode> getMenu_lv02(String code01, String code02) throws Exception{
+        return mapper.getMenu_lv02(code01, code02);
+    }
+
+
+
+    /**
      * return 할 페이지 명을 만든다. [리턴 시 binding 할 부분의 id를 찾아서 부분 페이지를 파싱한다.
      * @param pageInfo
      * @return
@@ -735,6 +754,8 @@ public class CommonService {
         return ip;
  
     }
+
+
 
 
 }

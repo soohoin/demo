@@ -49,8 +49,8 @@ public class Sgc_005Controller {
         logger.info("call Controller : sgc_005_01");
         try {
             // 1. 메뉴 depth 명과 bg_img를 가져온다. - 공통서비스 호출  - 추후 메뉴매핑 테이블 완성 후 변경하기 현재는 hard 코딩
-            model.addAttribute("dept_01", "자치기관");
-            model.addAttribute("dept_02", "남전도회");
+            model.addAttribute("dept_01", comService.getMenu_lv01("MENU05"));
+            model.addAttribute("dept_02", comService.getMenu_lv02("MENU05","01"));
             model.addAttribute("img_path", "imgs/page/page_005_bg.jpg");
 
             // 2. 검색 조건의 날짜를 가져온다.
@@ -101,8 +101,8 @@ public class Sgc_005Controller {
         try {
 
             // 1. 메뉴명, 배경이미지 셋팅
-            model.addAttribute("dept_01", "자치기관");
-            model.addAttribute("dept_02", "남전도회");
+            model.addAttribute("dept_01", comService.getMenu_lv01("MENU05"));
+            model.addAttribute("dept_02", comService.getMenu_lv02("MENU05","01"));
             model.addAttribute("img_path", "imgs/page/page_005_bg.jpg");
 
             // 2. 사용 할 공통코드 만들기 
@@ -168,8 +168,8 @@ public class Sgc_005Controller {
         logger.info("call Controller : sgc_005_01_DETAIL");
         try {
 
-            model.addAttribute("dept_01", "자치기관");
-            model.addAttribute("dept_02", "남전도회");
+            model.addAttribute("dept_01", comService.getMenu_lv01("MENU05"));
+            model.addAttribute("dept_02", comService.getMenu_lv02("MENU05","01"));
             model.addAttribute("img_path", "imgs/page/page_005_bg.jpg");
             model.addAttribute("board", board);
 
@@ -207,8 +207,8 @@ public class Sgc_005Controller {
     String sgc_005_01_02_UPDATE(Board board, Model model) {
         logger.info("call Controller : sgc_005_01_02_UPDATE");
         try {
-            model.addAttribute("dept_01", "자치기관");
-            model.addAttribute("dept_02", "남전도회");
+            model.addAttribute("dept_01", comService.getMenu_lv01("MENU05"));
+            model.addAttribute("dept_02", comService.getMenu_lv02("MENU05","01"));
             model.addAttribute("img_path", "imgs/page/page_007_bg.jpg");
             model.addAttribute("board", board);
             model.addAttribute("page_name", "sgc_005_01_02");
@@ -301,8 +301,8 @@ public class Sgc_005Controller {
         logger.info("call Controller : sgc_005_02");
         try {
             // 1. 메뉴 depth 명과 bg_img를 가져온다. - 공통서비스 호출  - 추후 메뉴매핑 테이블 완성 후 변경하기 현재는 hard 코딩
-            model.addAttribute("dept_01", "자치기관");
-            model.addAttribute("dept_02", "여전도회");
+            model.addAttribute("dept_01", comService.getMenu_lv01("MENU05"));
+            model.addAttribute("dept_02", comService.getMenu_lv02("MENU05","02"));
             model.addAttribute("img_path", "imgs/page/page_005_bg.jpg");
 
             // 2. 검색 조건의 날짜를 가져온다.
@@ -353,8 +353,8 @@ public class Sgc_005Controller {
         try {
 
             // 1. 메뉴명, 배경이미지 셋팅
-            model.addAttribute("dept_01", "자치기관");
-            model.addAttribute("dept_02", "여전도회");
+            model.addAttribute("dept_01", comService.getMenu_lv01("MENU05"));
+            model.addAttribute("dept_02", comService.getMenu_lv02("MENU05","02"));
             model.addAttribute("img_path", "imgs/page/page_005_bg.jpg");
 
             // 2. 사용 할 공통코드 만들기 
@@ -420,8 +420,8 @@ public class Sgc_005Controller {
         logger.info("call Controller : sgc_005_02_DETAIL");
         try {
 
-            model.addAttribute("dept_01", "자치기관");
-            model.addAttribute("dept_02", "여전도회");
+            model.addAttribute("dept_01", comService.getMenu_lv01("MENU05"));
+            model.addAttribute("dept_02", comService.getMenu_lv02("MENU05","02"));
             model.addAttribute("img_path", "imgs/page/page_005_bg.jpg");
             model.addAttribute("board", board);
 
@@ -459,8 +459,8 @@ public class Sgc_005Controller {
     String sgc_005_02_02_UPDATE(Board board, Model model) {
         logger.info("call Controller : sgc_005_02_02_UPDATE");
         try {
-            model.addAttribute("dept_01", "자치기관");
-            model.addAttribute("dept_02", "여전도회");
+            model.addAttribute("dept_01", comService.getMenu_lv01("MENU05"));
+            model.addAttribute("dept_02", comService.getMenu_lv02("MENU05","02"));
             model.addAttribute("img_path", "imgs/page/page_007_bg.jpg");
             model.addAttribute("board", board);
             model.addAttribute("page_name", "sgc_005_02_02");
@@ -551,8 +551,8 @@ public class Sgc_005Controller {
         logger.info("call Controller : sgc_005_03");
         try {
             // 1. 메뉴 depth 명과 bg_img를 가져온다. - 공통서비스 호출  - 추후 메뉴매핑 테이블 완성 후 변경하기 현재는 hard 코딩
-            model.addAttribute("dept_01", "자치기관");
-            model.addAttribute("dept_02", "선교부");
+            model.addAttribute("dept_01", comService.getMenu_lv01("MENU05"));
+            model.addAttribute("dept_02", comService.getMenu_lv02("MENU05","03"));
             model.addAttribute("img_path", "imgs/page/page_005_bg.jpg");
 
             // 2. 검색 조건의 날짜를 가져온다.
@@ -603,8 +603,8 @@ public class Sgc_005Controller {
         try {
 
             // 1. 메뉴명, 배경이미지 셋팅
-            model.addAttribute("dept_01", "자치기관");
-            model.addAttribute("dept_02", "선교부");
+            model.addAttribute("dept_01", comService.getMenu_lv01("MENU05"));
+            model.addAttribute("dept_02", comService.getMenu_lv02("MENU05","03"));
             model.addAttribute("img_path", "imgs/page/page_005_bg.jpg");
 
             // 2. 사용 할 공통코드 만들기 
@@ -670,8 +670,8 @@ public class Sgc_005Controller {
         logger.info("call Controller : sgc_005_03_DETAIL");
         try {
 
-            model.addAttribute("dept_01", "자치기관");
-            model.addAttribute("dept_02", "선교부");
+            model.addAttribute("dept_01", comService.getMenu_lv01("MENU05"));
+            model.addAttribute("dept_02", comService.getMenu_lv02("MENU05","03"));
             model.addAttribute("img_path", "imgs/page/page_005_bg.jpg");
             model.addAttribute("board", board);
 
@@ -709,8 +709,8 @@ public class Sgc_005Controller {
     String sgc_005_03_02_UPDATE(Board board, Model model) {
         logger.info("call Controller : sgc_005_03_02_UPDATE");
         try {
-            model.addAttribute("dept_01", "자치기관");
-            model.addAttribute("dept_02", "선교부");
+            model.addAttribute("dept_01", comService.getMenu_lv01("MENU05"));
+            model.addAttribute("dept_02", comService.getMenu_lv02("MENU05","03"));
             model.addAttribute("img_path", "imgs/page/page_007_bg.jpg");
             model.addAttribute("board", board);
             model.addAttribute("page_name", "sgc_005_03_02");
@@ -802,8 +802,8 @@ public class Sgc_005Controller {
         logger.info("call Controller : sgc_005_04");
         try {
             // 1. 메뉴 depth 명과 bg_img를 가져온다. - 공통서비스 호출  - 추후 메뉴매핑 테이블 완성 후 변경하기 현재는 hard 코딩
-            model.addAttribute("dept_01", "자치기관");
-            model.addAttribute("dept_02", "찬양단");
+            model.addAttribute("dept_01", comService.getMenu_lv01("MENU05"));
+            model.addAttribute("dept_02", comService.getMenu_lv02("MENU05","04"));
             model.addAttribute("img_path", "imgs/page/page_005_bg.jpg");
 
             // 2. 검색 조건의 날짜를 가져온다.
@@ -854,8 +854,8 @@ public class Sgc_005Controller {
         try {
 
             // 1. 메뉴명, 배경이미지 셋팅
-            model.addAttribute("dept_01", "자치기관");
-            model.addAttribute("dept_02", "찬양단");
+            model.addAttribute("dept_01", comService.getMenu_lv01("MENU05"));
+            model.addAttribute("dept_02", comService.getMenu_lv02("MENU05","04"));
             model.addAttribute("img_path", "imgs/page/page_005_bg.jpg");
 
             // 2. 사용 할 공통코드 만들기 
@@ -921,8 +921,8 @@ public class Sgc_005Controller {
         logger.info("call Controller : sgc_005_04_DETAIL");
         try {
 
-            model.addAttribute("dept_01", "자치기관");
-            model.addAttribute("dept_02", "찬양단");
+            model.addAttribute("dept_01", comService.getMenu_lv01("MENU05"));
+            model.addAttribute("dept_02", comService.getMenu_lv02("MENU05","04"));
             model.addAttribute("img_path", "imgs/page/page_005_bg.jpg");
             model.addAttribute("board", board);
 
@@ -960,8 +960,8 @@ public class Sgc_005Controller {
     String sgc_005_04_02_UPDATE(Board board, Model model) {
         logger.info("call Controller : sgc_005_04_02_UPDATE");
         try {
-            model.addAttribute("dept_01", "자치기관");
-            model.addAttribute("dept_02", "찬양단");
+            model.addAttribute("dept_01", comService.getMenu_lv01("MENU05"));
+            model.addAttribute("dept_02", comService.getMenu_lv02("MENU05","04"));
             model.addAttribute("img_path", "imgs/page/page_007_bg.jpg");
             model.addAttribute("board", board);
             model.addAttribute("page_name", "sgc_005_04_02");

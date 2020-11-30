@@ -792,6 +792,8 @@
     width: 100%;
   }
   #boardList__bind .board__page__number {
+    display: flex;
+    justify-content: center;
     margin: 0 5px;
     line-height: 25px;
     width: 30px;
@@ -1279,7 +1281,7 @@
     }
 
     .sub__menu__ul__item{
-      margin: 15px 0;
+      margin: 8px 0;
       z-index: 1;
     }
 

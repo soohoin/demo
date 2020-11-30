@@ -23,4 +23,7 @@ public class Comcode {
     private String chg_dt;
     private String reg_user_id;
     private String reg_dt;
+
+
+    private String selected;
 }

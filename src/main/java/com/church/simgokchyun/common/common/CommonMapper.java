@@ -264,6 +264,21 @@ public interface CommonMapper {
      */
     int offBoardLike(BoardLike boardLike) throws Exception;
 
+    /**
+     * 대메뉴 목록
+     * @return List<Comcode>
+     * @throws Exception
+     */
+    List<Comcode> getMenu_lv01(String code) throws Exception;
+
+    /**
+     * 중메뉴 목록
+     * @param code
+     * @return List<Comcode>
+     * @throws Exception
+     */
+    List<Comcode> getMenu_lv02(String code01, String code02) throws Exception;
+
 
 }
 

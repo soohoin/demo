@@ -7,9 +7,23 @@
             <div class="menu__depth">
                 <p>홈</p>
                 <i class="fas fa-chevron-right" style="opacity: 0.5;"></i>
-                <p th:text="${dept_01}"></p>
+                <!-- <p th:text="${dept_01}"></p> -->
+                <select th:if="${dept_01 != null}" name="dept_lv01" id="dept_lv01">
+                    <option th:each="row : ${dept_01}" 
+                            th:text="${row.code_knm}" 
+                            th:value="${row.code}"
+                            th:selected="${row.selected== 'Y' }">
+                    </option>
+                </select>
                 <i th:if="${dept_02 != null}" class="fas fa-chevron-right" style="opacity: 0.5;"></i>
-                <p th:if="${dept_02 != null}" th:text="${dept_02}"></p>
+                <!-- <p th:if="${dept_02 != null}" th:text="${dept_02}"></p> -->
+                <select th:if="${dept_02 != null}" name="dept_lv02" id="dept_lv02">
+                    <option th:each="row : ${dept_02}" 
+                            th:text="${row.code_knm}" 
+                            th:value="${row.code}"
+                            th:selected="${row.selected== 'Y' }">
+                    </option>
+                </select>
             </div>
     </header> 
 
