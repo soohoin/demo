@@ -103,6 +103,67 @@ function comEventInit() {
             lv2_on_menu_object = -1;
         }
     });
+
+    // header 대메뉴 변경 이벤트 
+    $("#dept_lv01").on("change", function () {
+        let lv01_cd = $("#dept_lv01 option:selected").val();
+
+        switch(lv01_cd) {
+            case "MENU01":
+                movePage("sgc_001_01");
+                break;
+            case "MENU02":
+                movePage("sgc_002_01");
+                break;    
+            case "MENU03":
+                movePage("sgc_003_01");
+                break;    
+            case "MENU04":
+                movePage("sgc_004_01");
+                break;    
+            case "MENU05":
+                movePage("sgc_005_01");
+                break;    
+            case "MENU06":
+                movePage("sgc_006_01");
+                break;    
+            case "MENU07":
+                movePage("sgc_007_01");
+                break;    
+        }
+    });
+
+    // header 중메뉴 변경 이벤트 
+    $("#dept_lv02").on("change", function () {
+        let lv01_cd = $("#dept_lv01 option:selected").val();
+        let lv02_cd = $("#dept_lv02 option:selected").val();
+
+        switch(lv01_cd) {
+            case "MENU01":
+                movePage("sgc_001_"+ lv02_cd);
+                break;    
+            case "MENU02":
+                movePage("sgc_002_"+ lv02_cd);
+                break;    
+            case "MENU03":
+                movePage("sgc_003_"+ lv02_cd);
+                break;    
+            case "MENU04":
+                movePage("sgc_004_"+ lv02_cd);
+                break;    
+            case "MENU05":
+                movePage("sgc_005_"+ lv02_cd);
+                break;    
+            case "MENU06":
+                movePage("sgc_006_"+ lv02_cd);
+                break;    
+            case "MENU07":
+                movePage("sgc_007_"+ lv02_cd);
+                break;    
+        }
+
+        
+    });
 }
 
 

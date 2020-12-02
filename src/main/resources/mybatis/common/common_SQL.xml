@@ -916,6 +916,23 @@
       WHERE 1=1
         AND A.CD_GRP_ENM = 'MENU_LV01'
         AND A.USE_YN = 'Y'
+        AND (
+             (CASE WHEN #{code} = 'MENU08' OR  #{code} = 'MENU09' OR  #{code} = 'MENU10' OR  #{code} = 'MENU11'
+                        THEN 'DISPLAY_ONE'
+                   ELSE 'DISPLAY_ALL'
+               END) = 'DISPLAY_ALL'
+              OR
+              A.CODE = #{code}
+            )
+        AND (
+             (CASE WHEN #{code} = 'MENU08' OR  #{code} = 'MENU09' OR  #{code} = 'MENU10' OR  #{code} = 'MENU11'
+                       THEN 'DISPLAY_ONE'
+                  ELSE 'DISPLAY_ALL'
+              END) = 'DISPLAY_ONE' 
+              OR 
+              A.CODE NOT IN ('MENU08','MENU09','MENU10','MENU11')
+            ) 
+
     </select>  
 
     <!-- 중메뉴 목록-->

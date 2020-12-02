@@ -50,8 +50,13 @@ public class LoginController {
      */
     @RequestMapping("/loginForm")
     public String loginForm(Model model) {
-        model.addAttribute("dept_01", "로그인");
-        model.addAttribute("img_path", "imgs/page/page_002_bg.jpg");
+
+        try {
+            model.addAttribute("dept_01", comService.getMenu_lv01("MENU08"));
+            model.addAttribute("img_path", "imgs/page/page_002_bg.jpg");
+        } catch(Exception e) {
+
+        }
         return "login/loginForm";
     }
 
@@ -62,8 +67,13 @@ public class LoginController {
      */
     @GetMapping("/joinRule")
     public String joinRule(Model model) {
-        model.addAttribute("dept_01", "회원가입");
-        model.addAttribute("img_path", "imgs/page/page_002_bg.jpg");
+
+        try {
+            model.addAttribute("dept_01", comService.getMenu_lv01("MENU09"));
+            model.addAttribute("img_path", "imgs/page/page_002_bg.jpg");
+        } catch(Exception e) {
+
+        }
         return "join/joinRule";
     }
 
@@ -74,8 +84,13 @@ public class LoginController {
      */
     @GetMapping("/joinSuccess")
     public String joinSuccess(Model model) {
-        model.addAttribute("dept_01", "회원가입");
-        model.addAttribute("img_path", "imgs/page/page_002_bg.jpg");
+
+        try {
+            model.addAttribute("dept_01", comService.getMenu_lv01("MENU09"));
+            model.addAttribute("img_path", "imgs/page/page_002_bg.jpg");
+        } catch(Exception e) {
+
+        }
         return "join/joinSuccess";
     }
 
@@ -87,8 +102,13 @@ public class LoginController {
      */
     @GetMapping("/joinForm")
     public String joinForm(Model model) {
-        model.addAttribute("dept_01", "회원가입");
-        model.addAttribute("img_path", "imgs/page/page_002_bg.jpg");
+
+        try {
+            model.addAttribute("dept_01", comService.getMenu_lv01("MENU09"));
+            model.addAttribute("img_path", "imgs/page/page_002_bg.jpg");
+        } catch(Exception e) {
+
+        }
         return "join/joinForm";
     }
 
@@ -168,27 +188,27 @@ public class LoginController {
      */
     @GetMapping("/callMailAuthApi")
     public String callMailAuthApi(Model model, User reqUser) {
-        model.addAttribute("dept_01", "로그인");
-        model.addAttribute("img_path", "imgs/page/page_002_bg.jpg");
         String returnUrl = "login/loginForm";
-
+        
         try {
-        // 1. user_id 로 사용자 정보를 가져온다. API로 넘어온 key 와 
-        User user = comService.getUser(reqUser);
+            model.addAttribute("dept_01", comService.getMenu_lv01("MENU08"));
+            model.addAttribute("img_path", "imgs/page/page_002_bg.jpg");
+            // 1. user_id 로 사용자 정보를 가져온다. API로 넘어온 key 와 
+            User user = comService.getUser(reqUser);
 
-        // 2. 사용자 정보로 auth_key의 plain_text를 만들고 API로 넘어온 auth_key와 비교를 하고
-        //    같으면 유저 정보의 인증여부를 Y 로 변경한다.
+            // 2. 사용자 정보로 auth_key의 plain_text를 만들고 API로 넘어온 auth_key와 비교를 하고
+            //    같으면 유저 정보의 인증여부를 Y 로 변경한다.
 
-        String authPlainText = user.getUser_nic_nm() + user.getEmail_addr();
-        boolean isSuccess = pwdEncoder.matches(authPlainText, reqUser.getAuth_key());
-        
-        
-        // 유저정보 활성화
-        if(isSuccess && !"Y".equals(user.getAuth_yn())) {
-            comService.successJoin(user);
-        } else {
-            returnUrl = "login/loginFail";
-        }
+            String authPlainText = user.getUser_nic_nm() + user.getEmail_addr();
+            boolean isSuccess = pwdEncoder.matches(authPlainText, reqUser.getAuth_key());
+            
+            
+            // 유저정보 활성화
+            if(isSuccess && !"Y".equals(user.getAuth_yn())) {
+                comService.successJoin(user);
+            } else {
+                returnUrl = "login/loginFail";
+            }
 
         } catch(Exception e) {
             model.addAttribute("errYn", "Y");
@@ -207,8 +227,12 @@ public class LoginController {
      */
     @RequestMapping("/findEmailForm")
     public String findEmailForm(Model model) {
-        model.addAttribute("dept_01", "아이디 찾기");
-        model.addAttribute("img_path", "imgs/page/page_002_bg.jpg");
+        try {
+            model.addAttribute("dept_01", comService.getMenu_lv01("MENU10"));
+            model.addAttribute("img_path", "imgs/page/page_002_bg.jpg");
+        } catch(Exception e) {
+
+        }
         return "login/findEmailForm";
     }
 
@@ -219,8 +243,13 @@ public class LoginController {
      */
     @RequestMapping("/findPwForm")
     public String findPwForm(Model model) {
-        model.addAttribute("dept_01", "비밀번호 찾기");
-        model.addAttribute("img_path", "imgs/page/page_002_bg.jpg");
+
+        try {
+            model.addAttribute("dept_01", comService.getMenu_lv01("MENU11"));
+            model.addAttribute("img_path", "imgs/page/page_002_bg.jpg");
+        } catch(Exception e) {
+
+        }
         return "login/findPwForm";
     }
 

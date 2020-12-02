@@ -363,13 +363,20 @@
     align-items: center;
     margin: 20px 0 0 30px;
   }
-  .menu__depth p {
+  .menu__depth p,
+  .menu__depth select {
     margin: 0 20px;
   }
-  .menu__depth p:nth-child(1), .menu__depth p:nth-child(3) {
+  .menu__depth p:nth-child(1),
+  .menu__depth p:nth-child(3) {
     opacity: 0.5;
   }
-
+  .menu__depth select {
+    border: 2px solid white;
+    background-color: white;
+    font-size: var(--font-small);
+    opacity: 0.8;
+  }
 
   /*****************************************************/
   /*********************** footer **********************/
