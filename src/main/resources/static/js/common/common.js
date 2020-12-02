@@ -143,7 +143,12 @@ function comEventInit() {
                 movePage("sgc_001_"+ lv02_cd);
                 break;    
             case "MENU02":
-                movePage("sgc_002_"+ lv02_cd);
+                if(lv02_cd == "02") {
+                    comDoAction("repairPage");
+                    $("#dept_lv02").val("01");
+                } else {
+                    movePage("sgc_002_"+ lv02_cd);
+                }
                 break;    
             case "MENU03":
                 movePage("sgc_003_"+ lv02_cd);
@@ -155,7 +160,12 @@ function comEventInit() {
                 movePage("sgc_005_"+ lv02_cd);
                 break;    
             case "MENU06":
-                movePage("sgc_006_"+ lv02_cd);
+                if(lv02_cd == "02") {
+                    comDoAction("repairPage");
+                    $("#dept_lv02").val("01");
+                } else {
+                    movePage("sgc_006_"+ lv02_cd);
+                }
                 break;    
             case "MENU07":
                 movePage("sgc_007_"+ lv02_cd);
