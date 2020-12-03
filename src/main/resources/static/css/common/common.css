@@ -1464,6 +1464,9 @@
     #search_text {
       width: 100px;
     }
+    .board_cntn_area .content {
+      height: 400px;
+    }
 
   }
 
@@ -1555,7 +1558,9 @@
     #search_text {
       width: 100px;
     }
-
+    .board_cntn_area .content {
+      height: 300px;
+    }
     :root {
       --font-large: 34px;
       --font-medium: 20px;

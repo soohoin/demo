@@ -369,6 +369,8 @@ public class Sgc_007Controller {
     }
 
 
+    
+
     /**
      * 교회소식 게시글 작성 화면오픈
      * @param model

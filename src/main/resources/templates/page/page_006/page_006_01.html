@@ -47,12 +47,6 @@
                             <option value="11">11월</option>
                             <option value="12">12월</option>
                         </select>
-                        <!-- <select th:if="${WORSHIP_ORDER_CD != null}" name="worship_order_cd" id="worship_order_cd">
-                            <option th:each="row : ${WORSHIP_ORDER_CD}" 
-                                    th:text="${row.code_knm}" 
-                                    th:value="${row.code}">코드명
-                            </option>
-                        </select> -->
                     </div>
                     <div class="board__filter__right">
                         <select name="search_div_cd" id="search_div_cd">
@@ -63,6 +57,7 @@
                         </select>
                         <input type="text" id="search_text">
                         <button id="search" onclick="doAction('search')">검색</button>
+                        <button id="board__filter__right__write" type="button" onclick="movePage('sgc_006_01-CREATE')" >글 작성</button>
                     </div>
                 </div>
                 <div class="bottom__line pagination"></div>

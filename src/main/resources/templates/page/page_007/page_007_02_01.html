@@ -20,6 +20,8 @@
         <section id="content1st">
             <div class="content1st__inner board_cntn_area width_800">
                 <form id="frm" class="board_cntn_area">
+                    <input type="hidden" name="user_id" id="user_id" >
+                    <span style="display: none;" sec:authentication="principal.user.user_id" id="text_user_id">사용자ID</span>
                     <div class="top__title" th:if="${#strings.isEmpty(boardDetail)}">
                         <h2 >게시글 작성</h2>
                     </div>
