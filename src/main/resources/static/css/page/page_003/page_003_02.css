@@ -8,9 +8,60 @@
     justify-content: center;
     margin: 60px 0;
   }
-
   .content1st__inner {
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    width: 1195px;
+    max-width: 1195px;
+    width: 90%;
+  }
+  .line_01 {
+    border: 1px solid var(--color-dark-white);
+    opacity: 0.7;
+    margin: 8px 0;
+    width: 180px;
+    align-self: center;
+  }
+  .line_02 {
+    border: 1px solid var(--color-dark-white);
+    opacity: 0.7;
+    margin: 10px 0;
+  }
+  .inner_top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .inner_middle {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+  .middle_img {
+    width: 40%;
+  }
+  .middle_img > img{
+    width: 100%;
+  }
+  .middle_cntn {
+    width: 60%;
+    line-height: 220%;
+  }
+  .inner_bottom {
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+    height: 100%;
+    padding-top: 20px;
+  }
+  .bottom_img {
+    width: 20%;
+    height: 100%;
+  }
+  .bottom_img > img {
+    width: 80%;
+  }
+  .bottom_cntn {
+    width: 80%;
+    line-height: 220%;
   }
