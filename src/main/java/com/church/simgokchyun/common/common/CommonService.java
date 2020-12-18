@@ -171,7 +171,7 @@ public class CommonService {
         // }
 
         // uploadPath = defaultUploadPath + File.separator + save_folder;
-        uploadPath = defaultUploadPath;
+        uploadPath = defaultUploadPath + "imgs/"; // imgs 경로 
 
         // 1. 파일명 변경
         origin_file_nm = file.getOriginalFilename();

@@ -7,8 +7,8 @@
     <springProfile name="local"> 
         <property resource="logback-local.properties"/> 
     </springProfile> 
-    <springProfile name="dev"> 
-        <property resource="logback-dev.properties"/> 
+    <springProfile name="prod"> 
+        <property resource="logback-prod.properties"/> 
     </springProfile> 
 
     <!-- pattern --> 

@@ -11,6 +11,7 @@ import com.church.simgokchyun.common.paging.Pagination;
 import com.church.simgokchyun.common.vo.Board;
 import com.church.simgokchyun.config.auth.PrincipalDetails;
 
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -96,8 +97,8 @@ public class Sgc_002Controller {
         try {
 
             // 1. 메뉴명, 배경이미지 셋팅
-            model.addAttribute("dept_01", "말씀/찬양");
-            model.addAttribute("dept_02", "설교영상");
+            model.addAttribute("dept_01", comService.getMenu_lv01("MENU02"));
+            model.addAttribute("dept_02", comService.getMenu_lv02("MENU02","01"));
             model.addAttribute("img_path", "imgs/page/page_002_bg.jpg");
 
             // 2. 사용 할 공통코드 만들기 
