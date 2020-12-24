@@ -1,145 +1,32 @@
-INFO  20-12-18 10:50:33[restartedMain] [DemoApplication:55] - Starting DemoApplication on DESKTOP-KS3GBSF with PID 10312 (D:\PROJECT\Simgoak\workspace\simgokcheon-church\target\classes started by user in d:\PROJECT\Simgoak\workspace\simgokcheon-church)
-INFO  20-12-18 10:50:33[restartedMain] [DemoApplication:655] - The following profiles are active: prod
-INFO  20-12-18 10:50:33[restartedMain] [DevToolsPropertyDefaultsPostProcessor:225] - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-INFO  20-12-18 10:50:33[restartedMain] [DevToolsPropertyDefaultsPostProcessor:225] - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-INFO  20-12-18 10:50:35[restartedMain] [TomcatWebServer:108] - Tomcat initialized with port(s): 8080 (http)
-INFO  20-12-18 10:50:35[restartedMain] [Http11NioProtocol:173] - Initializing ProtocolHandler ["http-nio-8080"]
-INFO  20-12-18 10:50:35[restartedMain] [StandardService:173] - Starting service [Tomcat]
-INFO  20-12-18 10:50:35[restartedMain] [StandardEngine:173] - Starting Servlet engine: [Apache Tomcat/9.0.37]
-INFO  20-12-18 10:50:35[restartedMain] [[/]:173] - Initializing Spring embedded WebApplicationContext
-INFO  20-12-18 10:50:35[restartedMain] [ServletWebServerApplicationContext:285] - Root WebApplicationContext: initialization completed in 1879 ms
-INFO  20-12-18 10:50:37[restartedMain] [DefaultSecurityFilterChain:43] - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@290491d4, org.springframework.security.web.context.SecurityContextPersistenceFilter@6d11e772, org.springframework.security.web.header.HeaderWriterFilter@6a19b567, org.springframework.security.web.authentication.logout.LogoutFilter@2d7285e0, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@5ca9a746, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@45db8ba8, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@20e27950, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3e37aecf, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4b907eca, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@525a8dc4, org.springframework.security.web.session.SessionManagementFilter@3a5cee7a, org.springframework.security.web.access.ExceptionTranslationFilter@295428ea, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@2501fba5]
-INFO  20-12-18 10:50:37[restartedMain] [ThreadPoolTaskExecutor:181] - Initializing ExecutorService 'applicationTaskExecutor'
-INFO  20-12-18 10:50:37[restartedMain] [OptionalLiveReloadServer:58] - LiveReload server is running on port 35729
-INFO  20-12-18 10:50:37[restartedMain] [Http11NioProtocol:173] - Starting ProtocolHandler ["http-nio-8080"]
-INFO  20-12-18 10:50:37[restartedMain] [TomcatWebServer:220] - Tomcat started on port(s): 8080 (http) with context path ''
-INFO  20-12-18 10:50:37[restartedMain] [DemoApplication:61] - Started DemoApplication in 4.889 seconds (JVM running for 6.744)
-INFO  20-12-18 10:51:02[http-nio-8080-exec-1] [[/]:173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-INFO  20-12-18 10:51:02[http-nio-8080-exec-1] [DispatcherServlet:525] - Initializing Servlet 'dispatcherServlet'
-INFO  20-12-18 10:51:02[http-nio-8080-exec-1] [DispatcherServlet:547] - Completed initialization in 13 ms
-INFO  20-12-18 10:51:02[http-nio-8080-exec-1] [MainController:22] - mainPage()
-INFO  20-12-18 10:51:02[http-nio-8080-exec-1] [MainController:23] - username : sgcadmin
-WARN  20-12-18 10:51:02[http-nio-8080-exec-1] [DecoratorProcessor:74] - The layout:decorator/data-layout-decorator processor has been deprecated and will be removed in the next major version of the layout dialect.  Please use layout:decorate/data-layout-decorate instead to future-proof your code.  See https://github.com/ultraq/thymeleaf-layout-dialect/issues/95 for more information.
-WARN  20-12-18 10:51:03[http-nio-8080-exec-1] [ExpressionProcessor:75] - Fragment expression "layout/default_layout" is being wrapped as a Thymeleaf 3 fragment expression (~{...}) for backwards compatibility purposes.  This wrapping will be dropped in the next major version of the expression processor, so please rewrite as a Thymeleaf 3 fragment expression to future-proof your code.  See https://github.com/thymeleaf/thymeleaf/issues/451 for more information.
-WARN  20-12-18 10:51:03[http-nio-8080-exec-1] [FragmentProcessor:75] - You don't need to put the layout:fragment/data-layout-fragment attribute into the <head> section - the decoration process will automatically copy the <head> section of your content templates into your layout page.
-INFO  20-12-18 10:51:07[http-nio-8080-exec-4] [MainController:22] - mainPage()
-INFO  20-12-18 10:51:07[http-nio-8080-exec-4] [MainController:23] - username : sgcadmin
-INFO  20-12-18 10:52:04[restartedMain] [DemoApplication:55] - Starting DemoApplication on DESKTOP-KS3GBSF with PID 15160 (D:\PROJECT\Simgoak\workspace\simgokcheon-church\target\classes started by user in d:\PROJECT\Simgoak\workspace\simgokcheon-church)
-INFO  20-12-18 10:52:04[restartedMain] [DemoApplication:655] - The following profiles are active: prod
-INFO  20-12-18 10:52:04[restartedMain] [DevToolsPropertyDefaultsPostProcessor:225] - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-INFO  20-12-18 10:52:04[restartedMain] [DevToolsPropertyDefaultsPostProcessor:225] - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-INFO  20-12-18 10:52:06[restartedMain] [TomcatWebServer:108] - Tomcat initialized with port(s): 8080 (http)
-INFO  20-12-18 10:52:06[restartedMain] [Http11NioProtocol:173] - Initializing ProtocolHandler ["http-nio-8080"]
-INFO  20-12-18 10:52:06[restartedMain] [StandardService:173] - Starting service [Tomcat]
-INFO  20-12-18 10:52:06[restartedMain] [StandardEngine:173] - Starting Servlet engine: [Apache Tomcat/9.0.37]
-INFO  20-12-18 10:52:06[restartedMain] [[/]:173] - Initializing Spring embedded WebApplicationContext
-INFO  20-12-18 10:52:06[restartedMain] [ServletWebServerApplicationContext:285] - Root WebApplicationContext: initialization completed in 2039 ms
-INFO  20-12-18 10:52:07[restartedMain] [DefaultSecurityFilterChain:43] - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1e233101, org.springframework.security.web.context.SecurityContextPersistenceFilter@57bc06db, org.springframework.security.web.header.HeaderWriterFilter@55fe5841, org.springframework.security.web.authentication.logout.LogoutFilter@f18bb4b, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@7f0f4550, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@8abb8ec, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@5772d2b4, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@35f825f6, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@49ca5b0f, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@33e5b2fe, org.springframework.security.web.session.SessionManagementFilter@2a0c0c9b, org.springframework.security.web.access.ExceptionTranslationFilter@56a18387, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@5f5c18cb]
-INFO  20-12-18 10:52:07[restartedMain] [ThreadPoolTaskExecutor:181] - Initializing ExecutorService 'applicationTaskExecutor'
-INFO  20-12-18 10:52:08[restartedMain] [OptionalLiveReloadServer:58] - LiveReload server is running on port 35729
-INFO  20-12-18 10:52:08[restartedMain] [Http11NioProtocol:173] - Starting ProtocolHandler ["http-nio-8080"]
-INFO  20-12-18 10:52:08[restartedMain] [TomcatWebServer:220] - Tomcat started on port(s): 8080 (http) with context path ''
-INFO  20-12-18 10:52:08[restartedMain] [DemoApplication:61] - Started DemoApplication in 5.142 seconds (JVM running for 7.007)
-INFO  20-12-18 11:01:14[restartedMain] [DemoApplication:55] - Starting DemoApplication on DESKTOP-KS3GBSF with PID 2512 (D:\PROJECT\Simgoak\workspace\simgokcheon-church\target\classes started by user in d:\PROJECT\Simgoak\workspace\simgokcheon-church)
-INFO  20-12-18 11:01:14[restartedMain] [DemoApplication:655] - The following profiles are active: prod
-INFO  20-12-18 11:01:14[restartedMain] [DevToolsPropertyDefaultsPostProcessor:225] - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-INFO  20-12-18 11:01:14[restartedMain] [DevToolsPropertyDefaultsPostProcessor:225] - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-INFO  20-12-18 11:01:16[restartedMain] [TomcatWebServer:108] - Tomcat initialized with port(s): 8080 (http)
-INFO  20-12-18 11:01:16[restartedMain] [Http11NioProtocol:173] - Initializing ProtocolHandler ["http-nio-8080"]
-INFO  20-12-18 11:01:16[restartedMain] [StandardService:173] - Starting service [Tomcat]
-INFO  20-12-18 11:01:16[restartedMain] [StandardEngine:173] - Starting Servlet engine: [Apache Tomcat/9.0.37]
-INFO  20-12-18 11:01:16[restartedMain] [[/]:173] - Initializing Spring embedded WebApplicationContext
-INFO  20-12-18 11:01:16[restartedMain] [ServletWebServerApplicationContext:285] - Root WebApplicationContext: initialization completed in 1925 ms
-INFO  20-12-18 11:01:17[restartedMain] [DefaultSecurityFilterChain:43] - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@38524e5b, org.springframework.security.web.context.SecurityContextPersistenceFilter@52d132c0, org.springframework.security.web.header.HeaderWriterFilter@4a04d1d8, org.springframework.security.web.authentication.logout.LogoutFilter@3f3be6f7, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@545995f2, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@7541dc8c, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@74c79a5a, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7e0d12c4, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@402cc157, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@35d5f2b4, org.springframework.security.web.session.SessionManagementFilter@6345b3e3, org.springframework.security.web.access.ExceptionTranslationFilter@324793a0, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@4151e46c]
-INFO  20-12-18 11:01:17[restartedMain] [ThreadPoolTaskExecutor:181] - Initializing ExecutorService 'applicationTaskExecutor'
-INFO  20-12-18 11:01:18[restartedMain] [OptionalLiveReloadServer:58] - LiveReload server is running on port 35729
-INFO  20-12-18 11:01:18[restartedMain] [Http11NioProtocol:173] - Starting ProtocolHandler ["http-nio-8080"]
-INFO  20-12-18 11:01:18[restartedMain] [TomcatWebServer:220] - Tomcat started on port(s): 8080 (http) with context path ''
-INFO  20-12-18 11:01:18[restartedMain] [DemoApplication:61] - Started DemoApplication in 5.1 seconds (JVM running for 6.942)
-INFO  20-12-18 11:01:34[restartedMain] [DemoApplication:55] - Starting DemoApplication on DESKTOP-KS3GBSF with PID 19452 (D:\PROJECT\Simgoak\workspace\simgokcheon-church\target\classes started by user in d:\PROJECT\Simgoak\workspace\simgokcheon-church)
-INFO  20-12-18 11:01:34[restartedMain] [DemoApplication:655] - The following profiles are active: prod
-INFO  20-12-18 11:01:35[restartedMain] [DevToolsPropertyDefaultsPostProcessor:225] - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-INFO  20-12-18 11:01:35[restartedMain] [DevToolsPropertyDefaultsPostProcessor:225] - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-INFO  20-12-18 11:01:36[restartedMain] [TomcatWebServer:108] - Tomcat initialized with port(s): 8080 (http)
-INFO  20-12-18 11:01:36[restartedMain] [Http11NioProtocol:173] - Initializing ProtocolHandler ["http-nio-8080"]
-INFO  20-12-18 11:01:36[restartedMain] [StandardService:173] - Starting service [Tomcat]
-INFO  20-12-18 11:01:36[restartedMain] [StandardEngine:173] - Starting Servlet engine: [Apache Tomcat/9.0.37]
-INFO  20-12-18 11:01:36[restartedMain] [[/]:173] - Initializing Spring embedded WebApplicationContext
-INFO  20-12-18 11:01:36[restartedMain] [ServletWebServerApplicationContext:285] - Root WebApplicationContext: initialization completed in 1756 ms
-INFO  20-12-18 11:01:38[restartedMain] [DefaultSecurityFilterChain:43] - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@38524e5b, org.springframework.security.web.context.SecurityContextPersistenceFilter@52d132c0, org.springframework.security.web.header.HeaderWriterFilter@4a04d1d8, org.springframework.security.web.authentication.logout.LogoutFilter@3f3be6f7, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@545995f2, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@7541dc8c, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@74c79a5a, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7e0d12c4, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@402cc157, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@35d5f2b4, org.springframework.security.web.session.SessionManagementFilter@6345b3e3, org.springframework.security.web.access.ExceptionTranslationFilter@324793a0, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@4151e46c]
-INFO  20-12-18 11:01:38[restartedMain] [ThreadPoolTaskExecutor:181] - Initializing ExecutorService 'applicationTaskExecutor'
-INFO  20-12-18 11:01:38[restartedMain] [OptionalLiveReloadServer:58] - LiveReload server is running on port 35729
-INFO  20-12-18 11:01:39[restartedMain] [Http11NioProtocol:173] - Starting ProtocolHandler ["http-nio-8080"]
-INFO  20-12-18 11:01:39[restartedMain] [TomcatWebServer:220] - Tomcat started on port(s): 8080 (http) with context path ''
-INFO  20-12-18 11:01:39[restartedMain] [DemoApplication:61] - Started DemoApplication in 4.754 seconds (JVM running for 6.398)
-INFO  20-12-18 11:08:30[restartedMain] [DemoApplication:55] - Starting DemoApplication on DESKTOP-KS3GBSF with PID 9964 (D:\PROJECT\Simgoak\workspace\simgokcheon-church\target\classes started by user in d:\PROJECT\Simgoak\workspace\simgokcheon-church)
-INFO  20-12-18 11:08:30[restartedMain] [DemoApplication:655] - The following profiles are active: prod
-INFO  20-12-18 11:08:30[restartedMain] [DevToolsPropertyDefaultsPostProcessor:225] - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-INFO  20-12-18 11:08:30[restartedMain] [DevToolsPropertyDefaultsPostProcessor:225] - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-INFO  20-12-18 11:08:32[restartedMain] [TomcatWebServer:108] - Tomcat initialized with port(s): 8080 (http)
-INFO  20-12-18 11:08:32[restartedMain] [Http11NioProtocol:173] - Initializing ProtocolHandler ["http-nio-8080"]
-INFO  20-12-18 11:08:32[restartedMain] [StandardService:173] - Starting service [Tomcat]
-INFO  20-12-18 11:08:32[restartedMain] [StandardEngine:173] - Starting Servlet engine: [Apache Tomcat/9.0.37]
-INFO  20-12-18 11:08:32[restartedMain] [[/]:173] - Initializing Spring embedded WebApplicationContext
-INFO  20-12-18 11:08:32[restartedMain] [ServletWebServerApplicationContext:285] - Root WebApplicationContext: initialization completed in 1885 ms
-INFO  20-12-18 11:08:34[restartedMain] [DefaultSecurityFilterChain:43] - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@28bf94cd, org.springframework.security.web.context.SecurityContextPersistenceFilter@32599d7d, org.springframework.security.web.header.HeaderWriterFilter@41ed8af6, org.springframework.security.web.authentication.logout.LogoutFilter@6d11e772, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@6b27f330, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@3a344b3c, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@3ef92fff, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3d28c0d7, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@37767c22, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5aa4e558, org.springframework.security.web.session.SessionManagementFilter@7dcf9698, org.springframework.security.web.access.ExceptionTranslationFilter@5ac6c0cd, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@3cc0138]
-INFO  20-12-18 11:08:34[restartedMain] [ThreadPoolTaskExecutor:181] - Initializing ExecutorService 'applicationTaskExecutor'
-INFO  20-12-18 11:08:35[restartedMain] [OptionalLiveReloadServer:58] - LiveReload server is running on port 35729
-INFO  20-12-18 11:08:35[restartedMain] [Http11NioProtocol:173] - Starting ProtocolHandler ["http-nio-8080"]
-INFO  20-12-18 11:08:35[restartedMain] [TomcatWebServer:220] - Tomcat started on port(s): 8080 (http) with context path ''
-INFO  20-12-18 11:08:35[restartedMain] [DemoApplication:61] - Started DemoApplication in 5.032 seconds (JVM running for 6.682)
-INFO  20-12-18 11:11:41[restartedMain] [DemoApplication:55] - Starting DemoApplication on DESKTOP-KS3GBSF with PID 21440 (D:\PROJECT\Simgoak\workspace\simgokcheon-church\target\classes started by user in d:\PROJECT\Simgoak\workspace\simgokcheon-church)
-INFO  20-12-18 11:11:41[restartedMain] [DemoApplication:655] - The following profiles are active: prod
-INFO  20-12-18 11:11:42[restartedMain] [TomcatWebServer:108] - Tomcat initialized with port(s): 80 (http)
-INFO  20-12-18 11:11:42[restartedMain] [Http11NioProtocol:173] - Initializing ProtocolHandler ["http-nio-80"]
-INFO  20-12-18 11:11:42[restartedMain] [StandardService:173] - Starting service [Tomcat]
-INFO  20-12-18 11:11:42[restartedMain] [StandardEngine:173] - Starting Servlet engine: [Apache Tomcat/9.0.37]
-INFO  20-12-18 11:11:42[restartedMain] [[/]:173] - Initializing Spring embedded WebApplicationContext
-INFO  20-12-18 11:11:42[restartedMain] [ServletWebServerApplicationContext:285] - Root WebApplicationContext: initialization completed in 684 ms
-INFO  20-12-18 11:11:42[restartedMain] [DefaultSecurityFilterChain:43] - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2c729aa4, org.springframework.security.web.context.SecurityContextPersistenceFilter@4511c84a, org.springframework.security.web.header.HeaderWriterFilter@3e0849fe, org.springframework.security.web.authentication.logout.LogoutFilter@24456606, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@2bf6ca10, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@6d5ace4, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@71638008, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@a795f0c, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@76c2b004, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@417c3ce2, org.springframework.security.web.session.SessionManagementFilter@138150eb, org.springframework.security.web.access.ExceptionTranslationFilter@6165c84c, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@2f10a3b1]
-INFO  20-12-18 11:11:42[restartedMain] [ThreadPoolTaskExecutor:181] - Initializing ExecutorService 'applicationTaskExecutor'
-INFO  20-12-18 11:11:42[restartedMain] [OptionalLiveReloadServer:58] - LiveReload server is running on port 35729
-INFO  20-12-18 11:11:42[restartedMain] [Http11NioProtocol:173] - Starting ProtocolHandler ["http-nio-80"]
-INFO  20-12-18 11:11:42[restartedMain] [TomcatWebServer:220] - Tomcat started on port(s): 80 (http) with context path ''
-INFO  20-12-18 11:11:42[restartedMain] [DemoApplication:61] - Started DemoApplication in 1.325 seconds (JVM running for 67.081)
-INFO  20-12-18 11:11:42[restartedMain] [ConditionEvaluationDeltaLoggingListener:63] - Condition evaluation unchanged
-INFO  20-12-18 11:11:50[restartedMain] [DemoApplication:55] - Starting DemoApplication on DESKTOP-KS3GBSF with PID 20992 (D:\PROJECT\Simgoak\workspace\simgokcheon-church\target\classes started by user in d:\PROJECT\Simgoak\workspace\simgokcheon-church)
-INFO  20-12-18 11:11:50[restartedMain] [DemoApplication:655] - The following profiles are active: prod
-INFO  20-12-18 11:11:50[restartedMain] [DevToolsPropertyDefaultsPostProcessor:225] - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-INFO  20-12-18 11:11:50[restartedMain] [DevToolsPropertyDefaultsPostProcessor:225] - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-INFO  20-12-18 11:11:52[restartedMain] [TomcatWebServer:108] - Tomcat initialized with port(s): 80 (http)
-INFO  20-12-18 11:11:52[restartedMain] [Http11NioProtocol:173] - Initializing ProtocolHandler ["http-nio-80"]
-INFO  20-12-18 11:11:52[restartedMain] [StandardService:173] - Starting service [Tomcat]
-INFO  20-12-18 11:11:52[restartedMain] [StandardEngine:173] - Starting Servlet engine: [Apache Tomcat/9.0.37]
-INFO  20-12-18 11:11:52[restartedMain] [[/]:173] - Initializing Spring embedded WebApplicationContext
-INFO  20-12-18 11:11:52[restartedMain] [ServletWebServerApplicationContext:285] - Root WebApplicationContext: initialization completed in 2074 ms
-INFO  20-12-18 11:11:53[restartedMain] [DefaultSecurityFilterChain:43] - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4307e426, org.springframework.security.web.context.SecurityContextPersistenceFilter@2a376682, org.springframework.security.web.header.HeaderWriterFilter@67ff7ed7, org.springframework.security.web.authentication.logout.LogoutFilter@7a63589e, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@6579dc1e, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@2b748f78, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@a064ee4, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4f68dc2, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@562714e2, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4e32fafc, org.springframework.security.web.session.SessionManagementFilter@2248c575, org.springframework.security.web.access.ExceptionTranslationFilter@4d8fcff3, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@33e76d67]
-INFO  20-12-18 11:11:54[restartedMain] [ThreadPoolTaskExecutor:181] - Initializing ExecutorService 'applicationTaskExecutor'
-INFO  20-12-18 11:11:54[restartedMain] [OptionalLiveReloadServer:58] - LiveReload server is running on port 35729
-INFO  20-12-18 11:11:54[restartedMain] [Http11NioProtocol:173] - Starting ProtocolHandler ["http-nio-80"]
-INFO  20-12-18 11:11:54[restartedMain] [TomcatWebServer:220] - Tomcat started on port(s): 80 (http) with context path ''
-INFO  20-12-18 11:11:54[restartedMain] [DemoApplication:61] - Started DemoApplication in 5.353 seconds (JVM running for 7.08)
-INFO  20-12-18 11:12:11[restartedMain] [DemoApplication:55] - Starting DemoApplication on DESKTOP-KS3GBSF with PID 20188 (D:\PROJECT\Simgoak\workspace\simgokcheon-church\target\classes started by user in d:\PROJECT\Simgoak\workspace\simgokcheon-church)
-INFO  20-12-18 11:12:11[restartedMain] [DemoApplication:655] - The following profiles are active: prod
-INFO  20-12-18 11:12:11[restartedMain] [DevToolsPropertyDefaultsPostProcessor:225] - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-INFO  20-12-18 11:12:11[restartedMain] [DevToolsPropertyDefaultsPostProcessor:225] - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-INFO  20-12-18 11:12:13[restartedMain] [TomcatWebServer:108] - Tomcat initialized with port(s): 80 (http)
-INFO  20-12-18 11:12:13[restartedMain] [Http11NioProtocol:173] - Initializing ProtocolHandler ["http-nio-80"]
-INFO  20-12-18 11:12:13[restartedMain] [StandardService:173] - Starting service [Tomcat]
-INFO  20-12-18 11:12:13[restartedMain] [StandardEngine:173] - Starting Servlet engine: [Apache Tomcat/9.0.37]
-INFO  20-12-18 11:12:13[restartedMain] [[/]:173] - Initializing Spring embedded WebApplicationContext
-INFO  20-12-18 11:12:13[restartedMain] [ServletWebServerApplicationContext:285] - Root WebApplicationContext: initialization completed in 1925 ms
-INFO  20-12-18 11:12:15[restartedMain] [DefaultSecurityFilterChain:43] - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6579dc1e, org.springframework.security.web.context.SecurityContextPersistenceFilter@438bc3a8, org.springframework.security.web.header.HeaderWriterFilter@5d5b45aa, org.springframework.security.web.authentication.logout.LogoutFilter@46563d38, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@39f09abd, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@14eeb6b9, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@525a8dc4, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@412b9e9d, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3622bf57, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7fd52158, org.springframework.security.web.session.SessionManagementFilter@3b913a0e, org.springframework.security.web.access.ExceptionTranslationFilter@3f3be6f7, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@3d6d8978]
-INFO  20-12-18 11:12:15[restartedMain] [ThreadPoolTaskExecutor:181] - Initializing ExecutorService 'applicationTaskExecutor'
-INFO  20-12-18 11:12:15[restartedMain] [OptionalLiveReloadServer:58] - LiveReload server is running on port 35729
-INFO  20-12-18 11:12:15[restartedMain] [Http11NioProtocol:173] - Starting ProtocolHandler ["http-nio-80"]
-INFO  20-12-18 11:12:16[restartedMain] [TomcatWebServer:220] - Tomcat started on port(s): 80 (http) with context path ''
-INFO  20-12-18 11:12:16[restartedMain] [DemoApplication:61] - Started DemoApplication in 5.095 seconds (JVM running for 6.727)
-INFO  20-12-18 11:12:23[http-nio-80-exec-1] [[/]:173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-INFO  20-12-18 11:12:23[http-nio-80-exec-1] [DispatcherServlet:525] - Initializing Servlet 'dispatcherServlet'
-INFO  20-12-18 11:12:23[http-nio-80-exec-1] [DispatcherServlet:547] - Completed initialization in 9 ms
-INFO  20-12-18 11:12:23[http-nio-80-exec-1] [MainController:22] - mainPage()
-INFO  20-12-18 11:12:23[http-nio-80-exec-1] [MainController:23] - username : sgcadmin
-WARN  20-12-18 11:12:23[http-nio-80-exec-1] [DecoratorProcessor:74] - The layout:decorator/data-layout-decorator processor has been deprecated and will be removed in the next major version of the layout dialect.  Please use layout:decorate/data-layout-decorate instead to future-proof your code.  See https://github.com/ultraq/thymeleaf-layout-dialect/issues/95 for more information.
-WARN  20-12-18 11:12:24[http-nio-80-exec-1] [ExpressionProcessor:75] - Fragment expression "layout/default_layout" is being wrapped as a Thymeleaf 3 fragment expression (~{...}) for backwards compatibility purposes.  This wrapping will be dropped in the next major version of the expression processor, so please rewrite as a Thymeleaf 3 fragment expression to future-proof your code.  See https://github.com/thymeleaf/thymeleaf/issues/451 for more information.
-WARN  20-12-18 11:12:24[http-nio-80-exec-1] [FragmentProcessor:75] - You don't need to put the layout:fragment/data-layout-fragment attribute into the <head> section - the decoration process will automatically copy the <head> section of your content templates into your layout page.
+INFO  20-12-25 05:02:59[restartedMain] [DemoApplication:55] - Starting DemoApplication on DESKTOP-KS3GBSF with PID 15432 (D:\PROJECT\Simgoak\workspace\simgokcheon-church\target\classes started by user in d:\PROJECT\Simgoak\workspace\simgokcheon-church)
+INFO  20-12-25 05:02:59[restartedMain] [DemoApplication:655] - The following profiles are active: prod
+INFO  20-12-25 05:02:59[restartedMain] [DevToolsPropertyDefaultsPostProcessor:225] - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+INFO  20-12-25 05:02:59[restartedMain] [DevToolsPropertyDefaultsPostProcessor:225] - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+INFO  20-12-25 05:03:01[restartedMain] [TomcatWebServer:108] - Tomcat initialized with port(s): 80 (http)
+INFO  20-12-25 05:03:01[restartedMain] [Http11NioProtocol:173] - Initializing ProtocolHandler ["http-nio-80"]
+INFO  20-12-25 05:03:01[restartedMain] [StandardService:173] - Starting service [Tomcat]
+INFO  20-12-25 05:03:01[restartedMain] [StandardEngine:173] - Starting Servlet engine: [Apache Tomcat/9.0.37]
+INFO  20-12-25 05:03:01[restartedMain] [[/]:173] - Initializing Spring embedded WebApplicationContext
+INFO  20-12-25 05:03:01[restartedMain] [ServletWebServerApplicationContext:285] - Root WebApplicationContext: initialization completed in 1861 ms
+INFO  20-12-25 05:03:02[restartedMain] [DefaultSecurityFilterChain:43] - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5bd5ed42, org.springframework.security.web.context.SecurityContextPersistenceFilter@4e96f361, org.springframework.security.web.header.HeaderWriterFilter@1be979d5, org.springframework.security.web.authentication.logout.LogoutFilter@6ff2e645, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@52af3987, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@4f0f7bfe, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@3fe044f, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1c1c49b9, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@55fe5841, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@110637b6, org.springframework.security.web.session.SessionManagementFilter@7afd38fb, org.springframework.security.web.access.ExceptionTranslationFilter@1a854737, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@415251f0]
+INFO  20-12-25 05:03:02[restartedMain] [ThreadPoolTaskExecutor:181] - Initializing ExecutorService 'applicationTaskExecutor'
+INFO  20-12-25 05:03:03[restartedMain] [OptionalLiveReloadServer:58] - LiveReload server is running on port 35729
+INFO  20-12-25 05:03:03[restartedMain] [Http11NioProtocol:173] - Starting ProtocolHandler ["http-nio-80"]
+INFO  20-12-25 05:03:03[restartedMain] [TomcatWebServer:220] - Tomcat started on port(s): 80 (http) with context path ''
+INFO  20-12-25 05:03:03[restartedMain] [DemoApplication:61] - Started DemoApplication in 5.318 seconds (JVM running for 7.307)
+INFO  20-12-25 05:04:17[restartedMain] [DemoApplication:55] - Starting DemoApplication on DESKTOP-KS3GBSF with PID 25104 (D:\PROJECT\Simgoak\workspace\simgokcheon-church\target\classes started by user in d:\PROJECT\Simgoak\workspace\simgokcheon-church)
+INFO  20-12-25 05:04:17[restartedMain] [DemoApplication:655] - The following profiles are active: prod
+INFO  20-12-25 05:04:17[restartedMain] [DevToolsPropertyDefaultsPostProcessor:225] - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+INFO  20-12-25 05:04:17[restartedMain] [DevToolsPropertyDefaultsPostProcessor:225] - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+INFO  20-12-25 05:04:19[restartedMain] [TomcatWebServer:108] - Tomcat initialized with port(s): 80 (http)
+INFO  20-12-25 05:04:19[restartedMain] [Http11NioProtocol:173] - Initializing ProtocolHandler ["http-nio-80"]
+INFO  20-12-25 05:04:19[restartedMain] [StandardService:173] - Starting service [Tomcat]
+INFO  20-12-25 05:04:19[restartedMain] [StandardEngine:173] - Starting Servlet engine: [Apache Tomcat/9.0.37]
+INFO  20-12-25 05:04:19[restartedMain] [[/]:173] - Initializing Spring embedded WebApplicationContext
+INFO  20-12-25 05:04:19[restartedMain] [ServletWebServerApplicationContext:285] - Root WebApplicationContext: initialization completed in 1876 ms
+INFO  20-12-25 05:04:20[restartedMain] [DefaultSecurityFilterChain:43] - Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@765f568, org.springframework.security.web.context.SecurityContextPersistenceFilter@2a376682, org.springframework.security.web.header.HeaderWriterFilter@67ff7ed7, org.springframework.security.web.authentication.logout.LogoutFilter@7a63589e, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@49489e04, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@4e32fafc, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@a064ee4, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4f68dc2, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@562714e2, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4a6827a9, org.springframework.security.web.session.SessionManagementFilter@2248c575, org.springframework.security.web.access.ExceptionTranslationFilter@4d8fcff3, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@33e76d67]
+INFO  20-12-25 05:04:20[restartedMain] [ThreadPoolTaskExecutor:181] - Initializing ExecutorService 'applicationTaskExecutor'
+INFO  20-12-25 05:04:21[restartedMain] [OptionalLiveReloadServer:58] - LiveReload server is running on port 35729
+INFO  20-12-25 05:04:21[restartedMain] [Http11NioProtocol:173] - Starting ProtocolHandler ["http-nio-80"]
+INFO  20-12-25 05:04:21[restartedMain] [TomcatWebServer:220] - Tomcat started on port(s): 80 (http) with context path ''
+INFO  20-12-25 05:04:21[restartedMain] [DemoApplication:61] - Started DemoApplication in 4.935 seconds (JVM running for 6.69)

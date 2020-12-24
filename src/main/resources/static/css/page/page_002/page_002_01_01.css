@@ -3,3 +3,14 @@
   max-width: 600px;
   width: 90%;
 }
+
+.img__upload-title {
+  display: flex;
+  width: 100%;  
+  align-items: center;
+  /* margin: 20px 0 0 0; */
+}
+
+.board_cntn_area label {
+  margin: 15px 5px 15px 0;
+}

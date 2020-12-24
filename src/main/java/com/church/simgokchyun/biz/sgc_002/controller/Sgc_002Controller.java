@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import com.church.simgokchyun.biz.sgc_002.service.Sgc_002Service;
+import com.church.simgokchyun.common.common.CommonMapper;
 import com.church.simgokchyun.common.common.CommonService;
 import com.church.simgokchyun.common.paging.Pagination;
 import com.church.simgokchyun.common.vo.Board;
@@ -31,6 +32,9 @@ public class Sgc_002Controller {
 
     @Autowired
     CommonService comService;
+
+    @Autowired
+    CommonMapper mapper;
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     
@@ -105,6 +109,11 @@ public class Sgc_002Controller {
             model.addAttribute("WORSHIP_ORDER_CD", comService.select_com_code("WORSHIP_ORDER_CD"));
             model.addAttribute("VIDEO_DIV_CD", comService.select_com_code("VIDEO_DIV_CD"));
 
+            // 3. 글 작성/수정 구분코드
+            model.addAttribute("WRITE_YN", "Y");
+
+            model.addAttribute("board", new Board());
+
         } catch(Exception e) {
             logger.error(e.getMessage(), e);
         }
@@ -112,7 +121,7 @@ public class Sgc_002Controller {
     }
 
     /**
-     * 설교영상 게시글 저장
+     * 설교영상 게시글 저장 / 수정
      * @param model
      * @param board
      * @return
@@ -123,24 +132,32 @@ public class Sgc_002Controller {
         logger.info("call Controller : sgc_002_01_SAVE");
         try {
 
-            String video_id = "";
+            // String video_id = "";
             String img_id = "";
 
             // 1. 유저 정보를 셋팅한다.
             board.setUser_id(userDetails.getUser().getUser_id());
             board.setBoard_div_cd("01");
-            
 
             logger.info("이미지 파일명 : " + MapFiles.get("img_upload").getOriginalFilename());
-            logger.info("동영상 파일명 : " + MapFiles.get("video_upload").getOriginalFilename());
+            // logger.info("동영상 파일명 : " + MapFiles.get("video_upload").getOriginalFilename());
             // 2. 업로드한 이미지 / 영상을 DB와 서버 경로에 저장하고 업로드 한 id를 board객체에 넣어준다.
 
-            //     2-1. 이미지 처리
-            if(MapFiles.get("img_upload") != null) {
+            String write_yn = board.getWrite_yn();
+
+            // 2-1. 이미지 처리
+            if("Y".equals(write_yn) && MapFiles.get("img_upload") != null) {
                 img_id = comService.fileSave(MapFiles.get("img_upload"),"01");
                 board.setPhoto_id(img_id);
-            }
 
+            } else if("N".equals(write_yn) && MapFiles.get("img_upload") != null && "Y".equals(board.getChang_file_yn())) {
+                // 기존 이미지 파일 삭제 && DB정보 삭제
+
+                // 새로운 이미지 생성
+                img_id = comService.fileSave(MapFiles.get("img_upload"),"01");
+                board.setPhoto_id(img_id);
+                // 기존 파일을 삭제한다.
+            }
             //     2-2. 동영상 처리
             // if(MapFiles.get("img_upload") != null) {
             //     video_id = comService.fileSave(MapFiles.get("img_upload"),"02");
@@ -149,6 +166,7 @@ public class Sgc_002Controller {
 
             // 3. 새 글을 INSERT 한다.
             comService.insertBoard(board);
+            
             model.addAttribute("errYn", "N");
         } catch(Exception e) {
             model.addAttribute("errYn", "Y");
@@ -195,6 +213,56 @@ public class Sgc_002Controller {
             logger.error(e.getMessage(), e);
         }
         return "page/page_002/page_002_01_02 :: #boardDetail_bind";
+    }
+
+
+    /**
+     * 설교영상 게시글 수정 화면오픈
+     * @param model
+     * @param board
+     * @return String
+     */  
+    @RequestMapping("/sgc_002_01_02-UPDATE")
+    String sgc_005_01_02_UPDATE(Board board, Model model) {
+        logger.info("call Controller : sgc_002_01_02_UPDATE");
+        try {
+
+            // 1. 메뉴명, 배경이미지 셋팅
+            model.addAttribute("dept_01", comService.getMenu_lv01("MENU02"));
+            model.addAttribute("dept_02", comService.getMenu_lv02("MENU02","01"));
+            model.addAttribute("img_path", "imgs/page/page_002_bg.jpg");
+            model.addAttribute("board", board);
+            model.addAttribute("page_name", "sgc_002_01_02");
+
+            // 2. 사용 할 공통코드 만들기 
+            model.addAttribute("WORSHIP_ORDER_CD", comService.select_com_code("WORSHIP_ORDER_CD"));
+            model.addAttribute("VIDEO_DIV_CD", comService.select_com_code("VIDEO_DIV_CD"));
+
+            // 3. 글 작성/수정 구분코드  N == 수정
+            model.addAttribute("WRITE_YN", "N"); 
+
+        } catch(Exception e) {
+            logger.error(e.getMessage(), e);
+        }
+        return "page/page_002/page_002_01_01";
+    }
+
+    /**
+     * 설교영상 게시글 수정 조회
+     * @param model
+     * @param board
+     * @return
+     */  
+    @RequestMapping(value = "/sgc_002_01_02-UPDATE-S", method = RequestMethod.POST)
+    String sgc_005_01_02_UPDATE_S(Board board, Model model) {
+        logger.info("call Controller : sgc_005_01_02_UPDATE_S");
+        try {
+            model.addAttribute("board", mapper.select_boardDetail(board));
+            model.addAttribute("WRITE_YN", "N");
+        } catch(Exception e) {
+            logger.error(e.getMessage(), e);
+        }
+        return "page/page_002/page_002_01_01 :: #boardDetail_bind";
     }
 
 

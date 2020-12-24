@@ -37,6 +37,7 @@ public class Board {
 
     // 테이블 외 정보들 
     private String real_file_nm;
+    private String origin_file_nm;
     // private String video_path;
     private int start_index;                    // MYSQL 쿼리에서 페이징을 위한 변수
     private int page_size;                      // MYSQL 쿼리에서 페이징을 위한 변수
@@ -56,4 +57,7 @@ public class Board {
     private String user_kor_nm;
     private String user_nic_nm;
 
+    // 설교영상 페이지 에서 사용 할 변수
+    private String write_yn;
+    private String chang_file_yn;
 }

@@ -157,6 +157,7 @@
                END WRITE_DT
            , D.FAVORIT_CNT
            , C.REAL_FILE_NM
+           , C.ORIGIN_FILE_NM
            , CONCAT(C.FILE_PATH,C.REAL_FILE_NM)  AS IMG_PATH
            , (SELECT CASE WHEN COUNT(1) = 0
                                THEN 'N'
@@ -174,6 +175,7 @@
            , A.BOARD_CNTN
            , A.BIBLE_INDEX_CNTN
            , A.SELECT_CNT
+           , A.WORSHIP_ORDER_CD
            , A.VIDEO_DIV_CD
            , B.SOCIAL_PROFILE_URL
            , B.USER_KOR_NM

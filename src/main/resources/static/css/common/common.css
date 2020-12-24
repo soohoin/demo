@@ -722,6 +722,7 @@
     display: flex;
     flex-direction: column;
     margin: 20px 20px 20px 27px;
+    max-width: 250px;
   }
 
   #boardList__bind .vedio__area {
@@ -738,7 +739,8 @@
   .bibleIndex__area > p,
   .writer__area > p,
   .date__area > p,
-  .viewCount__area > p {
+  .viewCount__area > p, 
+  .worship__area > p {
     font-size: var(--font-micro);
   }
 

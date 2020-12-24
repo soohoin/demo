@@ -6,36 +6,59 @@ $(document).ready(function (){
         tranForm();
     });
 
-    // ClassicEditor
-    //     .create(document.querySelector('#editor'), {
-    //         // 제거 할 플러그인(배열)
-    //         // plugins: [Essentials, Paragraph, Bold, Italic],
-    //         removePlugins:[ 'ImageUpload',],
-    //         // toolbar:['bold','italic','bulletedList','numberedList','blockQuote']
-    //     })
-    //     .catch( error => {
-    //         console.log(error);
-    //     });
+    let write_yn = $("#write_yn").val();
+    if(write_yn == "N") {
+        doAction("search");
+    }
 });
 
 // action (CRUD 등등...) 을 수행한다.
 function doAction(acNm) {
-    let reqUrl, formName, data, callback;
+    let reqUrl, formName, data, callback, bindId;
     switch(acNm) {
         case "save":
             if(!confirm("저장 하시겠습니까?") || validation()) return;
             reqUrl = "sgc_002_01-SAVE";
             formName = "frm";
             data = null;
+            bindId = null;
             callback = afterSave;
-            ajaxCallUpload(reqUrl,data,formName,null,callback);
+            ajaxCallUpload(reqUrl,data,formName,bindId,callback);
             break;
+        case "search":
+            reqUrl = "sgc_002_01_02-UPDATE-S";
+            data = null;
+            formName = "frm";
+            bindId = "boardDetail_bind";
+            callback = setData;
+            ajaxCall(reqUrl,data,formName,bindId,callback);
+            break;
+        case "change_file_update":
+            $("#chang_file_yn").val("Y");
+            $("#file_cancle").show();
+            $("#img_upload").show();
+            $("#file_update").hide();
+            $("#origin_file_nm").hide();
+            
+            break;
+        case "change_file_cancle":
+            $("#chang_file_yn").val("N");
+            $("#file_cancle").hide();
+            $("#img_upload").hide();
+            $("#file_update").show();
+            $("#origin_file_nm").show();
+            break;    
     }
 }
 
 function afterSave() {
     // alert("저장완료");
     window.location = '/sgc_002_01';
+}
+
+function setData() {
+    let worwhip_order_cd = $("#worwhip_order_cd_tmp").val();
+    $("#worship_order_cd").val(worwhip_order_cd);
 }
 
 // 입력 값 유효성 체크

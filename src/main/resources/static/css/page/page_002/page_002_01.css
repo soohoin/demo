@@ -10,6 +10,9 @@
   #boardList__bind .board__writer::after {
     content: "김양문 목사";
   }
+  #boardList__bind .board__worship::before {
+    content: "예배순서 : ";
+  }
   #boardList__bind .board__date::before {
     content: "날짜 : ";
   }

@@ -17,20 +17,28 @@
     <div layout:fragment="content">
         <!-- content1st -->
         <section id="content1st">
-            <div class="content1st__inner board_cntn_area width_800">
-                <form id="frm" class="board_cntn_area" >
-                    <div class="top__title" th:if="${#strings.isEmpty(boardDetail)}">
+            <div class="content1st__inner board_cntn_area width_800" id="boardDetail_bind">
+                <form id="frm" class="board_cntn_area">
+                    <input type="hidden" name="board_div_cd" id="board_div_cd" th:value="${board.board_div_cd}">
+                    <input type="hidden" name="board_no" id="board_no" th:value="${board.board_no}">
+                    <input type="hidden" name="write_yn" id="write_yn" th:value="${WRITE_YN}">
+                    <input type="hidden" name="photo_id" id="photo_id" th:value="${board.photo_id}">
+                    <input type="hidden" name="worwhip_order_cd_tmp" id="worwhip_order_cd_tmp" th:value="${board.worship_order_cd}">
+                    <input type="hidden" name="origin_file_nm_tmp" id="origin_file_nm_tmp" th:value="${board.origin_file_nm}">
+                    <input type="hidden" name="chang_file_yn" id="chang_file_yn" value="N">
+                    <div class="top__title" th:if="${WRITE_YN == 'Y'}">
                         <h2 >설교요약 게시글 작성</h2>
                     </div>
-                    
+                    <div class="top__title" th:if="${WRITE_YN == 'N'}">
+                        <h2 >설교요약 게시글 수정</h2>
+                    </div>
                     <div class="title">
                         <label for="board_title">제목</label>
-                        <input type="text" name="board_title" id="board_title" placeholder="제목을 입력하세요">
+                        <input type="text" name="board_title" id="board_title" th:value="${board.board_title}" placeholder="제목을 입력하세요">
                     </div>
-
                     <div class="index__cntn">
                         <label for="bible_index_cntn">본문</label>
-                        <input type="text" name="bible_index_cntn" id="bible_index_cntn" placeholder="본문을 입력하세요">
+                        <input type="text" name="bible_index_cntn" id="bible_index_cntn" th:value="${board.bible_index_cntn}" placeholder="본문을 입력하세요">
                     </div>
                     <div class="whorship__div" th:if="${#strings.isEmpty(boardDetail)}">
                         <label for="worwhip_order_cd">예배구분</label>
@@ -42,8 +50,14 @@
                         </select>
                     </div>
                     <div class="img__upload">
-                        <label for="img_upload">이미지 업로드 파일</label>
-                        <input type="file" name="img_upload" id="img_upload" placeholder="이미지 선택">
+                        <div class="img__upload-title">
+                            <label for="img_upload">이미지 업로드 파일</label>
+                            <button type="button" th:if="${WRITE_YN == 'N'}" id="file_update" onclick="doAction('change_file_update')">수정</button>
+                            <button type="button" th:if="${WRITE_YN == 'N'}" id="file_cancle" onclick="doAction('change_file_cancle')" style="display: none;">취소</button>
+                        </div>
+                        <input th:if="${WRITE_YN == 'N'}" type="text" name="origin_file_nm" id="origin_file_nm" th:value="${board.origin_file_nm}" readonly>
+                        <input th:if="${WRITE_YN == 'N'}" type="file" name="img_upload" id="img_upload" style="display: none;">
+                        <input th:if="${WRITE_YN == 'Y'}" type="file" name="img_upload" id="img_upload">
                     </div>
                     <div class="video__div" th:if="${#strings.isEmpty(boardDetail)}">
                         <label for="video__div_cd">설교영상 구분</label>
@@ -55,22 +69,12 @@
                     </div>
                     <div class="youtube_src">
                         <label for="youtube_ifrm_src">youtube 소스코드</label>
-                        <input type="text" name="youtube_ifrm_src" id="youtube_ifrm_src" placeholder="youtube 소스코드 입력">
+                        <input type="text" name="youtube_ifrm_src" id="youtube_ifrm_src" th:value="${board.youtube_ifrm_src}" placeholder="youtube 소스코드 입력">
                     </div>
-                    <div class="video_upload">
+                    <!-- <div class="video_upload">
                         <label for="video_upload">영상 업로드 파일</label>
                         <input type="file" name="video_upload" id="video_upload" placeholder="설교영상 선택">
-                    </div>
-                    <!-- <div class="content">
-                        <label for="board_cntn">내용</label>
-                        <textarea th:if="${ #strings.isEmpty(boardDetail) }" name="board_cntn" id="board_cntn" cols="100" rows="20" placeholder="내용을 입력하세요"></textarea>
                     </div> -->
-                    <div class="last__contents" th:if="${not #strings.isEmpty(boardDetail)}">
-                        <p>작성자 :</p>
-                        <p th:text="${boardDetail.user_kor_nm}"></p>
-                        <p>작성일자 :</p>
-                        <p th:text="${boardDetail.write_dt}"></p>
-                    </div>
                     <div class="btns">
                         <button class="save" type="button" onclick="doAction('save')" >저장</button>
                         <button class="cancel" type="button" onclick="movePage('sgc_002_01')">취소</button>
