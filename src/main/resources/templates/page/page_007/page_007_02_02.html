@@ -44,7 +44,7 @@
                     <div class="line top"></div>
                     <div class="writer__info">
                         <div class="writer__info__profileImg">
-                            <img th:src="${boardDetail.social_profile_url}" alt="작성자프로필">
+                            <img th:if="${boardDetail.social_profile_url != null}" th:src="${boardDetail.social_profile_url}" alt="작성자프로필">
                         </div>
                         <div class="writer__info__etc">
                             <div class="board_kor_nm">

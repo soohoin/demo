@@ -61,10 +61,11 @@
              , (SELECT CODE_KNM FROM COM_CODE WHERE CD_GRP_ENM = 'BOARD_DIV_CD' AND CODE = A.BOARD_DIV_CD) AS BOARD_DIV_NM
              , A.USER_ID                 
              , (SELECT USER_KOR_NM FROM USER_INFO WHERE USER_ID = A.USER_ID) AS USER_KOR_NM
-             , CASE WHEN A.CHG_DT IS NULL OR A.CHG_DT = ''
+             <!-- , CASE WHEN A.CHG_DT IS NULL OR A.CHG_DT = ''
                          THEN CONCAT(SUBSTRING(A.WRITE_DT, 3, 2),'-',SUBSTRING(A.WRITE_DT, 5, 2),'-',SUBSTRING(A.WRITE_DT, 7, 2))
                     ELSE CONCAT(SUBSTRING(A.CHG_DT, 3, 2),'-',SUBSTRING(A.CHG_DT, 5, 2),'-',SUBSTRING(A.CHG_DT, 7, 2))
-               END WRITE_DT
+               END WRITE_DT -->
+             , CONCAT(SUBSTRING(A.WRITE_DT, 1, 4),'-',SUBSTRING(A.WRITE_DT, 5, 2),'-',SUBSTRING(A.WRITE_DT, 7, 2))  WRITE_DT
              , A.BOARD_TITLE
              , A.BOARD_CNTN
              , A.BIBLE_INDEX_CNTN

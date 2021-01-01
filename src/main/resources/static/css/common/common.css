@@ -1482,6 +1482,9 @@
       height: 200px;
       object-fit: cover;
     }
+    #boardList__bind .box_cntn {
+      max-width: 350px;
+    }
   }
   @media screen and (max-width: 600px) {
     /* boardList__bind 의 board__contents 영역 */

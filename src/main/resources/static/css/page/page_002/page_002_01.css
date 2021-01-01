@@ -2,7 +2,7 @@
   /*********************** content1 *********************/
   /*****************************************************/
   #boardList__bind .board__bibleIndex::before {
-    content: "본문 : ";
+    content: "성경본문 : ";
   }
   #boardList__bind .board__writer::before {
     content: "설교자 : ";
