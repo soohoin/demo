@@ -39,3 +39,5 @@ application.properties
 src/main/resources/templates/page/page_001/page_001_04.html
 src/main/resources/application-local.properties
 src/main/resources/application-prod.properties
+dora2/simgoakcheon/logs/*
+dora2/simgoakcheon/logs/simgoakcheon.log

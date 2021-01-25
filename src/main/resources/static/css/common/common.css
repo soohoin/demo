@@ -50,7 +50,8 @@
   body {
       margin: 0;
       /* font-family:'Roboto Mono', monospace; */
-      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+      font-family: 'Roboto', sans-serif;
+      /* font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; */
       cursor: default;
       -ms-overflow-style: none;
       width: 100%;
