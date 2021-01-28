@@ -20,6 +20,8 @@
         <section id="content1st">
             <div class="content1st__inner board_cntn_area width_800">
                 <form id="frm" class="board_cntn_area">
+                    <input type="hidden" name="user_id" id="user_id" >
+                    <span style="display: none;" sec:authentication="principal.user.user_id" id="text_user_id">사용자ID</span>
                     <div class="top__title" th:if="${#strings.isEmpty(boardDetail)}">
                         <h2 >게시글 작성</h2>
                     </div>
@@ -28,39 +30,12 @@
                         <label for="board_title">제목</label>
                         <input type="text" name="board_title" id="board_title" placeholder="제목을 입력하세요">
                     </div>
-
-                    <!-- <div class="index__cntn">
-                        <label for="bible_index_cntn">본문</label>
-                        <input type="text" name="bible_index_cntn" id="bible_index_cntn" placeholder="본문을 입력하세요">
-                    </div> -->
-                    <!-- <div class="whorship__div" th:if="${#strings.isEmpty(boardDetail)}">
-                        <label for="worwhip_order_cd">예배구분</label>
-                        <select th:if="${WORSHIP_ORDER_CD != null}" name="worship_order_cd" id="worship_order_cd">
-                            <option th:each="row : ${WORSHIP_ORDER_CD}" 
-                                    th:text="${row.code_knm}" 
-                                    th:value="${row.code}">코드명
-                            </option>
-                        </select>
-                    </div> -->
-                    <!-- <div class="video__div" th:if="${#strings.isEmpty(boardDetail)}">
-                        <label for="video__div_cd">설교영상 구분</label>
-                        <select th:if="${VIDEO_DIV_CD != null}" name="video_div_cd" id="video_div_cd">
-                            <option th:each="row : ${VIDEO_DIV_CD}" 
-                                    th:text="${row.code_knm}" 
-                                    th:value="${row.code}">코드명</option>
-                        </select>
-                    </div> -->
-                    <!-- <div class="youtube_src">
-                        <label for="youtube_ifrm_src">youtube 소스코드</label>
-                        <input type="text" name="youtube_ifrm_src" id="youtube_ifrm_src" placeholder="youtube 소스코드 입력">
-                    </div>
-                    <div class="video_upload">
-                        <label for="video_upload">영상 업로드 파일</label>
-                        <input type="file" name="video_upload" id="video_upload" placeholder="설교영상 선택">
-                    </div> -->
                     <div class="content">
                         <label for="board_cntn">내용</label>
                         <textarea th:if="${ #strings.isEmpty(boardDetail) }" name="board_cntn" id="board_cntn" cols="100" rows="20" placeholder="내용을 입력하세요"></textarea>
+                        <script type="text/javascript">
+                            CKEDITOR.replace('board_cntn', {height:400, width:1195});
+                        </script> 
                     </div>
                     <div class="last__contents" th:if="${not #strings.isEmpty(boardDetail)}">
                         <p>작성자 :</p>

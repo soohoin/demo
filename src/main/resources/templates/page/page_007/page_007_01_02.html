@@ -5,9 +5,9 @@
       layout:decorator="layout/subPage_01_layout">
 
     <!-- index.html 고유 CSS 추가 -->
-    <!-- <th:block layout:fragment="css">
+    <th:block layout:fragment="css">
         <link rel="stylesheet" th:href="@{/css/page/page_007/page_007_01_02.css}" >
-    </th:block> -->
+    </th:block>
     
     <!-- index.html 고유 스크립트 추가 -->
     <th:block layout:fragment="script">
@@ -58,7 +58,12 @@
                     </div>
                     <div class="line"></div>
                     <div class="board_cntn">
-                        <p th:text="${boardDetail.board_cntn}"></p>
+                        <!-- <textarea th:text="${boardDetail.board_cntn}" id="board_cntn_read"></textarea> -->
+                        <div id="board_cntn_read"></div>
+                        <input type="hidden" th:value="${boardDetail.board_cntn}" id="board_cntn_hidden">
+                        <script type="text/javascript">
+                            $("#board_cntn_read").html($("#board_cntn_hidden").val());
+                        </script>
                     </div>
                     <div class="board_cntn_likeIcon" id="likeIcon">
                         <div class="board_cntn_likeIcon_left">

@@ -1,0 +1,37 @@
+  /*****************************************************/
+  /*********************** content1 *********************/
+  /*****************************************************/
+  #content1st {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 60px 0;
+  }
+
+  .content1st__inner {
+    display: flex;
+    justify-content: center;
+    width: 1195px;
+  }
+
+  #boardDetail_bind .board_cntn {
+    margin: 0 0 20px 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+
+/* 
+  <textarea th:text="${boardDetail.board_cntn}" id="board_cntn_read"></textarea>
+                        <script type="text/javascript">
+                            CKEDITOR.replace('board_cntn_read',{height:500});
+                        </script>
+
+  <script type="text/javascript">
+                            CKEDITOR.replace('board_cntn', {height:500, width:1195});
+                        </script> 
+                        
+                        
+                        
+                        */

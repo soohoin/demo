@@ -33,6 +33,9 @@
                     <div class="content">
                         <label for="board_cntn">내용</label>
                         <textarea th:if="${ #strings.isEmpty(boardDetail) }" name="board_cntn" id="board_cntn" cols="100" rows="20" placeholder="내용을 입력하세요"></textarea>
+                        <script type="text/javascript">
+                            CKEDITOR.replace('board_cntn', {height:400, width:1195});
+                        </script>
                     </div>
                     <div class="last__contents" th:if="${not #strings.isEmpty(boardDetail)}">
                         <p>작성자 :</p>

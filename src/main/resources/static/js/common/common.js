@@ -18,6 +18,11 @@ $(document).ready(function () {
     lv1_menus_for_a = $(".navbar__menu__ul__item > p > a");
     lv1_menus_for_p = $(".navbar__menu__ul__item > p");
     comEventInit();
+
+    // CKEDITOR.replace('board_cntn', {height:500, width:1195});
+
+    // 글 읽을 때 사용
+    // $("#board_cntn_read").html($("#board_cntn_hidden").val());
 });
 
 
@@ -171,9 +176,26 @@ function comEventInit() {
                 movePage("sgc_007_"+ lv02_cd);
                 break;    
         }
-
-        
     });
+
+    // $("#submitSave").click(function(event) {
+    //     event.preventDefault();
+    //     var form = $("#frm");
+    //     var formData = new FormData($("#frm")[0]);
+    //     console.log(formData);
+    //     $.ajax({
+    //       url  : "sgc_007_02-SAVE",
+    //       type : "POST",
+    //       cache: false,
+    //       contentType : false,
+    //       processData: false,
+    //       data: formData,
+    //       success:function(response){
+    //         // $(".test").html(response);
+    //       }
+    //     });
+    // });
+
 }
 
 
@@ -230,6 +252,7 @@ function mobile_lv2menu_flag(reqIndex) {
 // action (CRUD 등등...) 을 수행한다.
 let eventReplyNoid = ""; // 상세 게시글의 답글수정 에 사용 할 변수 
 function comDoAction(acNm, pageName, replyNo) {
+
     $("#page_name").val(pageName);
 
     // 사용자 id input value 에 셋팅
@@ -268,13 +291,15 @@ function comDoAction(acNm, pageName, replyNo) {
 
         /* 공통 게시글 저장 (각 게시글 작성 페이지와 게시글 수정 페이지 에서 CALL )*/
         case "save":
+            ckUpdate();
+            console.log($("#board_cntn").val());
             if (comValidation() || !confirm("저장 하시겠습니까?")) return;
             reqUrl = pageName + "-SAVE";
             data = null;
             formName = "frm";
             bindId = null;
-            callback = comAfterSave(pageName);
-            ajaxCall(reqUrl, data, formName, bindId, callback);
+            callback = comAfterSave;
+            ajaxCall(reqUrl, data, formName, bindId, callback, pageName);
             break;
 
         /* 공통 게시글 (각 게시글 상세 페이지 에서 게시글 수정 버튼을 누르면 공통수정페이지로 이동 + 수절 할 게시글 조회) */   
@@ -396,7 +421,6 @@ function update_callback_y() {
 function comValidation() {
     let errYn = false;
     let errMsg = "";
-
     if (isNull($("#board_title").val())) {
         errMsg = "제목";
         errYn = true;
@@ -697,5 +721,12 @@ function checkIE() {
         // } else {
             
         // }
+    }
+}
+
+function ckUpdate() {
+    let instance;
+    for(instance in CKEDITOR.instances) {
+        CKEDITOR.instances[instance].updateElement();
     }
 }

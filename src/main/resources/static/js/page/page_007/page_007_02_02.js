@@ -1,7 +1,6 @@
 'use strict';
 
 $(document).ready(function (){
-
     basicSearch();
     $("#user_nm").val($("#user_nm_tmp").text());
 });

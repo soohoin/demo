@@ -20,6 +20,8 @@
         <section id="content1st">
             <div class="content1st__inner board_cntn_area width_800">
                 <form id="frm" class="board_cntn_area">
+                    <input type="hidden" name="user_id" id="user_id" >
+                    <span style="display: none;" sec:authentication="principal.user.user_id" id="text_user_id">사용자ID</span>
                     <div class="top__title" th:if="${#strings.isEmpty(boardDetail)}">
                         <h2 >게시글 작성</h2>
                     </div>
@@ -60,6 +62,9 @@
                     <div class="content">
                         <label for="board_cntn">내용</label>
                         <textarea th:if="${ #strings.isEmpty(boardDetail) }" name="board_cntn" id="board_cntn" cols="100" rows="20" placeholder="내용을 입력하세요"></textarea>
+                        <script type="text/javascript">
+                            CKEDITOR.replace('board_cntn', {height:400, width:1195});
+                        </script>
                     </div>
                     <div class="last__contents" th:if="${not #strings.isEmpty(boardDetail)}">
                         <p>작성자 :</p>

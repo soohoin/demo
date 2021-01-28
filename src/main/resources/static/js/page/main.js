@@ -6,7 +6,6 @@ $(document).ready(function (){
     eventInit();
 });
 
-
 // 이벤트 생성 
 function eventInit() {
 
@@ -14,46 +13,34 @@ function eventInit() {
     $(".content2st__box.no_01").click(function() {
         movePage('sgc_001_03');
     });
-
     // 주일설교
     $(".content2st__box.no_02").click(function() {
         movePage('sgc_002_01');
     });
-
     // 새가족안내
     $(".content2st__box.no_03").click(function() {
         // movePage('sgc_001_01');
     });
-
-    
-
     // 하단 교회소개
     $(".content2st__icons__icon.no_01").click(function() {
         movePage('sgc_001_01');
     });
-
     // 하단 설교&찬양
     $(".content2st__icons__icon.no_02").click(function() {
         movePage('sgc_002_01');
     });
-
     // 하단 양육훈련
     $(".content2st__icons__icon.no_03").click(function() {
         movePage('sgc_003_01');
     });
-
     // 하단 다음세대
     $(".content2st__icons__icon.no_04").click(function() {
         movePage('sgc_004_01');
     });
-
     // 포토존
     $(".content2st__icons__icon.no_05").click(function() {
         movePage('sgc_006_01');
     });
-
-
-
 }
 
 // 아이템 fadein
@@ -101,7 +88,7 @@ function bannerAutoPlay() {
     $("input[name=slider]").on('click',function() {
         //console.log(typeof $("input[name=slider]:checked").val());
         curPageNo = $("input[name=slider]:checked").val();
-        nextPageNo = (curPageNo % 4) + 1;
+        nextPageNo = (curPageNo % 2) + 1;
     })
     
     rollid = setInterval(function(){
