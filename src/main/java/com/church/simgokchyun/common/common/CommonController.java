@@ -1,5 +1,8 @@
 package com.church.simgokchyun.common.common;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import com.church.simgokchyun.common.vo.Board;
@@ -15,6 +18,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class CommonController {
@@ -111,6 +117,35 @@ public class CommonController {
             logger.error(e.getMessage(), e);
         }
         return comService.getReturnUrl(pageInfo);
+    }
+
+
+    /**
+     * 공통 이미지 업로드 (CKEDITOR 이미지업로드)
+     * @param model
+     * @param board
+     * @return
+     */
+    @ResponseBody  
+    @RequestMapping(value = "/common_img_upload", method = RequestMethod.POST)
+    Map<String,Object> common_img_upload(@RequestParam Map<String,MultipartFile> MapFiles, Board board, Model model, @AuthenticationPrincipal PrincipalDetails userDetails) {
+        logger.info("call Controller : common_img_upload");
+        Map<String,Object> rtnMap = new HashMap<String,Object>();
+        Map<String,Object> uplodFileInfo = new HashMap<String,Object>();
+
+        try {
+            uplodFileInfo = comService.fileSave(MapFiles.get("upload"),"01");
+
+            rtnMap.put("uploaded", 1);
+            rtnMap.put("fileName", uplodFileInfo.get("real_file_nm"));
+            // rtnMap.put("url", uplodFileInfo.get("file_path"));
+            rtnMap.put("url", "/uploadImg/"+uplodFileInfo.get("real_file_nm").toString());
+            model.addAttribute("errYn", "N");
+        } catch(Exception e) {
+            model.addAttribute("errYn", "Y");
+            logger.error(e.getMessage(), e);
+        }
+        return rtnMap;
     }
 
 

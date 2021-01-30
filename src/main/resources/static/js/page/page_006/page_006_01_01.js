@@ -18,6 +18,7 @@ function doAction(acNm) {
     let reqUrl, formName, data, callback;
     switch(acNm) {
         case "save":
+            ckUpdate(); // 공통에서 사용하는 함수 (common.js)
             if(!confirm("저장 하시겠습니까?") || validation()) return;
             reqUrl = "sgc_006_01-SAVE";
             formName = "frm";

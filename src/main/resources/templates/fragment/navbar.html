@@ -35,11 +35,14 @@
                     </li>
                     <!-- <li class="mobile__line"></li> -->
                     <li class="navbar__menu__ul__item">
-                        <P><a  th:href="@{/sgc_003_01}">양육/교육</a></P>
+                        <!-- <P><a  th:href="@{/sgc_003_01}">양육/교육</a></P> -->
+                        <P><a  th:href="@{/sgc_003_02}">양육/교육</a></P>
                         <ul class="sub__menu__ul hide order03" >
-                            <li class="sub__menu__ul__item"><a th:href="@{/sgc_003_01}">양육과정</a></li>
+                            <li class="sub__menu__ul__item"><a th:onclick="comDoAction('repairPage','sgc_003_01')">양육과정</a></li>
+                            <!-- <li class="sub__menu__ul__item"><a th:href="@{/sgc_003_01}">양육과정</a></li> -->
                             <li class="sub__menu__ul__item"><a th:href="@{/sgc_003_02}">교육사역</a></li>
-                            <li class="sub__menu__ul__item"><a th:href="@{/sgc_003_03}">일대일양육</a></li>
+                            <li class="sub__menu__ul__item"><a th:onclick="comDoAction('repairPage','sgc_002_02')">일대일양육</a></li>
+                            <!-- <li class="sub__menu__ul__item"><a th:href="@{/sgc_003_03}">일대일양육</a></li> -->
                         </ul>
                     </li>
                     <!-- <li class="mobile__line"></li> -->

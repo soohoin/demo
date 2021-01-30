@@ -147,14 +147,14 @@ public class Sgc_002Controller {
 
             // 2-1. 이미지 처리
             if("Y".equals(write_yn) && MapFiles.get("img_upload") != null) {
-                img_id = comService.fileSave(MapFiles.get("img_upload"),"01");
+                img_id = comService.fileSave(MapFiles.get("img_upload"),"01").get("file_id").toString();
                 board.setPhoto_id(img_id);
 
             } else if("N".equals(write_yn) && MapFiles.get("img_upload") != null && "Y".equals(board.getChang_file_yn())) {
                 // 기존 이미지 파일 삭제 && DB정보 삭제
 
                 // 새로운 이미지 생성
-                img_id = comService.fileSave(MapFiles.get("img_upload"),"01");
+                img_id = comService.fileSave(MapFiles.get("img_upload"),"01").get("file_id").toString();
                 board.setPhoto_id(img_id);
                 // 기존 파일을 삭제한다.
             }

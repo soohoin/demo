@@ -12,6 +12,12 @@ function initEvent() {
     $(".loginBtn").on("click",function () {
         doAction("execJoin");
     });
+
+    window.addEventListener('keydown',function(e){
+        if(e.key == 'Enter' || e.code == 'Enter') {
+            $(".loginBtn").trigger('click');
+        }
+    });
   
 }
 

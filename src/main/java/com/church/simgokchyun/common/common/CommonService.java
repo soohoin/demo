@@ -157,7 +157,7 @@ public class CommonService {
      * @throws Exception
      * @return String - 파일ID
      */
-    public String fileSave(MultipartFile file, String file_div_cd) throws Exception {
+    public Map<String,Object> fileSave(MultipartFile file, String file_div_cd) throws Exception {
 
         Map<String, Object> paramMap = new HashMap<String, Object>();
         String origin_file_nm = "";
@@ -194,7 +194,8 @@ public class CommonService {
         file.transferTo(new File(uploadPath + real_file_nm));
 
         // 4. 파일 id를 return 한다.
-        return mapper.getFileId(paramMap);
+        paramMap.put("file_id", mapper.getFileId(paramMap));
+        return paramMap;
     }
 
     /**

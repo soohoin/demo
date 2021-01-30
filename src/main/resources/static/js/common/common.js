@@ -95,11 +95,20 @@ function comEventInit() {
         if(window_width > 769) {
             $(".navbar__loginjoin").css('display','flex');
             $(".navbar__menu").show();
+
         } else {
             $(".navbar__loginjoin").hide();
             $(".navbar__menu").hide();
             transAttr_pcVersionEvent();
             isMobileMenuOn = false;
+
+
+            $("#board_cntn_read img").css("width","100%");
+            $("#board_cntn_read img").css("height","auto");
+            $("#board_cntn_read table").css("width","100%");
+            $("#board_cntn_read table").css("height","auto");
+            $("#board_cntn_read p").css("width","100%");
+            $("#board_cntn_read p").css("height","auto");
         }
 
         if(lv2_on_menu_object != -1) {
@@ -121,7 +130,8 @@ function comEventInit() {
                 movePage("sgc_002_01");
                 break;    
             case "MENU03":
-                movePage("sgc_003_01");
+                // movePage("sgc_003_01");
+                movePage("sgc_003_02");
                 break;    
             case "MENU04":
                 movePage("sgc_004_01");
@@ -156,7 +166,13 @@ function comEventInit() {
                 }
                 break;    
             case "MENU03":
-                movePage("sgc_003_"+ lv02_cd);
+                if(lv02_cd == "03" || lv02_cd == "01") {
+                    comDoAction("repairPage");
+                    $("#dept_lv02").val("02");
+                } else {
+                    movePage("sgc_003_"+ lv02_cd);
+                }
+                // movePage("sgc_003_"+ lv02_cd);
                 break;    
             case "MENU04":
                 movePage("sgc_004_"+ lv02_cd);

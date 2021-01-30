@@ -20,6 +20,7 @@ function eventInit() {
     // 새가족안내
     $(".content2st__box.no_03").click(function() {
         // movePage('sgc_001_01');
+        comDoAction("repairPage");
     });
     // 하단 교회소개
     $(".content2st__icons__icon.no_01").click(function() {
@@ -31,7 +32,8 @@ function eventInit() {
     });
     // 하단 양육훈련
     $(".content2st__icons__icon.no_03").click(function() {
-        movePage('sgc_003_01');
+        // movePage('sgc_003_01');
+        comDoAction("repairPage");
     });
     // 하단 다음세대
     $(".content2st__icons__icon.no_04").click(function() {

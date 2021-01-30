@@ -21,12 +21,12 @@
             FROM FILE_UPLOAD_INFO
         </selectKey>
         INSERT INTO 
-        FILE_UPLOAD_INFO ( FILE_ID            /* 게시판구분코드 */    
-                         , FILE_DIV_CD        /* 글번호 */            
-                         , ORIGIN_FILE_NM     /* 작성일자 */          
-                         , REAL_FILE_NM       /* 작성자아이디 */      
-                         , FILE_PATH          /* 제목 */              
-                         , FILE_SIZE          /* 파일사이즈 */
+        FILE_UPLOAD_INFO ( FILE_ID            /* 파일ID */    
+                         , FILE_DIV_CD        /* 파일 구분코드 */            
+                         , ORIGIN_FILE_NM     /* 업로드시 원본 파일명 */          
+                         , REAL_FILE_NM       /* 저장된 실제 파일명 */      
+                         , FILE_PATH          /* 파일경로 */              
+                         , FILE_SIZE          /* 파일 크기 */
                          , USE_YN             /* 사용여부 */
                          , REG_USER_ID        /* 등록자 */            
                          , REG_DT             /* 등록일자 */          

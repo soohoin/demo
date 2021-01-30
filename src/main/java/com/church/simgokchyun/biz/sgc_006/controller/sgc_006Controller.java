@@ -134,7 +134,7 @@ public class Sgc_006Controller {
             // 2. 업로드한 이미지 / 영상을 DB와 서버 경로에 저장하고 업로드 한 id를 board객체에 넣어준다.
             //     2-1. 이미지 처리
             if(MapFiles.get("img_upload") != null) {
-                img_id = comService.fileSave(MapFiles.get("img_upload"),"01");
+                img_id = comService.fileSave(MapFiles.get("img_upload"),"01").get("file_id").toString();
                 board.setPhoto_id(img_id);
             }
 

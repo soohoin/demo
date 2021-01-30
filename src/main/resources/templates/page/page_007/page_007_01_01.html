@@ -34,7 +34,18 @@
                         <label for="board_cntn">내용</label>
                         <textarea th:if="${ #strings.isEmpty(boardDetail) }" name="board_cntn" id="board_cntn" cols="100" rows="20" placeholder="내용을 입력하세요"></textarea>
                         <script type="text/javascript">
-                            CKEDITOR.replace('board_cntn', {height:400, width:1195});
+                            window_width = document.querySelector('body').getBoundingClientRect().width;
+                            let config;
+                            if(window_width < 900) {
+                                config = {};
+                            } else {
+                                config = {
+                                    height:400,
+                                    width:1195,
+                                };
+                            }
+                            CKEDITOR.replace('board_cntn', config);
+                            // CKEDITOR.replace('board_cntn');
                         </script>
                     </div>
                     <div class="last__contents" th:if="${not #strings.isEmpty(boardDetail)}">

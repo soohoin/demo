@@ -62,6 +62,15 @@
                         <input type="hidden" th:value="${boardDetail.board_cntn}" id="board_cntn_hidden">
                         <script type="text/javascript">
                             $("#board_cntn_read").html($("#board_cntn_hidden").val());
+                            window_width = document.querySelector('body').getBoundingClientRect().width;
+                            if(window_width < 900) {
+                                $("#board_cntn_read img").css("width","100%");
+                                $("#board_cntn_read img").css("height","auto");
+                                $("#board_cntn_read table").css("width","100%");
+                                $("#board_cntn_read table").css("height","auto");
+                                $("#board_cntn_read p").css("width","100%");
+                                $("#board_cntn_read p").css("height","auto");
+                            }
                         </script>
                     </div>
                     <div class="board_cntn_likeIcon" id="likeIcon">
