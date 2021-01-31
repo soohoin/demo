@@ -90,12 +90,12 @@ function bannerAutoPlay() {
     $("input[name=slider]").on('click',function() {
         //console.log(typeof $("input[name=slider]:checked").val());
         curPageNo = $("input[name=slider]:checked").val();
-        nextPageNo = (curPageNo % 2) + 1;
+        nextPageNo = (curPageNo % 3) + 1;
     })
     
     rollid = setInterval(function(){
                 $("#slide"+nextPageNo).trigger("click");
-            },3000);
+            },2500);
 
     $(".stopAutoslide").mouseover(function(){
         clearInterval(rollid);
@@ -104,7 +104,7 @@ function bannerAutoPlay() {
     $(".stopAutoslide").mouseout(function(){
         rollid = setInterval(function(){
                     $("#slide"+nextPageNo).trigger("click");
-                },3000);
+                },2500);
     });
 }
 

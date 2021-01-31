@@ -19,7 +19,7 @@ function doAction(acNm) {
     switch(acNm) {
         case "save":
             ckUpdate(); // 공통에서 사용하는 함수 (common.js)
-            if(!confirm("저장 하시겠습니까?") || validation()) return;
+            if(validation() || !confirm("저장 하시겠습니까?")) return;
             reqUrl = "sgc_006_01-SAVE";
             formName = "frm";
             data = null;
@@ -43,11 +43,16 @@ function validation() {
         errMsg = "제목";
         errYn = true;
         $("#board_title").focus();
-    } else if($("#img_upload").val() == "03" && isNull($("#img_upload").val())) {
+    } else if(isNull($("#img_upload").val())) {
         errMsg = "이미지 업로드 파일";
         errYn = true;
         $("#img_upload").focus();
-    }
+    } 
+    // else if(isNull($("#board_cntn").val())) {
+    //     errMsg = "내용";
+    //     errYn = true;
+    //     $("#img_upload").focus();
+    // }
 
 
     if(errYn) {

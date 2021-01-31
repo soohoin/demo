@@ -136,7 +136,7 @@
     position: sticky;
     top: 0px;
     transition: all 200ms linear;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    /* font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; */
   }
   #navbar.hide {
     transition: all 200ms linear;
@@ -1567,9 +1567,7 @@
       width: 100px;
     }
     .board_cntn_area .content {
-      /* .board_cntn_area .content {
       /* height: 300px; */
-    } */
     }
     :root {
       --font-large: 34px;
