@@ -4,8 +4,6 @@ import com.church.simgokchyun.config.auth.AuthFailureHandler;
 import com.church.simgokchyun.config.auth.PrincipalDetailsService;
 import com.church.simgokchyun.config.oauth.PrincipalOauth2UserService;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,7 +19,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true) // secured 어노테이션 활성화 ! , preAuthorize 어노테이션 활성화
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
     
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+    // private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private PrincipalOauth2UserService principalOauth2UserService;

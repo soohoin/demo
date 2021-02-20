@@ -71,10 +71,36 @@
                                 $("#board_cntn_read table").css("height","auto");
                                 $("#board_cntn_read p").css("width","100%");
                                 $("#board_cntn_read p").css("height","auto");
+                            }else {
+                                let imgTags = $('#board_cntn_read').find('img');
+                                let pTags = $('#board_cntn_read').find('p');
+                                let tableTags = $('#board_cntn_read').find('table');
+
+                                let tag1;
+                                $.each(imgTags, (index,item) => {
+                                    tag1 = $('#board_cntn_read').find(`img:eq(${index})`);
+                                    if(item.width >= 1195) {
+                                        tag1.css('width',1195);
+                                        tag1.css('height',auto);
+                                    }
+                                });
+                                let tag2;
+                                $.each(pTags, (index,item) => {
+                                    tag2 = $('#board_cntn_read').find(`p:eq(${index})`);
+                                    if(item.width >= 1195) {
+                                        tag2.css('width',1195);
+                                        tag2.css('height',auto);
+                                    }
+                                });
+                                let tag3;
+                                $.each(tableTags, (index,item) => {
+                                    tag3 = $('#board_cntn_read').find(`table:eq(${index})`);
+                                    if(item.width >= 1195) {
+                                        tag3.css('width',1195);
+                                        tag3.css('height',auto);
+                                    }
+                                });
                             }
-                            // $("#board_cntn_read img").css("width","100%");
-                            // $("#board_cntn_read img").css("height","auto");
-                            // CKEDITOR.replace('board_cntn_read');
                         </script>
                     </div>
                     <div class="board_cntn_likeIcon" id="likeIcon">

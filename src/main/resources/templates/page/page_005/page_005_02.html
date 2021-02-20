@@ -85,7 +85,7 @@
                         <p th:text="${row.favorit_cnt}">0</p>
                     </div>
                     <div th:if="${boardList}" th:each="row : ${boardList}" class="board__mobile__contents">
-                        <a th:href="@{/sgc_007_01-DETAIL( board_div_cd=${row.board_div_cd}, board_no=${row.board_no})}">
+                        <a th:href="@{/sgc_005_02-DETAIL( board_div_cd=${row.board_div_cd}, board_no=${row.board_no})}">
                             <div class="left__box" >
                                 <div class="inner__box">
                                     <div class="left__box__top">
@@ -102,7 +102,7 @@
                         </a>
                         <div class="right__box">
                             <div class="inner__box">
-                                <p>2</p>
+                                <p th:text="${row.replys_cnt}"></p>
                                 <p>댓글</p>
                             </div>
                         </div>

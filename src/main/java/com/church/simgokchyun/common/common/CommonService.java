@@ -546,7 +546,7 @@ public class CommonService {
         content.append("<div class='mail__body' style='display: flex; align-items: center;flex-direction: column;'>")
                 .append("<h1>심곡천 교회에 오신걸 환영합니다.</h1>").append("<div class='content'>")
                 .append("<p style='color: red;'>아래 버튼을 누르시면 회원가입 인증을 완료 할 수 있습니다.</p>").append("</div>")
-                .append("<a style='opacity: 0.7;padding:5px 5px;border:1px solid darkgray;background-color:darkgray;color: black;font-size: 15px;text-decoration:none;' href='http://localhost:8080/callMailAuthApi?auth_key="
+                .append("<a style='opacity: 0.7;padding:5px 5px;border:1px solid darkgray;background-color:darkgray;color: black;font-size: 15px;text-decoration:none;' href='http://www.simgokcheon.org/callMailAuthApi?auth_key="
                         + user.getAuth_key() + "&user_id=" + user.getUser_id() + "'>이메일 인증</a>")
                 .append("</div>");
 

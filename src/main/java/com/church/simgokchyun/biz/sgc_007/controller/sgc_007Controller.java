@@ -87,7 +87,10 @@ public class Sgc_007Controller {
             board.setBoard_div_cd("02");
             comService.getPaginationInfo(comService.getTotalCnt(board), reqPagination, model, board); 
 
-
+            for(Board row : comService.select_boardList(board)) {
+                logger.info( "getReplys_cnt " + row.getReplys_cnt());
+                logger.error( "getReplys_cnt " + row.getReplys_cnt());
+            }
             model.addAttribute("boardList", comService.select_boardList(board));
 
         } catch(Exception e) {
@@ -358,6 +361,11 @@ public class Sgc_007Controller {
             // 1. 공통 paging 서비스 호출
             board.setBoard_div_cd("03");
             comService.getPaginationInfo(comService.getTotalCnt(board), reqPagination, model, board); 
+
+            for(Board row : comService.select_boardList(board)) {
+                logger.info( "getReplys_cnt " + row.getReplys_cnt());
+                logger.error( "getReplys_cnt " + row.getReplys_cnt());
+            }
 
 
             model.addAttribute("boardList", comService.select_boardList(board));
